@@ -9,6 +9,7 @@ import {
 } from "@wellfit-emr/ui/components/card";
 import { Input } from "@wellfit-emr/ui/components/input";
 import { Label } from "@wellfit-emr/ui/components/label";
+import { SearchSelect } from "@wellfit-emr/ui/components/search-select";
 import { Mail, Plus, Search } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -41,6 +42,29 @@ function CreateInterconsultationForm({ onCancel }: { onCancel: () => void }) {
     reasonText: "",
     requestedAt: new Date().toISOString().slice(0, 16),
   });
+
+  const [encounterSearch, setEncounterSearch] = useState("");
+  const [practitionerSearch, setPractitionerSearch] = useState("");
+
+  const { data: encountersData, isLoading: encountersLoading } = useQuery(
+    orpc.encounters.list.queryOptions({
+      input: {
+        limit: 20,
+        offset: 0,
+        search: encounterSearch || undefined,
+      },
+    })
+  );
+
+  const { data: practitionersData, isLoading: practitionersLoading } = useQuery(
+    orpc.facilities.listPractitioners.queryOptions({
+      input: {
+        limit: 20,
+        offset: 0,
+        search: practitionerSearch || undefined,
+      },
+    })
+  );
 
   const create = useMutation({
     ...orpc.interconsultations.create.mutationOptions(),
@@ -79,12 +103,24 @@ function CreateInterconsultationForm({ onCancel }: { onCancel: () => void }) {
           onSubmit={handleSubmit}
         >
           <div className="space-y-1">
-            <Label>Atención ID</Label>
-            <Input
-              onChange={(e) =>
-                setForm({ ...form, encounterId: e.target.value })
+            <Label>Atención</Label>
+            <SearchSelect
+              emptyMessage="Escribe para buscar atenciones"
+              loading={encountersLoading}
+              onChange={(v) => setForm((f) => ({ ...f, encounterId: v }))}
+              onSearchChange={setEncounterSearch}
+              options={
+                encountersData?.encounters.map((e) => ({
+                  value: e.id,
+                  label: e.reasonForVisit || "Sin motivo",
+                  description: new Date(e.startedAt).toLocaleDateString(
+                    "es-CO"
+                  ),
+                })) ?? []
               }
+              placeholder="Buscar atención..."
               required
+              search={encounterSearch}
               value={form.encounterId}
             />
           </div>
@@ -100,12 +136,22 @@ function CreateInterconsultationForm({ onCancel }: { onCancel: () => void }) {
             />
           </div>
           <div className="space-y-1">
-            <Label>Solicitado por (practitioner ID)</Label>
-            <Input
-              onChange={(e) =>
-                setForm({ ...form, requestedBy: e.target.value })
+            <Label>Solicitado por</Label>
+            <SearchSelect
+              emptyMessage="Escribe para buscar profesionales"
+              loading={practitionersLoading}
+              onChange={(v) => setForm((f) => ({ ...f, requestedBy: v }))}
+              onSearchChange={setPractitionerSearch}
+              options={
+                practitionersData?.practitioners.map((p) => ({
+                  value: p.id,
+                  label: p.fullName,
+                  description: p.documentNumber,
+                })) ?? []
               }
+              placeholder="Buscar profesional..."
               required
+              search={practitionerSearch}
               value={form.requestedBy}
             />
           </div>
@@ -149,9 +195,20 @@ function CreateInterconsultationForm({ onCancel }: { onCancel: () => void }) {
 
 function InterconsultationsListPage() {
   const [encounterId, setEncounterId] = useState("");
+  const [encounterSearch, setEncounterSearch] = useState("");
   const [offset, setOffset] = useState(0);
   const [limit] = useState(25);
   const [showForm, setShowForm] = useState(false);
+
+  const { data: encountersData, isLoading: encountersLoading } = useQuery(
+    orpc.encounters.list.queryOptions({
+      input: {
+        limit: 20,
+        offset: 0,
+        search: encounterSearch || undefined,
+      },
+    })
+  );
 
   const { data, isLoading } = useQuery(
     orpc.interconsultations.list.queryOptions({
@@ -253,13 +310,25 @@ function InterconsultationsListPage() {
       <div className="px-6">
         <div className="mb-3 flex items-center gap-2">
           <Search className="text-muted-foreground" size={14} />
-          <Input
-            className="h-7 max-w-xs text-xs"
-            onChange={(e) => {
-              setEncounterId(e.target.value);
+          <SearchSelect
+            className="max-w-xs"
+            clearable
+            emptyMessage="Escribe para buscar atenciones"
+            loading={encountersLoading}
+            onChange={(v) => {
+              setEncounterId(v);
               setOffset(0);
             }}
-            placeholder="Filtrar por atención ID..."
+            onSearchChange={setEncounterSearch}
+            options={
+              encountersData?.encounters.map((e) => ({
+                value: e.id,
+                label: e.reasonForVisit || "Sin motivo",
+                description: new Date(e.startedAt).toLocaleDateString("es-CO"),
+              })) ?? []
+            }
+            placeholder="Filtrar por atención..."
+            search={encounterSearch}
             value={encounterId}
           />
         </div>

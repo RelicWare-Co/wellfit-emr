@@ -9,6 +9,7 @@ import {
 } from "@wellfit-emr/ui/components/card";
 import { Input } from "@wellfit-emr/ui/components/input";
 import { Label } from "@wellfit-emr/ui/components/label";
+import { SearchSelect } from "@wellfit-emr/ui/components/search-select";
 import { Eye, FileText, PenLine, Plus } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -45,6 +46,40 @@ function CreateDocumentForm({ onCancel }: { onCancel: () => void }) {
     sectionOrder: 1,
     sectionPayloadJson: "{}",
   });
+
+  const [patientSearch, setPatientSearch] = useState("");
+  const [encounterSearch, setEncounterSearch] = useState("");
+  const [practitionerSearch, setPractitionerSearch] = useState("");
+
+  const { data: patientsData, isLoading: patientsLoading } = useQuery(
+    orpc.patients.list.queryOptions({
+      input: {
+        limit: 20,
+        offset: 0,
+        search: patientSearch || undefined,
+      },
+    })
+  );
+
+  const { data: encountersData, isLoading: encountersLoading } = useQuery(
+    orpc.encounters.list.queryOptions({
+      input: {
+        limit: 20,
+        offset: 0,
+        search: encounterSearch || undefined,
+      },
+    })
+  );
+
+  const { data: practitionersData, isLoading: practitionersLoading } = useQuery(
+    orpc.facilities.listPractitioners.queryOptions({
+      input: {
+        limit: 20,
+        offset: 0,
+        search: practitionerSearch || undefined,
+      },
+    })
+  );
 
   const create = useMutation({
     ...orpc.clinicalDocuments.create.mutationOptions(),
@@ -99,20 +134,44 @@ function CreateDocumentForm({ onCancel }: { onCancel: () => void }) {
           onSubmit={handleSubmit}
         >
           <div className="space-y-1">
-            <Label>Paciente ID</Label>
-            <Input
-              onChange={(e) => setForm({ ...form, patientId: e.target.value })}
+            <Label>Paciente</Label>
+            <SearchSelect
+              emptyMessage="Escribe para buscar pacientes"
+              loading={patientsLoading}
+              onChange={(v) => setForm((f) => ({ ...f, patientId: v }))}
+              onSearchChange={setPatientSearch}
+              options={
+                patientsData?.patients.map((p) => ({
+                  value: p.id,
+                  label: `${p.firstName} ${p.lastName1}`,
+                  description: `${p.primaryDocumentType} ${p.primaryDocumentNumber}`,
+                })) ?? []
+              }
+              placeholder="Buscar paciente..."
               required
+              search={patientSearch}
               value={form.patientId}
             />
           </div>
           <div className="space-y-1">
-            <Label>Atención ID</Label>
-            <Input
-              onChange={(e) =>
-                setForm({ ...form, encounterId: e.target.value })
+            <Label>Atención</Label>
+            <SearchSelect
+              emptyMessage="Escribe para buscar atenciones"
+              loading={encountersLoading}
+              onChange={(v) => setForm((f) => ({ ...f, encounterId: v }))}
+              onSearchChange={setEncounterSearch}
+              options={
+                encountersData?.encounters.map((e) => ({
+                  value: e.id,
+                  label: e.reasonForVisit || "Sin motivo",
+                  description: new Date(e.startedAt).toLocaleDateString(
+                    "es-CO"
+                  ),
+                })) ?? []
               }
+              placeholder="Buscar atención..."
               required
+              search={encounterSearch}
               value={form.encounterId}
             />
           </div>
@@ -127,12 +186,24 @@ function CreateDocumentForm({ onCancel }: { onCancel: () => void }) {
             />
           </div>
           <div className="space-y-1">
-            <Label>Autor (practitioner ID)</Label>
-            <Input
-              onChange={(e) =>
-                setForm({ ...form, authorPractitionerId: e.target.value })
+            <Label>Autor</Label>
+            <SearchSelect
+              emptyMessage="Escribe para buscar profesionales"
+              loading={practitionersLoading}
+              onChange={(v) =>
+                setForm((f) => ({ ...f, authorPractitionerId: v }))
               }
+              onSearchChange={setPractitionerSearch}
+              options={
+                practitionersData?.practitioners.map((p) => ({
+                  value: p.id,
+                  label: p.fullName,
+                  description: p.documentNumber,
+                })) ?? []
+              }
+              placeholder="Buscar profesional..."
               required
+              search={practitionerSearch}
               value={form.authorPractitionerId}
             />
           </div>

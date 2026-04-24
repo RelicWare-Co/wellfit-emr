@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { Input } from "@wellfit-emr/ui/components/input";
+import { SearchSelect } from "@wellfit-emr/ui/components/search-select";
 import { Eye, Search } from "lucide-react";
 import { useState } from "react";
 
@@ -26,10 +27,32 @@ export const Route = createFileRoute("/_authenticated/audit-events/")({
 
 function AuditEventsListPage() {
   const [patientId, setPatientId] = useState("");
+  const [patientSearch, setPatientSearch] = useState("");
   const [userId, setUserId] = useState("");
+  const [userSearch, setUserSearch] = useState("");
   const [actionCode, setActionCode] = useState("");
   const [offset, setOffset] = useState(0);
   const [limit] = useState(25);
+
+  const { data: patientsData, isLoading: patientsLoading } = useQuery(
+    orpc.patients.list.queryOptions({
+      input: {
+        limit: 20,
+        offset: 0,
+        search: patientSearch || undefined,
+      },
+    })
+  );
+
+  const { data: usersData, isLoading: usersLoading } = useQuery(
+    orpc.admin.listUsers.queryOptions({
+      input: {
+        limit: 20,
+        offset: 0,
+        searchValue: userSearch || undefined,
+      },
+    })
+  );
 
   const { data, isLoading } = useQuery(
     orpc.auditEvents.list.queryOptions({
@@ -98,22 +121,52 @@ function AuditEventsListPage() {
       <div className="px-6">
         <div className="mb-3 flex flex-wrap items-center gap-2">
           <Search className="text-muted-foreground" size={14} />
-          <Input
-            className="h-7 max-w-[140px] text-xs"
-            onChange={(e) => {
-              setPatientId(e.target.value);
+          <SearchSelect
+            className="max-w-[180px]"
+            clearable
+            emptyMessage="Buscar paciente"
+            loading={patientsLoading}
+            onChange={(v) => {
+              setPatientId(v);
               setOffset(0);
             }}
-            placeholder="Paciente ID..."
+            onSearchChange={setPatientSearch}
+            options={
+              patientsData?.patients.map((p) => ({
+                value: p.id,
+                label: `${p.firstName} ${p.lastName1}`,
+                description: `${p.primaryDocumentType} ${p.primaryDocumentNumber}`,
+              })) ?? []
+            }
+            placeholder="Paciente..."
+            search={patientSearch}
             value={patientId}
           />
-          <Input
-            className="h-7 max-w-[140px] text-xs"
-            onChange={(e) => {
-              setUserId(e.target.value);
+          <SearchSelect
+            className="max-w-[180px]"
+            clearable
+            emptyMessage="Buscar usuario"
+            loading={usersLoading}
+            onChange={(v) => {
+              setUserId(v);
               setOffset(0);
             }}
-            placeholder="Usuario ID..."
+            onSearchChange={setUserSearch}
+            options={
+              (
+                usersData?.users as Array<{
+                  id: string;
+                  name: string | null;
+                  email: string;
+                }>
+              ).map((u) => ({
+                value: u.id,
+                label: u.name || u.email,
+                description: u.email,
+              })) ?? []
+            }
+            placeholder="Usuario..."
+            search={userSearch}
             value={userId}
           />
           <Input

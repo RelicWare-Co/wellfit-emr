@@ -9,6 +9,7 @@ import {
 } from "@wellfit-emr/ui/components/card";
 import { Input } from "@wellfit-emr/ui/components/input";
 import { Label } from "@wellfit-emr/ui/components/label";
+import { SearchSelect } from "@wellfit-emr/ui/components/search-select";
 import { FileOutput, Plus, Search } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -40,6 +41,18 @@ function CreateRipsExportForm({ onCancel }: { onCancel: () => void }) {
     periodTo: new Date().toISOString().slice(0, 10),
     status: "draft",
   });
+
+  const [organizationSearch, setOrganizationSearch] = useState("");
+
+  const { data: organizationsData, isLoading: organizationsLoading } = useQuery(
+    orpc.facilities.listOrganizations.queryOptions({
+      input: {
+        limit: 20,
+        offset: 0,
+        search: organizationSearch || undefined,
+      },
+    })
+  );
 
   const create = useMutation({
     ...orpc.ripsExports.create.mutationOptions(),
@@ -77,10 +90,22 @@ function CreateRipsExportForm({ onCancel }: { onCancel: () => void }) {
           onSubmit={handleSubmit}
         >
           <div className="space-y-1">
-            <Label>Pagador ID</Label>
-            <Input
-              onChange={(e) => setForm({ ...form, payerId: e.target.value })}
+            <Label>Pagador</Label>
+            <SearchSelect
+              emptyMessage="Escribe para buscar organizaciones"
+              loading={organizationsLoading}
+              onChange={(v) => setForm((f) => ({ ...f, payerId: v }))}
+              onSearchChange={setOrganizationSearch}
+              options={
+                organizationsData?.organizations.map((o) => ({
+                  value: o.id,
+                  label: o.name,
+                  description: o.taxId ?? undefined,
+                })) ?? []
+              }
+              placeholder="Buscar organización..."
               required
+              search={organizationSearch}
               value={form.payerId}
             />
           </div>

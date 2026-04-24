@@ -9,6 +9,7 @@ import {
 } from "@wellfit-emr/ui/components/card";
 import { Input } from "@wellfit-emr/ui/components/input";
 import { Label } from "@wellfit-emr/ui/components/label";
+import { SearchSelect } from "@wellfit-emr/ui/components/search-select";
 import { Paperclip, Plus, Search } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -17,6 +18,86 @@ import { DataTable } from "@/components/data-table";
 import { PageHeader } from "@/components/page-header";
 import { authClient } from "@/lib/auth-client";
 import { orpc, queryClient } from "@/utils/orpc";
+
+function getEntityOptions(
+  linkedEntityType: string,
+  patientsData:
+    | {
+        patients: Array<{
+          id: string;
+          firstName: string;
+          lastName1: string;
+          primaryDocumentType: string;
+          primaryDocumentNumber: string;
+        }>;
+      }
+    | undefined,
+  encountersData:
+    | {
+        encounters: Array<{
+          id: string;
+          reasonForVisit: string | null;
+          startedAt: Date | string;
+        }>;
+      }
+    | undefined,
+  practitionersData:
+    | {
+        practitioners: Array<{
+          id: string;
+          fullName: string;
+          documentNumber: string;
+        }>;
+      }
+    | undefined
+) {
+  if (linkedEntityType === "patient") {
+    return (
+      patientsData?.patients.map((p) => ({
+        value: p.id,
+        label: `${p.firstName} ${p.lastName1}`,
+        description: `${p.primaryDocumentType} ${p.primaryDocumentNumber}`,
+      })) ?? []
+    );
+  }
+  if (linkedEntityType === "encounter") {
+    return (
+      encountersData?.encounters.map((e) => ({
+        value: e.id,
+        label: e.reasonForVisit || "Sin motivo",
+        description: new Date(e.startedAt).toLocaleDateString("es-CO"),
+      })) ?? []
+    );
+  }
+  if (linkedEntityType === "practitioner") {
+    return (
+      practitionersData?.practitioners.map((p) => ({
+        value: p.id,
+        label: p.fullName,
+        description: p.documentNumber,
+      })) ?? []
+    );
+  }
+  return [];
+}
+
+function getEntityLoading(
+  linkedEntityType: string,
+  patientsLoading: boolean,
+  encountersLoading: boolean,
+  practitionersLoading: boolean
+) {
+  if (linkedEntityType === "patient") {
+    return patientsLoading;
+  }
+  if (linkedEntityType === "encounter") {
+    return encountersLoading;
+  }
+  if (linkedEntityType === "practitioner") {
+    return practitionersLoading;
+  }
+  return false;
+}
 
 export const Route = createFileRoute("/_authenticated/attachments/")({
   component: AttachmentsListPage,
@@ -42,6 +123,55 @@ function CreateAttachmentLinkForm({ onCancel }: { onCancel: () => void }) {
     classification: "support",
     capturedAt: new Date().toISOString().slice(0, 16),
   });
+
+  const [entitySearch, setEntitySearch] = useState("");
+
+  const { data: patientsData, isLoading: patientsLoading } = useQuery(
+    orpc.patients.list.queryOptions({
+      input: {
+        limit: 20,
+        offset: 0,
+        search: entitySearch || undefined,
+      },
+      enabled: form.linkedEntityType === "patient",
+    })
+  );
+
+  const { data: encountersData, isLoading: encountersLoading } = useQuery(
+    orpc.encounters.list.queryOptions({
+      input: {
+        limit: 20,
+        offset: 0,
+        search: entitySearch || undefined,
+      },
+      enabled: form.linkedEntityType === "encounter",
+    })
+  );
+
+  const { data: practitionersData, isLoading: practitionersLoading } = useQuery(
+    orpc.facilities.listPractitioners.queryOptions({
+      input: {
+        limit: 20,
+        offset: 0,
+        search: entitySearch || undefined,
+      },
+      enabled: form.linkedEntityType === "practitioner",
+    })
+  );
+
+  const entityOptions = getEntityOptions(
+    form.linkedEntityType,
+    patientsData,
+    encountersData,
+    practitionersData
+  );
+
+  const entityLoading = getEntityLoading(
+    form.linkedEntityType,
+    patientsLoading,
+    encountersLoading,
+    practitionersLoading
+  );
 
   const create = useMutation({
     ...orpc.attachments.createLink.mutationOptions(),
@@ -89,23 +219,50 @@ function CreateAttachmentLinkForm({ onCancel }: { onCancel: () => void }) {
           </div>
           <div className="space-y-1">
             <Label>Tipo de entidad vinculada</Label>
-            <Input
+            <select
+              className="h-8 w-full rounded-none border border-input bg-transparent px-2.5 text-xs outline-none focus-visible:border-ring focus-visible:ring-1 focus-visible:ring-ring/50"
               onChange={(e) =>
-                setForm({ ...form, linkedEntityType: e.target.value })
+                setForm({
+                  ...form,
+                  linkedEntityType: e.target.value,
+                  linkedEntityId: "",
+                })
               }
               required
               value={form.linkedEntityType}
-            />
+            >
+              <option value="encounter">Atención</option>
+              <option value="patient">Paciente</option>
+              <option value="practitioner">Profesional</option>
+              <option value="organization">Organización</option>
+              <option value="clinicalDocument">Documento clínico</option>
+            </select>
           </div>
           <div className="space-y-1">
-            <Label>ID entidad vinculada</Label>
-            <Input
-              onChange={(e) =>
-                setForm({ ...form, linkedEntityId: e.target.value })
-              }
-              required
-              value={form.linkedEntityId}
-            />
+            <Label>Entidad vinculada</Label>
+            {form.linkedEntityType === "organization" ||
+            form.linkedEntityType === "clinicalDocument" ? (
+              <Input
+                onChange={(e) =>
+                  setForm({ ...form, linkedEntityId: e.target.value })
+                }
+                placeholder="Ingrese el ID"
+                required
+                value={form.linkedEntityId}
+              />
+            ) : (
+              <SearchSelect
+                emptyMessage="Escribe para buscar"
+                loading={entityLoading}
+                onChange={(v) => setForm((f) => ({ ...f, linkedEntityId: v }))}
+                onSearchChange={setEntitySearch}
+                options={entityOptions}
+                placeholder="Buscar entidad..."
+                required
+                search={entitySearch}
+                value={form.linkedEntityId}
+              />
+            )}
           </div>
           <div className="space-y-1 md:col-span-2">
             <Label>Título</Label>
@@ -156,9 +313,57 @@ function CreateAttachmentLinkForm({ onCancel }: { onCancel: () => void }) {
 function AttachmentsListPage() {
   const [linkedEntityId, setLinkedEntityId] = useState("");
   const [linkedEntityType, setLinkedEntityType] = useState("encounter");
+  const [entitySearch, setEntitySearch] = useState("");
   const [offset, setOffset] = useState(0);
   const [limit] = useState(25);
   const [showForm, setShowForm] = useState(false);
+
+  const { data: patientsData, isLoading: patientsLoading } = useQuery(
+    orpc.patients.list.queryOptions({
+      input: {
+        limit: 20,
+        offset: 0,
+        search: entitySearch || undefined,
+      },
+      enabled: linkedEntityType === "patient",
+    })
+  );
+
+  const { data: encountersData, isLoading: encountersLoading } = useQuery(
+    orpc.encounters.list.queryOptions({
+      input: {
+        limit: 20,
+        offset: 0,
+        search: entitySearch || undefined,
+      },
+      enabled: linkedEntityType === "encounter",
+    })
+  );
+
+  const { data: practitionersData, isLoading: practitionersLoading } = useQuery(
+    orpc.facilities.listPractitioners.queryOptions({
+      input: {
+        limit: 20,
+        offset: 0,
+        search: entitySearch || undefined,
+      },
+      enabled: linkedEntityType === "practitioner",
+    })
+  );
+
+  const entityOptions = getEntityOptions(
+    linkedEntityType,
+    patientsData,
+    encountersData,
+    practitionersData
+  );
+
+  const entityLoading = getEntityLoading(
+    linkedEntityType,
+    patientsLoading,
+    encountersLoading,
+    practitionersLoading
+  );
 
   const { data, isLoading } = useQuery(
     orpc.attachments.listLinks.queryOptions({
@@ -219,24 +424,49 @@ function AttachmentsListPage() {
       <div className="px-6">
         <div className="mb-3 flex items-center gap-2">
           <Search className="text-muted-foreground" size={14} />
-          <Input
-            className="h-7 max-w-[140px] text-xs"
+          <select
+            className="h-7 rounded-none border border-input bg-transparent px-2.5 text-xs outline-none focus-visible:border-ring focus-visible:ring-1 focus-visible:ring-ring/50"
             onChange={(e) => {
               setLinkedEntityType(e.target.value);
+              setLinkedEntityId("");
               setOffset(0);
             }}
-            placeholder="Tipo entidad..."
             value={linkedEntityType}
-          />
-          <Input
-            className="h-7 max-w-xs text-xs"
-            onChange={(e) => {
-              setLinkedEntityId(e.target.value);
-              setOffset(0);
-            }}
-            placeholder="ID entidad..."
-            value={linkedEntityId}
-          />
+          >
+            <option value="encounter">Atención</option>
+            <option value="patient">Paciente</option>
+            <option value="practitioner">Profesional</option>
+            <option value="organization">Organización</option>
+            <option value="clinicalDocument">Documento clínico</option>
+          </select>
+          {linkedEntityType === "organization" ||
+          linkedEntityType === "clinicalDocument" ? (
+            <Input
+              className="h-7 max-w-xs text-xs"
+              onChange={(e) => {
+                setLinkedEntityId(e.target.value);
+                setOffset(0);
+              }}
+              placeholder="ID entidad..."
+              value={linkedEntityId}
+            />
+          ) : (
+            <SearchSelect
+              className="max-w-xs"
+              clearable
+              emptyMessage="Escribe para buscar"
+              loading={entityLoading}
+              onChange={(v) => {
+                setLinkedEntityId(v);
+                setOffset(0);
+              }}
+              onSearchChange={setEntitySearch}
+              options={entityOptions}
+              placeholder="Buscar entidad..."
+              search={entitySearch}
+              value={linkedEntityId}
+            />
+          )}
         </div>
 
         <DataTable
