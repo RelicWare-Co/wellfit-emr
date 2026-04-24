@@ -9,6 +9,7 @@ import {
 } from "@wellfit-emr/ui/components/card";
 import { Input } from "@wellfit-emr/ui/components/input";
 import { Label } from "@wellfit-emr/ui/components/label";
+import { SearchSelect } from "@wellfit-emr/ui/components/search-select";
 import { Skeleton } from "@wellfit-emr/ui/components/skeleton";
 import { ChevronRight, Plus, Search, User, X } from "lucide-react";
 import { useState } from "react";
@@ -59,6 +60,9 @@ function EncountersPage() {
   const [selectedPatientId, setSelectedPatientId] = useState("");
   const [selectedSiteId, setSelectedSiteId] = useState("");
   const [selectedServiceUnitId, setSelectedServiceUnitId] = useState("");
+  const [admissionSearch, setAdmissionSearch] = useState("");
+  const [causeSearch, setCauseSearch] = useState("");
+  const [finalidadSearch, setFinalidadSearch] = useState("");
 
   const [formData, setFormData] = useState({
     encounterClass: "",
@@ -111,6 +115,36 @@ function EncountersPage() {
     }),
     enabled: !!selectedSiteId,
   });
+
+  const { data: admissionData, isLoading: admissionLoading } = useQuery(
+    orpc.ripsReference.listEntries.queryOptions({
+      input: {
+        tableName: "ViaIngresoUsuario",
+        limit: 20,
+        search: admissionSearch || undefined,
+      },
+    })
+  );
+
+  const { data: causeData, isLoading: causeLoading } = useQuery(
+    orpc.ripsReference.listEntries.queryOptions({
+      input: {
+        tableName: "RIPSCausaExternaVersion2",
+        limit: 20,
+        search: causeSearch || undefined,
+      },
+    })
+  );
+
+  const { data: finalidadData, isLoading: finalidadLoading } = useQuery(
+    orpc.ripsReference.listEntries.queryOptions({
+      input: {
+        tableName: "RIPSFinalidadConsultaVersion2",
+        limit: 20,
+        search: finalidadSearch || undefined,
+      },
+    })
+  );
 
   const createMutation = useMutation({
     ...orpc.encounters.create.mutationOptions(),
@@ -396,43 +430,70 @@ function EncountersPage() {
 
               <div className="space-y-1">
                 <Label>Vía de ingreso (RIPS)</Label>
-                <Input
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      admissionSource: e.target.value,
-                    })
-                  }
-                  placeholder="Código RIPS"
+                <SearchSelect
                   value={formData.admissionSource}
+                  onChange={(v) =>
+                    setFormData((f) => ({ ...f, admissionSource: v }))
+                  }
+                  search={admissionSearch}
+                  onSearchChange={setAdmissionSearch}
+                  options={
+                    admissionData?.entries.map((e) => ({
+                      value: e.code,
+                      label: e.name,
+                      description: e.code,
+                    })) ?? []
+                  }
+                  loading={admissionLoading}
+                  placeholder="Buscar vía de ingreso..."
+                  emptyMessage="Escribe para buscar"
+                  clearable
                 />
               </div>
 
               <div className="space-y-1">
                 <Label>Causa externa (RIPS)</Label>
-                <Input
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      causeExternalCode: e.target.value,
-                    })
-                  }
-                  placeholder="Código RIPS"
+                <SearchSelect
                   value={formData.causeExternalCode}
+                  onChange={(v) =>
+                    setFormData((f) => ({ ...f, causeExternalCode: v }))
+                  }
+                  search={causeSearch}
+                  onSearchChange={setCauseSearch}
+                  options={
+                    causeData?.entries.map((e) => ({
+                      value: e.code,
+                      label: e.name,
+                      description: e.code,
+                    })) ?? []
+                  }
+                  loading={causeLoading}
+                  placeholder="Buscar causa externa..."
+                  emptyMessage="Escribe para buscar"
+                  clearable
                 />
               </div>
 
               <div className="space-y-1">
                 <Label>Finalidad consulta (RIPS)</Label>
-                <Input
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      finalidadConsultaCode: e.target.value,
-                    })
-                  }
-                  placeholder="Código RIPS"
+                <SearchSelect
                   value={formData.finalidadConsultaCode}
+                  onChange={(v) =>
+                    setFormData((f) => ({ ...f, finalidadConsultaCode: v }))
+                  }
+                  search={finalidadSearch}
+                  onSearchChange={setFinalidadSearch}
+                  options={
+                    finalidadData?.entries.map((e) => ({
+                      value: e.code,
+                      label: e.name,
+                      description: e.code,
+                    })) ?? []
+                  }
+                  loading={finalidadLoading}
+                  placeholder="Buscar finalidad..."
+                  emptyMessage="Escribe para buscar"
+                  clearable
                 />
               </div>
 

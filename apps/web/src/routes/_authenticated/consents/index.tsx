@@ -48,6 +48,7 @@ function CreateConsentForm({ onCancel }: { onCancel: () => void }) {
 
   const [patientSearch, setPatientSearch] = useState("");
   const [encounterSearch, setEncounterSearch] = useState("");
+  const [cupsSearch, setCupsSearch] = useState("");
 
   const { data: patientsData, isLoading: patientsLoading } = useQuery(
     orpc.patients.list.queryOptions({
@@ -65,6 +66,16 @@ function CreateConsentForm({ onCancel }: { onCancel: () => void }) {
         limit: 20,
         offset: 0,
         search: encounterSearch || undefined,
+      },
+    })
+  );
+
+  const { data: cupsData, isLoading: cupsLoading } = useQuery(
+    orpc.ripsReference.listEntries.queryOptions({
+      input: {
+        tableName: "CUPSRips",
+        limit: 20,
+        search: cupsSearch || undefined,
       },
     })
   );
@@ -160,12 +171,23 @@ function CreateConsentForm({ onCancel }: { onCancel: () => void }) {
             />
           </div>
           <div className="space-y-1">
-            <Label>Código procedimiento (opcional)</Label>
-            <Input
-              onChange={(e) =>
-                setForm({ ...form, procedureCode: e.target.value })
-              }
+            <Label>Código CUPS (opcional)</Label>
+            <SearchSelect
               value={form.procedureCode}
+              onChange={(v) => setForm((f) => ({ ...f, procedureCode: v }))}
+              search={cupsSearch}
+              onSearchChange={setCupsSearch}
+              options={
+                cupsData?.entries.map((e) => ({
+                  value: e.code,
+                  label: e.name,
+                  description: e.code,
+                })) ?? []
+              }
+              loading={cupsLoading}
+              placeholder="Buscar CUPS..."
+              emptyMessage="Escribe para buscar en CUPS"
+              clearable
             />
           </div>
           <div className="space-y-1">

@@ -177,13 +177,24 @@ function CreateDocumentForm({ onCancel }: { onCancel: () => void }) {
           </div>
           <div className="space-y-1">
             <Label>Tipo de documento</Label>
-            <Input
+            <select
+              className="h-8 w-full rounded-none border border-input bg-transparent px-2.5 text-xs outline-none focus-visible:border-ring focus-visible:ring-1 focus-visible:ring-ring/50"
               onChange={(e) =>
                 setForm({ ...form, documentType: e.target.value })
               }
               required
               value={form.documentType}
-            />
+            >
+              <option value="evolucion_medica">Evolución médica</option>
+              <option value="nota_enfermeria">Nota de enfermería</option>
+              <option value="epicrisis">Epicrisis</option>
+              <option value="informe_quirurgico">Informe quirúrgico</option>
+              <option value="orden_medica">Orden médica</option>
+              <option value="consentimiento_informado">
+                Consentimiento informado
+              </option>
+              <option value="historia_clinica">Historia clínica</option>
+            </select>
           </div>
           <div className="space-y-1">
             <Label>Autor</Label>
@@ -227,12 +238,20 @@ function CreateDocumentForm({ onCancel }: { onCancel: () => void }) {
           </div>
           <div className="space-y-1">
             <Label>Código de sección</Label>
-            <Input
+            <select
+              className="h-8 w-full rounded-none border border-input bg-transparent px-2.5 text-xs outline-none focus-visible:border-ring focus-visible:ring-1 focus-visible:ring-ring/50"
               onChange={(e) =>
                 setForm({ ...form, sectionCode: e.target.value })
               }
               value={form.sectionCode}
-            />
+            >
+              <option value="subjective">Subjetivo</option>
+              <option value="objective">Objetivo</option>
+              <option value="assessment">Análisis / Evaluación</option>
+              <option value="plan">Plan</option>
+              <option value="evolucion">Evolución</option>
+              <option value="nota">Nota</option>
+            </select>
           </div>
           <div className="space-y-1">
             <Label>Orden de sección</Label>

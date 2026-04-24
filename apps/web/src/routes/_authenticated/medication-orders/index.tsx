@@ -11,7 +11,7 @@ import { Input } from "@wellfit-emr/ui/components/input";
 import { Label } from "@wellfit-emr/ui/components/label";
 import { SearchSelect } from "@wellfit-emr/ui/components/search-select";
 import { Pill, Plus, Search } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 import { DataTable } from "@/components/data-table";
@@ -51,11 +51,16 @@ function CreateMedicationOrderForm({ onCancel }: { onCancel: () => void }) {
     indications: "",
     status: "active",
     signedAt: new Date().toISOString().slice(0, 16),
+    atcCode: null as string | null,
   });
 
   const [patientSearch, setPatientSearch] = useState("");
   const [encounterSearch, setEncounterSearch] = useState("");
   const [prescriberSearch, setPrescriberSearch] = useState("");
+  const [cumSearch, setCumSearch] = useState("");
+  const [selectedCumCode, setSelectedCumCode] = useState("");
+  const [ffmSearch, setFfmSearch] = useState("");
+  const [ummSearch, setUmmSearch] = useState("");
 
   const { data: patientsData, isLoading: patientsLoading } = useQuery(
     orpc.patients.list.queryOptions({
@@ -86,6 +91,57 @@ function CreateMedicationOrderForm({ onCancel }: { onCancel: () => void }) {
       },
     })
   );
+
+  const { data: cumData, isLoading: cumLoading } = useQuery(
+    orpc.ripsReference.listEntries.queryOptions({
+      input: {
+        tableName: "CatalogoCUMs",
+        limit: 20,
+        search: cumSearch || undefined,
+      },
+    })
+  );
+
+  const { data: selectedCumData } = useQuery({
+    ...orpc.ripsReference.getEntry.queryOptions({
+      input: { tableName: "CatalogoCUMs", code: selectedCumCode },
+    }),
+    enabled: !!selectedCumCode,
+  });
+
+  const { data: ffmData, isLoading: ffmLoading } = useQuery(
+    orpc.ripsReference.listEntries.queryOptions({
+      input: {
+        tableName: "FFM",
+        limit: 20,
+        search: ffmSearch || undefined,
+      },
+    })
+  );
+
+  const { data: ummData, isLoading: ummLoading } = useQuery(
+    orpc.ripsReference.listEntries.queryOptions({
+      input: {
+        tableName: "UMM",
+        limit: 20,
+        search: ummSearch || undefined,
+      },
+    })
+  );
+
+  useEffect(() => {
+    if (selectedCumData?.extraData) {
+      const extra = selectedCumData.extraData;
+      const concentrationRaw = extra.Extra_VI ? String(extra.Extra_VI).replace(/\.?0+$/, "") : "";
+      setForm((f) => ({
+        ...f,
+        genericName: extra.Extra_III || selectedCumData.name,
+        concentration: concentrationRaw ? `${concentrationRaw} mg` : "",
+        routeCode: extra.Extra_VIII || "",
+        atcCode: extra.Extra_II || null,
+      }));
+    }
+  }, [selectedCumData]);
 
   const create = useMutation({
     ...orpc.medicationOrders.create.mutationOptions(),
@@ -120,7 +176,7 @@ function CreateMedicationOrderForm({ onCancel }: { onCancel: () => void }) {
       status: form.status,
       signedAt: new Date(form.signedAt),
       diagnosisId: null,
-      atcCode: null,
+      atcCode: form.atcCode,
       validUntil: null,
     });
   }
@@ -197,6 +253,28 @@ function CreateMedicationOrderForm({ onCancel }: { onCancel: () => void }) {
               value={form.prescriberId}
             />
           </div>
+          <div className="space-y-1 md:col-span-3">
+            <Label>Medicamento (CUM)</Label>
+            <SearchSelect
+              value={selectedCumCode}
+              onChange={(v) => {
+                setSelectedCumCode(v);
+              }}
+              search={cumSearch}
+              onSearchChange={setCumSearch}
+              options={
+                cumData?.entries.map((e) => ({
+                  value: e.code,
+                  label: e.name,
+                  description: e.code,
+                })) ?? []
+              }
+              loading={cumLoading}
+              placeholder="Buscar medicamento por nombre o CUM..."
+              emptyMessage="Escribe para buscar en catálogo CUMs"
+              clearable
+            />
+          </div>
           <div className="space-y-1 md:col-span-2">
             <Label>Nombre genérico (DCI)</Label>
             <Input
@@ -220,11 +298,22 @@ function CreateMedicationOrderForm({ onCancel }: { onCancel: () => void }) {
           </div>
           <div className="space-y-1">
             <Label>Forma farmacéutica</Label>
-            <Input
-              onChange={(e) => setForm({ ...form, dosageForm: e.target.value })}
-              placeholder="Ej: tableta"
-              required
+            <SearchSelect
               value={form.dosageForm}
+              onChange={(v) => setForm((f) => ({ ...f, dosageForm: v }))}
+              search={ffmSearch}
+              onSearchChange={setFfmSearch}
+              options={
+                ffmData?.entries.map((e) => ({
+                  value: e.name,
+                  label: e.name,
+                  description: e.code,
+                })) ?? []
+              }
+              loading={ffmLoading}
+              placeholder="Buscar forma farmacéutica..."
+              emptyMessage="Escribe para buscar en FFM"
+              required
             />
           </div>
           <div className="space-y-1">
@@ -237,9 +326,21 @@ function CreateMedicationOrderForm({ onCancel }: { onCancel: () => void }) {
           </div>
           <div className="space-y-1">
             <Label>Unidad dosis</Label>
-            <Input
-              onChange={(e) => setForm({ ...form, doseUnit: e.target.value })}
+            <SearchSelect
               value={form.doseUnit}
+              onChange={(v) => setForm((f) => ({ ...f, doseUnit: v }))}
+              search={ummSearch}
+              onSearchChange={setUmmSearch}
+              options={
+                ummData?.entries.map((e) => ({
+                  value: e.name,
+                  label: e.name,
+                  description: e.code,
+                })) ?? []
+              }
+              loading={ummLoading}
+              placeholder="Buscar unidad..."
+              emptyMessage="Escribe para buscar en UMM"
             />
           </div>
           <div className="space-y-1">

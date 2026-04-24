@@ -48,6 +48,7 @@ function CreateServiceRequestForm({ onCancel }: { onCancel: () => void }) {
   const [patientSearch, setPatientSearch] = useState("");
   const [encounterSearch, setEncounterSearch] = useState("");
   const [practitionerSearch, setPractitionerSearch] = useState("");
+  const [cupsSearch, setCupsSearch] = useState("");
 
   const { data: patientsData, isLoading: patientsLoading } = useQuery(
     orpc.patients.list.queryOptions({
@@ -75,6 +76,16 @@ function CreateServiceRequestForm({ onCancel }: { onCancel: () => void }) {
         limit: 20,
         offset: 0,
         search: practitionerSearch || undefined,
+      },
+    })
+  );
+
+  const { data: cupsData, isLoading: cupsLoading } = useQuery(
+    orpc.ripsReference.listEntries.queryOptions({
+      input: {
+        tableName: "CUPSRips",
+        limit: 20,
+        search: cupsSearch || undefined,
       },
     })
   );
@@ -175,14 +186,23 @@ function CreateServiceRequestForm({ onCancel }: { onCancel: () => void }) {
             </select>
           </div>
           <div className="space-y-1">
-            <Label>Código de solicitud</Label>
-            <Input
-              onChange={(e) =>
-                setForm({ ...form, requestCode: e.target.value })
-              }
-              placeholder="Ej: 85025"
-              required
+            <Label>Código CUPS</Label>
+            <SearchSelect
               value={form.requestCode}
+              onChange={(v) => setForm((f) => ({ ...f, requestCode: v }))}
+              search={cupsSearch}
+              onSearchChange={setCupsSearch}
+              options={
+                cupsData?.entries.map((e) => ({
+                  value: e.code,
+                  label: e.name,
+                  description: e.code,
+                })) ?? []
+              }
+              loading={cupsLoading}
+              placeholder="Buscar CUPS..."
+              emptyMessage="Escribe para buscar en CUPS"
+              required
             />
           </div>
           <div className="space-y-1">

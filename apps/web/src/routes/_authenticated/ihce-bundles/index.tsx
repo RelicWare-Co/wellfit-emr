@@ -119,11 +119,18 @@ function CreateIhceBundleForm({ onCancel }: { onCancel: () => void }) {
           </div>
           <div className="space-y-1">
             <Label>Tipo de bundle</Label>
-            <Input
+            <select
+              className="h-8 w-full rounded-none border border-input bg-transparent px-2.5 text-xs outline-none focus-visible:border-ring focus-visible:ring-1 focus-visible:ring-ring/50"
               onChange={(e) => setForm({ ...form, bundleType: e.target.value })}
               required
               value={form.bundleType}
-            />
+            >
+              <option value="document">Documento</option>
+              <option value="summary">Resumen clínico</option>
+              <option value="transaction">Transacción</option>
+              <option value="collection">Colección</option>
+              <option value="message">Mensaje</option>
+            </select>
           </div>
           <div className="space-y-1 md:col-span-3">
             <Label>Bundle JSON</Label>
