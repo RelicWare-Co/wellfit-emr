@@ -1,16 +1,22 @@
 import { auth } from "@wellfit-emr/auth";
+import { db } from "@wellfit-emr/db";
 import type { Context as HonoContext } from "hono";
 
-export type CreateContextOptions = {
+export type Auth = typeof auth;
+export type Db = typeof db;
+
+export interface CreateContextOptions {
   context: HonoContext;
-};
+}
 
 export async function createContext({ context }: CreateContextOptions) {
   const session = await auth.api.getSession({
     headers: context.req.raw.headers,
   });
   return {
-    auth: null,
+    auth,
+    db,
+    headers: context.req.raw.headers,
     session,
   };
 }
