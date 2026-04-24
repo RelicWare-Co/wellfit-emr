@@ -208,7 +208,7 @@ const updateUserProcedure = protectedProcedure
   .input(updateUserSchema)
   .output(z.unknown())
   .handler(({ context, input }) =>
-    context.auth.api.adminUpdateUser({
+    context.auth.api.updateUser({
       body: input,
       headers: context.headers,
     })
