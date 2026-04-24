@@ -891,6 +891,50 @@ export const auditEvent = sqliteTable(
   ]
 );
 
+export const appointment = sqliteTable(
+  "appointment",
+  {
+    id: text("id").primaryKey(),
+    patientId: text("patient_id")
+      .notNull()
+      .references(() => patient.id),
+    practitionerId: text("practitioner_id").references(() => practitioner.id),
+    siteId: text("site_id")
+      .notNull()
+      .references(() => site.id),
+    serviceUnitId: text("service_unit_id").references(() => serviceUnit.id),
+    scheduledAt: requiredTimestamp("scheduled_at"),
+    durationMinutes: integer("duration_minutes").notNull().default(30),
+    status: text("status").notNull().default("scheduled"),
+    reason: text("reason").notNull(),
+    notes: text("notes"),
+    encounterId: text("encounter_id").references(() => encounter.id),
+    createdBy: text("created_by")
+      .notNull()
+      .references(() => user.id),
+    cancelledAt: timestamp("cancelled_at"),
+    cancelledReason: text("cancelled_reason"),
+    createdAt: createdAt(),
+    updatedAt: updatedAt(),
+  },
+  (table) => [
+    index("appointment_patient_scheduled_idx").on(
+      table.patientId,
+      table.scheduledAt
+    ),
+    index("appointment_practitioner_scheduled_idx").on(
+      table.practitionerId,
+      table.scheduledAt
+    ),
+    index("appointment_site_scheduled_idx").on(table.siteId, table.scheduledAt),
+    index("appointment_status_scheduled_idx").on(
+      table.status,
+      table.scheduledAt
+    ),
+    index("appointment_encounter_idx").on(table.encounterId),
+  ]
+);
+
 export const retentionRecord = sqliteTable(
   "retention_record",
   {
@@ -991,3 +1035,26 @@ export const clinicalDocumentVersionRelations = relations(
     sections: many(documentSection),
   })
 );
+
+export const appointmentRelations = relations(appointment, ({ one }) => ({
+  patient: one(patient, {
+    fields: [appointment.patientId],
+    references: [patient.id],
+  }),
+  practitioner: one(practitioner, {
+    fields: [appointment.practitionerId],
+    references: [practitioner.id],
+  }),
+  site: one(site, {
+    fields: [appointment.siteId],
+    references: [site.id],
+  }),
+  serviceUnit: one(serviceUnit, {
+    fields: [appointment.serviceUnitId],
+    references: [serviceUnit.id],
+  }),
+  encounter: one(encounter, {
+    fields: [appointment.encounterId],
+    references: [encounter.id],
+  }),
+}));

@@ -13,6 +13,7 @@ import { ihceBundlesRouter } from "./ihce-bundles";
 import { incapacityCertificatesRouter } from "./incapacity-certificates";
 import { interconsultationsRouter } from "./interconsultations";
 import { medicationOrdersRouter } from "./medication-orders";
+import { appointmentsRouter } from "./appointments";
 import { patientsRouter } from "./patients";
 import { ripsExportsRouter } from "./rips-exports";
 import { ripsReferenceRouter } from "./rips-reference";
@@ -27,6 +28,7 @@ const privateDataProcedure = protectedProcedure.handler(({ context }) => ({
 
 export interface AppRouter extends Record<string, AnyRouter> {
   admin: typeof adminRouter;
+  appointments: typeof appointmentsRouter;
   attachments: typeof attachmentsRouter;
   auditEvents: typeof auditEventsRouter;
   clinicalDocuments: typeof clinicalDocumentsRouter;
@@ -48,6 +50,7 @@ export interface AppRouter extends Record<string, AnyRouter> {
 
 export const appRouter: AppRouter = {
   admin: adminRouter,
+  appointments: appointmentsRouter,
   attachments: attachmentsRouter,
   auditEvents: auditEventsRouter,
   clinicalDocuments: clinicalDocumentsRouter,
