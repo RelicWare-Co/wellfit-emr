@@ -2,6 +2,7 @@ import { Link, useLocation } from "@tanstack/react-router";
 import { cn } from "@wellfit-emr/ui/lib/utils";
 import {
   Building2,
+  Calendar,
   ChevronLeft,
   ChevronRight,
   ClipboardList,
@@ -37,6 +38,7 @@ const navGroups: { label: string; items: NavItem[] }[] = [
     label: "Clínico",
     items: [
       { icon: Users, label: "Pacientes", to: "/patients" },
+      { icon: Calendar, label: "Agenda", to: "/appointments" },
       { icon: Stethoscope, label: "Atenciones", to: "/encounters" },
       {
         icon: ScrollText,

@@ -36,18 +36,24 @@ export default function SignInForm({
             navigate({
               to: "/",
             });
-            toast.success("Sign in successful");
+            toast.success("Inicio de sesión exitoso");
           },
           onError: (error) => {
-            toast.error(error.error.message || error.error.statusText);
+            toast.error(
+              error.error.message ||
+                error.error.statusText ||
+                "Error al iniciar sesión"
+            );
           },
         }
       );
     },
     validators: {
       onSubmit: z.object({
-        email: z.email("Invalid email address"),
-        password: z.string().min(8, "Password must be at least 8 characters"),
+        email: z.email("Correo electrónico inválido"),
+        password: z
+          .string()
+          .min(8, "La contraseña debe tener al menos 8 caracteres"),
       }),
     },
   });
@@ -57,8 +63,13 @@ export default function SignInForm({
   }
 
   return (
-    <div className="mx-auto mt-10 w-full max-w-md p-6">
-      <h1 className="mb-6 text-center font-bold text-3xl">Welcome Back</h1>
+    <div className="w-full max-w-sm">
+      <h1 className="mb-2 text-left font-bold text-2xl tracking-tight">
+        Iniciar sesión
+      </h1>
+      <p className="mb-6 text-left text-muted-foreground text-sm">
+        Ingresa tus credenciales para acceder al sistema.
+      </p>
 
       <form
         className="space-y-4"
@@ -72,17 +83,18 @@ export default function SignInForm({
           <form.Field name="email">
             {(field) => (
               <div className="space-y-2">
-                <Label htmlFor={field.name}>Email</Label>
+                <Label htmlFor={field.name}>Correo electrónico</Label>
                 <Input
                   id={field.name}
                   name={field.name}
                   onBlur={field.handleBlur}
                   onChange={(e) => field.handleChange(e.target.value)}
+                  placeholder="usuario@ejemplo.com"
                   type="email"
                   value={field.state.value}
                 />
                 {field.state.meta.errors.map((error) => (
-                  <p className="text-red-500" key={error?.message}>
+                  <p className="text-red-500 text-xs" key={error?.message}>
                     {error?.message}
                   </p>
                 ))}
@@ -95,17 +107,18 @@ export default function SignInForm({
           <form.Field name="password">
             {(field) => (
               <div className="space-y-2">
-                <Label htmlFor={field.name}>Password</Label>
+                <Label htmlFor={field.name}>Contraseña</Label>
                 <Input
                   id={field.name}
                   name={field.name}
                   onBlur={field.handleBlur}
                   onChange={(e) => field.handleChange(e.target.value)}
+                  placeholder="••••••••"
                   type="password"
                   value={field.state.value}
                 />
                 {field.state.meta.errors.map((error) => (
-                  <p className="text-red-500" key={error?.message}>
+                  <p className="text-red-500 text-xs" key={error?.message}>
                     {error?.message}
                   </p>
                 ))}
@@ -126,19 +139,19 @@ export default function SignInForm({
               disabled={!canSubmit || isSubmitting}
               type="submit"
             >
-              {isSubmitting ? "Submitting..." : "Sign In"}
+              {isSubmitting ? "Iniciando sesión..." : "Iniciar sesión"}
             </Button>
           )}
         </form.Subscribe>
       </form>
 
-      <div className="mt-4 text-center">
+      <div className="mt-6 text-center">
         <Button
-          className="text-indigo-600 hover:text-indigo-800"
+          className="text-muted-foreground hover:text-foreground"
           onClick={onSwitchToSignUp}
           variant="link"
         >
-          Need an account? Sign Up
+          ¿No tienes una cuenta? Regístrate
         </Button>
       </div>
     </div>

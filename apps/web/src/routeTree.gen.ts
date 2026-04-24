@@ -25,6 +25,7 @@ import { Route as AuthenticatedClinicalDocumentsIndexRouteImport } from './route
 import { Route as AuthenticatedCatalogsIndexRouteImport } from './routes/_authenticated/catalogs/index'
 import { Route as AuthenticatedAuditEventsIndexRouteImport } from './routes/_authenticated/audit-events/index'
 import { Route as AuthenticatedAttachmentsIndexRouteImport } from './routes/_authenticated/attachments/index'
+import { Route as AuthenticatedAppointmentsIndexRouteImport } from './routes/_authenticated/appointments/index'
 import { Route as AuthenticatedPatientsPatientIdRouteImport } from './routes/_authenticated/patients/$patientId'
 import { Route as AuthenticatedFacilitiesSitesRouteImport } from './routes/_authenticated/facilities/sites'
 import { Route as AuthenticatedFacilitiesServiceUnitsRouteImport } from './routes/_authenticated/facilities/service-units'
@@ -127,6 +128,12 @@ const AuthenticatedAttachmentsIndexRoute =
     path: '/attachments/',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
+const AuthenticatedAppointmentsIndexRoute =
+  AuthenticatedAppointmentsIndexRouteImport.update({
+    id: '/appointments/',
+    path: '/appointments/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const AuthenticatedPatientsPatientIdRoute =
   AuthenticatedPatientsPatientIdRouteImport.update({
     id: '/patients/$patientId',
@@ -193,6 +200,7 @@ export interface FileRoutesByFullPath {
   '/facilities/service-units': typeof AuthenticatedFacilitiesServiceUnitsRoute
   '/facilities/sites': typeof AuthenticatedFacilitiesSitesRoute
   '/patients/$patientId': typeof AuthenticatedPatientsPatientIdRoute
+  '/appointments/': typeof AuthenticatedAppointmentsIndexRoute
   '/attachments/': typeof AuthenticatedAttachmentsIndexRoute
   '/audit-events/': typeof AuthenticatedAuditEventsIndexRoute
   '/catalogs/': typeof AuthenticatedCatalogsIndexRoute
@@ -219,6 +227,7 @@ export interface FileRoutesByTo {
   '/facilities/service-units': typeof AuthenticatedFacilitiesServiceUnitsRoute
   '/facilities/sites': typeof AuthenticatedFacilitiesSitesRoute
   '/patients/$patientId': typeof AuthenticatedPatientsPatientIdRoute
+  '/appointments': typeof AuthenticatedAppointmentsIndexRoute
   '/attachments': typeof AuthenticatedAttachmentsIndexRoute
   '/audit-events': typeof AuthenticatedAuditEventsIndexRoute
   '/catalogs': typeof AuthenticatedCatalogsIndexRoute
@@ -247,6 +256,7 @@ export interface FileRoutesById {
   '/_authenticated/facilities/service-units': typeof AuthenticatedFacilitiesServiceUnitsRoute
   '/_authenticated/facilities/sites': typeof AuthenticatedFacilitiesSitesRoute
   '/_authenticated/patients/$patientId': typeof AuthenticatedPatientsPatientIdRoute
+  '/_authenticated/appointments/': typeof AuthenticatedAppointmentsIndexRoute
   '/_authenticated/attachments/': typeof AuthenticatedAttachmentsIndexRoute
   '/_authenticated/audit-events/': typeof AuthenticatedAuditEventsIndexRoute
   '/_authenticated/catalogs/': typeof AuthenticatedCatalogsIndexRoute
@@ -275,6 +285,7 @@ export interface FileRouteTypes {
     | '/facilities/service-units'
     | '/facilities/sites'
     | '/patients/$patientId'
+    | '/appointments/'
     | '/attachments/'
     | '/audit-events/'
     | '/catalogs/'
@@ -301,6 +312,7 @@ export interface FileRouteTypes {
     | '/facilities/service-units'
     | '/facilities/sites'
     | '/patients/$patientId'
+    | '/appointments'
     | '/attachments'
     | '/audit-events'
     | '/catalogs'
@@ -328,6 +340,7 @@ export interface FileRouteTypes {
     | '/_authenticated/facilities/service-units'
     | '/_authenticated/facilities/sites'
     | '/_authenticated/patients/$patientId'
+    | '/_authenticated/appointments/'
     | '/_authenticated/attachments/'
     | '/_authenticated/audit-events/'
     | '/_authenticated/catalogs/'
@@ -462,6 +475,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAttachmentsIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/appointments/': {
+      id: '/_authenticated/appointments/'
+      path: '/appointments'
+      fullPath: '/appointments/'
+      preLoaderRoute: typeof AuthenticatedAppointmentsIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/patients/$patientId': {
       id: '/_authenticated/patients/$patientId'
       path: '/patients/$patientId'
@@ -539,6 +559,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedFacilitiesServiceUnitsRoute: typeof AuthenticatedFacilitiesServiceUnitsRoute
   AuthenticatedFacilitiesSitesRoute: typeof AuthenticatedFacilitiesSitesRoute
   AuthenticatedPatientsPatientIdRoute: typeof AuthenticatedPatientsPatientIdRoute
+  AuthenticatedAppointmentsIndexRoute: typeof AuthenticatedAppointmentsIndexRoute
   AuthenticatedAttachmentsIndexRoute: typeof AuthenticatedAttachmentsIndexRoute
   AuthenticatedAuditEventsIndexRoute: typeof AuthenticatedAuditEventsIndexRoute
   AuthenticatedCatalogsIndexRoute: typeof AuthenticatedCatalogsIndexRoute
@@ -570,6 +591,7 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
     AuthenticatedFacilitiesServiceUnitsRoute,
   AuthenticatedFacilitiesSitesRoute: AuthenticatedFacilitiesSitesRoute,
   AuthenticatedPatientsPatientIdRoute: AuthenticatedPatientsPatientIdRoute,
+  AuthenticatedAppointmentsIndexRoute: AuthenticatedAppointmentsIndexRoute,
   AuthenticatedAttachmentsIndexRoute: AuthenticatedAttachmentsIndexRoute,
   AuthenticatedAuditEventsIndexRoute: AuthenticatedAuditEventsIndexRoute,
   AuthenticatedCatalogsIndexRoute: AuthenticatedCatalogsIndexRoute,
