@@ -1,0 +1,24 @@
+{
+  "name": "@wellfit-emr/auth",
+  "type": "module",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts"
+    },
+    "./*": {
+      "default": "./src/*.ts"
+    }
+  },
+  "scripts": {},
+  "dependencies": {
+    "@wellfit-emr/db": "workspace:*",
+    "@wellfit-emr/env": "workspace:*",
+    "better-auth": "catalog:",
+    "dotenv": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@wellfit-emr/config": "workspace:*",
+    "typescript": "catalog:"
+  }
+}
