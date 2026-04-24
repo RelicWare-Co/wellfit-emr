@@ -1,8 +1,10 @@
 import { createDb } from "@wellfit-emr/db";
+// biome-ignore lint/performance/noNamespaceImport: Better Auth's Drizzle adapter expects the auth schema object.
 import * as schema from "@wellfit-emr/db/schema/auth";
 import { env } from "@wellfit-emr/env/server";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { admin } from "better-auth/plugins/admin";
 
 export function createAuth() {
   const db = createDb();
@@ -11,7 +13,7 @@ export function createAuth() {
     database: drizzleAdapter(db, {
       provider: "sqlite",
 
-      schema: schema,
+      schema,
     }),
     trustedOrigins: [env.CORS_ORIGIN],
     emailAndPassword: {
@@ -26,7 +28,7 @@ export function createAuth() {
         httpOnly: true,
       },
     },
-    plugins: [],
+    plugins: [admin()],
   });
 }
 
