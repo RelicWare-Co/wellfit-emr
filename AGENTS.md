@@ -1,3 +1,82 @@
+# WellFit EMR — Contexto del proyecto
+
+Historia Clínica Electrónica conforme con la normativa colombiana. Diseñada para cumplir con: Ley 23 de 1981, Resolución 1995 de 1999, Ley 2015 de 2020 (HCE interoperable), Resolución 866 de 2021, Resolución 1888 de 2025 (IHCE/RDA), Ley 1581 de 2012 (protección de datos), Decreto 780 de 2016 (habilitación), y regulación de RIPS.
+
+## Stack
+
+- **Monorepo**: Turborepo + Bun
+- **Frontend**: React 19 + Vite + Tanstack Router (file-based) + Tailwind CSS v4
+- **API**: oRPC (similar a tRPC) + Hono + Zod
+- **DB**: SQLite (libsql) + Drizzle ORM
+- **Auth**: Better Auth (email/password, admin plugin)
+- **UI**: Componentes custom basados en `@base-ui/react` (shadcn-like), estilo cuadrado/angular (`rounded-none`)
+
+## Arquitectura de rutas (frontend)
+
+File-based routing con Tanstack Router. Las rutas públicas están en `apps/web/src/routes/`. Las rutas protegidas viven bajo `_authenticated/` y heredan el layout con guard de autenticación (`beforeLoad` que redirige a `/login`).
+
+Patrón de oRPC en este proyecto:
+```tsx
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { orpc } from "@/utils/orpc";
+
+// Query
+const { data } = useQuery(orpc.patients.list.queryOptions({ input: { limit: 25, offset: 0 } }));
+
+// Query con options adicionales
+const { data } = useQuery({ ...orpc.patients.get.queryOptions({ input: { id } }), enabled: !!id });
+
+// Mutation
+const mutation = useMutation({ ...orpc.patients.create.mutationOptions(), onSuccess: () => { ... } });
+```
+
+## Estado de implementación
+
+### Backend routers (oRPC) existentes
+- `patients` — CRUD + list paginado
+- `encounters` — CRUD + list + close
+- `clinicalRecords` — create/list de diagnosis, allergy, observation, procedure
+- `facilities` — organizations, sites, serviceUnits, practitioners
+- `admin` — gestión de usuarios (Better Auth admin plugin)
+- `ripsReference` — catálogos SISPRO (list tables/entries, sync)
+
+### Backend routers PENDIENTES (tablas en DB sin API)
+- `clinical-documents` (clinical_document, clinical_document_version, document_section)
+- `consents` (consent_record, data_disclosure_authorization)
+- `medication-orders` (medication_order, medication_administration)
+- `service-requests` + `diagnostic-reports`
+- `interconsultations`
+- `incapacity-certificates`
+- `attachments` (binary_object, attachment_link)
+- `audit-events`
+- `rips-exports`
+- `ihce-bundles`
+
+### Vistas frontend implementadas
+- `/` — Dashboard
+- `/patients` — Listado, búsqueda, registro
+- `/patients/$patientId` — Detalle, edición, historial de atenciones
+- `/encounters` — Listado, filtros, nueva atención
+- `/encounters/$encounterId` — Detalle con tabs: diagnósticos, alergias, observaciones, procedimientos
+- `/facilities/organizations`, `/sites`, `/service-units`, `/practitioners`
+- `/admin/users` — Gestión de usuarios (maneja error 403/500 sin permisos)
+- `/catalogs`, `/catalogs/$tableName` — Catálogos RIPS
+
+### Vistas frontend PENDIENTES
+- Evolución/nota clínica con documento estructurado, firma y versionado inmutable
+- Consentimiento informado
+- Autorización de divulgación de datos
+- Prescripción (medication_order)
+- Órdenes y resultados (service_request + diagnostic_report)
+- Interconsulta/remisión
+- Incapacidad/certificado
+- Visor documental y anexos
+- Portal del paciente (solicitudes de copia)
+- Auditoría y acceso (bitácora)
+- Panel regulatorio (RIPS, IHCE, firmas pendientes)
+
+---
+
 # Ultracite Code Standards
 
 This project uses **Ultracite**, a zero-config preset that enforces strict code quality standards through automated formatting and linting.
