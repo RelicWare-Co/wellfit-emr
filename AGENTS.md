@@ -61,22 +61,24 @@ _Ninguno. Todos los routers planificados están implementados._
 - `/patients/$patientId` — Detalle, edición, historial de atenciones
 - `/encounters` — Listado, filtros, nueva atención
 - `/encounters/$encounterId` — Detalle con tabs: diagnósticos, alergias, observaciones, procedimientos
+- `/clinical-documents` — Listado y creación de documentos clínicos
+- `/clinical-documents/$documentId` — Detalle con versión actual y secciones
+- `/consents` — Consentimientos informados y autorizaciones de divulgación de datos
+- `/medication-orders` — Prescripciones y administraciones
+- `/service-requests` — Órdenes de servicio y resultados
+- `/interconsultations` — Interconsultas y remisiones
+- `/incapacity-certificates` — Certificados de incapacidad
+- `/attachments` — Anexos y enlaces documentales
+- `/audit-events` — Bitácora de auditoría y acceso
+- `/rips-exports` — Panel regulatorio RIPS
+- `/ihce-bundles` — Bundles IHCE/RDA para interoperabilidad
 - `/facilities/organizations`, `/sites`, `/service-units`, `/practitioners`
 - `/admin/users` — Gestión de usuarios (maneja error 403/500 sin permisos)
 - `/catalogs`, `/catalogs/$tableName` — Catálogos RIPS
 
 ### Vistas frontend PENDIENTES
-- Evolución/nota clínica con documento estructurado, firma y versionado inmutable
-- Consentimiento informado
-- Autorización de divulgación de datos
-- Prescripción (medication_order)
-- Órdenes y resultados (service_request + diagnostic_report)
-- Interconsulta/remisión
-- Incapacidad/certificado
-- Visor documental y anexos
 - Portal del paciente (solicitudes de copia)
-- Auditoría y acceso (bitácora)
-- Panel regulatorio (RIPS, IHCE, firmas pendientes)
+- Firmas pendientes / panel de tareas regulatorias
 
 ---
 

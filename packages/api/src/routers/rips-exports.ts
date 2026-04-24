@@ -39,7 +39,7 @@ const listRipsExportsSchema = z.object({
 });
 
 const listResponseSchema = z.object({
-  items: z.array(z.unknown()),
+  items: z.array(ripsExportSchema),
   limit: z.number(),
   offset: z.number(),
   total: z.number(),

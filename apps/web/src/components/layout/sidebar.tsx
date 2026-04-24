@@ -1,7 +1,6 @@
 import { Link, useLocation } from "@tanstack/react-router";
 import { cn } from "@wellfit-emr/ui/lib/utils";
 import {
-  Activity,
   Building2,
   ChevronLeft,
   ChevronRight,
@@ -39,12 +38,24 @@ const navGroups: { label: string; items: NavItem[] }[] = [
     items: [
       { icon: Users, label: "Pacientes", to: "/patients" },
       { icon: Stethoscope, label: "Atenciones", to: "/encounters" },
-      { icon: ScrollText, label: "Documentos clínicos", to: "/clinical-documents" },
+      {
+        icon: ScrollText,
+        label: "Documentos clínicos",
+        to: "/clinical-documents",
+      },
       { icon: ShieldCheck, label: "Consentimientos", to: "/consents" },
       { icon: Pill, label: "Prescripciones", to: "/medication-orders" },
-      { icon: FlaskConical, label: "Órdenes y resultados", to: "/service-requests" },
+      {
+        icon: FlaskConical,
+        label: "Órdenes y resultados",
+        to: "/service-requests",
+      },
       { icon: Mail, label: "Interconsultas", to: "/interconsultations" },
-      { icon: ClipboardList, label: "Incapacidades", to: "/incapacity-certificates" },
+      {
+        icon: ClipboardList,
+        label: "Incapacidades",
+        to: "/incapacity-certificates",
+      },
     ],
   },
   {

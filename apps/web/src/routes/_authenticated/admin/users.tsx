@@ -16,8 +16,8 @@ import {
 import { Input } from "@wellfit-emr/ui/components/input";
 import { Label } from "@wellfit-emr/ui/components/label";
 import {
-  Ban,
   AlertTriangle,
+  Ban,
   Lock,
   MoreHorizontal,
   Plus,
@@ -199,7 +199,8 @@ function UsersPage() {
             <p className="mt-1 max-w-xs text-muted-foreground text-xs">
               {isForbidden
                 ? "No tienes permisos para administrar usuarios. Contacta a un administrador si crees que esto es un error."
-                : error?.message || "Ocurrio un error inesperado. Intenta de nuevo mas tarde."}
+                : error?.message ||
+                  "Ocurrio un error inesperado. Intenta de nuevo mas tarde."}
             </p>
           </div>
         )}
@@ -283,127 +284,132 @@ function UsersPage() {
 
         {!hasError && (
           <>
-        <div className="mb-4 flex items-center gap-2">
-          <Input
-            className="max-w-xs"
-            onChange={(e) => setSearchValue(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-            placeholder="Buscar por nombre o correo..."
-            value={searchValue}
-          />
-          <Button onClick={handleSearch} size="sm" variant="outline">
-            <Search size={14} />
-          </Button>
-        </div>
+            <div className="mb-4 flex items-center gap-2">
+              <Input
+                className="max-w-xs"
+                onChange={(e) => setSearchValue(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+                placeholder="Buscar por nombre o correo..."
+                value={searchValue}
+              />
+              <Button onClick={handleSearch} size="sm" variant="outline">
+                <Search size={14} />
+              </Button>
+            </div>
 
-        <DataTable
-          columns={[
-            {
-              header: "Nombre",
-              accessor: (row: UserItem) => row.name,
-            },
-            {
-              header: "Correo",
-              accessor: (row: UserItem) => row.email,
-            },
-            {
-              header: "Rol",
-              accessor: (row: UserItem) => (
-                <span className="inline-flex items-center border border-border bg-muted px-1.5 py-0.5 font-medium text-[10px]">
-                  {row.role}
-                </span>
-              ),
-            },
-            {
-              header: "Estado",
-              accessor: (row: UserItem) =>
-                row.banned ? (
-                  <span className="inline-flex items-center border border-red-200 bg-red-50 px-1.5 py-0.5 font-medium text-[10px] text-red-700">
-                    Baneado
-                  </span>
-                ) : (
-                  <span className="inline-flex items-center border border-emerald-200 bg-emerald-50 px-1.5 py-0.5 font-medium text-[10px] text-emerald-700">
-                    Activo
-                  </span>
-                ),
-            },
-            {
-              header: "Creado",
-              accessor: (row: UserItem) =>
-                new Date(row.createdAt).toLocaleDateString("es-CO", {
-                  day: "2-digit",
-                  month: "short",
-                  year: "numeric",
-                }),
-            },
-            {
-              header: "Acciones",
-              accessor: (row: UserItem) => (
-                <DropdownMenu>
-                  <DropdownMenuTrigger
-                    render={
-                      <Button size="icon-xs" variant="ghost">
-                        <MoreHorizontal size={14} />
-                      </Button>
-                    }
-                  />
-                  <DropdownMenuContent align="end">
-                    <DropdownMenuItem
-                      onClick={() =>
-                        setRoleMutation.mutate({
-                          userId: row.id,
-                          role: row.role === "admin" ? "user" : "admin",
-                        })
-                      }
-                    >
-                      Cambiar rol a {row.role === "admin" ? "usuario" : "admin"}
-                    </DropdownMenuItem>
-                    {row.banned ? (
-                      <DropdownMenuItem
-                        onClick={() => unbanMutation.mutate({ userId: row.id })}
-                      >
-                        <UserCheck className="mr-2" size={14} />
-                        Desbanear
-                      </DropdownMenuItem>
+            <DataTable
+              columns={[
+                {
+                  header: "Nombre",
+                  accessor: (row: UserItem) => row.name,
+                },
+                {
+                  header: "Correo",
+                  accessor: (row: UserItem) => row.email,
+                },
+                {
+                  header: "Rol",
+                  accessor: (row: UserItem) => (
+                    <span className="inline-flex items-center border border-border bg-muted px-1.5 py-0.5 font-medium text-[10px]">
+                      {row.role}
+                    </span>
+                  ),
+                },
+                {
+                  header: "Estado",
+                  accessor: (row: UserItem) =>
+                    row.banned ? (
+                      <span className="inline-flex items-center border border-red-200 bg-red-50 px-1.5 py-0.5 font-medium text-[10px] text-red-700">
+                        Baneado
+                      </span>
                     ) : (
-                      <DropdownMenuItem
-                        onClick={() => banMutation.mutate({ userId: row.id })}
-                      >
-                        <Ban className="mr-2" size={14} />
-                        Banear
-                      </DropdownMenuItem>
-                    )}
-                    <DropdownMenuItem
-                      className="text-destructive focus:text-destructive"
-                      onClick={() => {
-                        removeMutation.mutate({ userId: row.id });
-                      }}
-                    >
-                      <Trash2 className="mr-2" size={14} />
-                      Eliminar
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              ),
-              className: "w-16",
-            },
-          ]}
-          data={users}
-          emptyDescription="No se encontraron usuarios."
-          emptyTitle="Sin usuarios"
-          isLoading={isLoading}
-          keyExtractor={(row: UserItem) => row.id}
-          pagination={
-            data
-              ? {
-                  limit: LIMIT,
-                  offset,
-                  total: data.total,
-                  onPageChange: setOffset,
-                }
-              : undefined
-          }
-        />
+                      <span className="inline-flex items-center border border-emerald-200 bg-emerald-50 px-1.5 py-0.5 font-medium text-[10px] text-emerald-700">
+                        Activo
+                      </span>
+                    ),
+                },
+                {
+                  header: "Creado",
+                  accessor: (row: UserItem) =>
+                    new Date(row.createdAt).toLocaleDateString("es-CO", {
+                      day: "2-digit",
+                      month: "short",
+                      year: "numeric",
+                    }),
+                },
+                {
+                  header: "Acciones",
+                  accessor: (row: UserItem) => (
+                    <DropdownMenu>
+                      <DropdownMenuTrigger
+                        render={
+                          <Button size="icon-xs" variant="ghost">
+                            <MoreHorizontal size={14} />
+                          </Button>
+                        }
+                      />
+                      <DropdownMenuContent align="end">
+                        <DropdownMenuItem
+                          onClick={() =>
+                            setRoleMutation.mutate({
+                              userId: row.id,
+                              role: row.role === "admin" ? "user" : "admin",
+                            })
+                          }
+                        >
+                          Cambiar rol a{" "}
+                          {row.role === "admin" ? "usuario" : "admin"}
+                        </DropdownMenuItem>
+                        {row.banned ? (
+                          <DropdownMenuItem
+                            onClick={() =>
+                              unbanMutation.mutate({ userId: row.id })
+                            }
+                          >
+                            <UserCheck className="mr-2" size={14} />
+                            Desbanear
+                          </DropdownMenuItem>
+                        ) : (
+                          <DropdownMenuItem
+                            onClick={() =>
+                              banMutation.mutate({ userId: row.id })
+                            }
+                          >
+                            <Ban className="mr-2" size={14} />
+                            Banear
+                          </DropdownMenuItem>
+                        )}
+                        <DropdownMenuItem
+                          className="text-destructive focus:text-destructive"
+                          onClick={() => {
+                            removeMutation.mutate({ userId: row.id });
+                          }}
+                        >
+                          <Trash2 className="mr-2" size={14} />
+                          Eliminar
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  ),
+                  className: "w-16",
+                },
+              ]}
+              data={users}
+              emptyDescription="No se encontraron usuarios."
+              emptyTitle="Sin usuarios"
+              isLoading={isLoading}
+              keyExtractor={(row: UserItem) => row.id}
+              pagination={
+                data
+                  ? {
+                      limit: LIMIT,
+                      offset,
+                      total: data.total,
+                      onPageChange: setOffset,
+                    }
+                  : undefined
+              }
+            />
           </>
         )}
       </div>

@@ -12,15 +12,26 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
+import { Route as AuthenticatedServiceRequestsIndexRouteImport } from './routes/_authenticated/service-requests/index'
+import { Route as AuthenticatedRipsExportsIndexRouteImport } from './routes/_authenticated/rips-exports/index'
 import { Route as AuthenticatedPatientsIndexRouteImport } from './routes/_authenticated/patients/index'
+import { Route as AuthenticatedMedicationOrdersIndexRouteImport } from './routes/_authenticated/medication-orders/index'
+import { Route as AuthenticatedInterconsultationsIndexRouteImport } from './routes/_authenticated/interconsultations/index'
+import { Route as AuthenticatedIncapacityCertificatesIndexRouteImport } from './routes/_authenticated/incapacity-certificates/index'
+import { Route as AuthenticatedIhceBundlesIndexRouteImport } from './routes/_authenticated/ihce-bundles/index'
 import { Route as AuthenticatedEncountersIndexRouteImport } from './routes/_authenticated/encounters/index'
+import { Route as AuthenticatedConsentsIndexRouteImport } from './routes/_authenticated/consents/index'
+import { Route as AuthenticatedClinicalDocumentsIndexRouteImport } from './routes/_authenticated/clinical-documents/index'
 import { Route as AuthenticatedCatalogsIndexRouteImport } from './routes/_authenticated/catalogs/index'
+import { Route as AuthenticatedAuditEventsIndexRouteImport } from './routes/_authenticated/audit-events/index'
+import { Route as AuthenticatedAttachmentsIndexRouteImport } from './routes/_authenticated/attachments/index'
 import { Route as AuthenticatedPatientsPatientIdRouteImport } from './routes/_authenticated/patients/$patientId'
 import { Route as AuthenticatedFacilitiesSitesRouteImport } from './routes/_authenticated/facilities/sites'
 import { Route as AuthenticatedFacilitiesServiceUnitsRouteImport } from './routes/_authenticated/facilities/service-units'
 import { Route as AuthenticatedFacilitiesPractitionersRouteImport } from './routes/_authenticated/facilities/practitioners'
 import { Route as AuthenticatedFacilitiesOrganizationsRouteImport } from './routes/_authenticated/facilities/organizations'
 import { Route as AuthenticatedEncountersEncounterIdRouteImport } from './routes/_authenticated/encounters/$encounterId'
+import { Route as AuthenticatedClinicalDocumentsDocumentIdRouteImport } from './routes/_authenticated/clinical-documents/$documentId'
 import { Route as AuthenticatedCatalogsTableNameRouteImport } from './routes/_authenticated/catalogs/$tableName'
 import { Route as AuthenticatedAdminUsersRouteImport } from './routes/_authenticated/admin/users'
 
@@ -38,10 +49,46 @@ const AuthenticatedIndexRoute = AuthenticatedIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
+const AuthenticatedServiceRequestsIndexRoute =
+  AuthenticatedServiceRequestsIndexRouteImport.update({
+    id: '/service-requests/',
+    path: '/service-requests/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedRipsExportsIndexRoute =
+  AuthenticatedRipsExportsIndexRouteImport.update({
+    id: '/rips-exports/',
+    path: '/rips-exports/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const AuthenticatedPatientsIndexRoute =
   AuthenticatedPatientsIndexRouteImport.update({
     id: '/patients/',
     path: '/patients/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedMedicationOrdersIndexRoute =
+  AuthenticatedMedicationOrdersIndexRouteImport.update({
+    id: '/medication-orders/',
+    path: '/medication-orders/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedInterconsultationsIndexRoute =
+  AuthenticatedInterconsultationsIndexRouteImport.update({
+    id: '/interconsultations/',
+    path: '/interconsultations/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedIncapacityCertificatesIndexRoute =
+  AuthenticatedIncapacityCertificatesIndexRouteImport.update({
+    id: '/incapacity-certificates/',
+    path: '/incapacity-certificates/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedIhceBundlesIndexRoute =
+  AuthenticatedIhceBundlesIndexRouteImport.update({
+    id: '/ihce-bundles/',
+    path: '/ihce-bundles/',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
 const AuthenticatedEncountersIndexRoute =
@@ -50,10 +97,34 @@ const AuthenticatedEncountersIndexRoute =
     path: '/encounters/',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
+const AuthenticatedConsentsIndexRoute =
+  AuthenticatedConsentsIndexRouteImport.update({
+    id: '/consents/',
+    path: '/consents/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedClinicalDocumentsIndexRoute =
+  AuthenticatedClinicalDocumentsIndexRouteImport.update({
+    id: '/clinical-documents/',
+    path: '/clinical-documents/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const AuthenticatedCatalogsIndexRoute =
   AuthenticatedCatalogsIndexRouteImport.update({
     id: '/catalogs/',
     path: '/catalogs/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedAuditEventsIndexRoute =
+  AuthenticatedAuditEventsIndexRouteImport.update({
+    id: '/audit-events/',
+    path: '/audit-events/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedAttachmentsIndexRoute =
+  AuthenticatedAttachmentsIndexRouteImport.update({
+    id: '/attachments/',
+    path: '/attachments/',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
 const AuthenticatedPatientsPatientIdRoute =
@@ -92,6 +163,12 @@ const AuthenticatedEncountersEncounterIdRoute =
     path: '/encounters/$encounterId',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
+const AuthenticatedClinicalDocumentsDocumentIdRoute =
+  AuthenticatedClinicalDocumentsDocumentIdRouteImport.update({
+    id: '/clinical-documents/$documentId',
+    path: '/clinical-documents/$documentId',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const AuthenticatedCatalogsTableNameRoute =
   AuthenticatedCatalogsTableNameRouteImport.update({
     id: '/catalogs/$tableName',
@@ -109,30 +186,52 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/admin/users': typeof AuthenticatedAdminUsersRoute
   '/catalogs/$tableName': typeof AuthenticatedCatalogsTableNameRoute
+  '/clinical-documents/$documentId': typeof AuthenticatedClinicalDocumentsDocumentIdRoute
   '/encounters/$encounterId': typeof AuthenticatedEncountersEncounterIdRoute
   '/facilities/organizations': typeof AuthenticatedFacilitiesOrganizationsRoute
   '/facilities/practitioners': typeof AuthenticatedFacilitiesPractitionersRoute
   '/facilities/service-units': typeof AuthenticatedFacilitiesServiceUnitsRoute
   '/facilities/sites': typeof AuthenticatedFacilitiesSitesRoute
   '/patients/$patientId': typeof AuthenticatedPatientsPatientIdRoute
+  '/attachments/': typeof AuthenticatedAttachmentsIndexRoute
+  '/audit-events/': typeof AuthenticatedAuditEventsIndexRoute
   '/catalogs/': typeof AuthenticatedCatalogsIndexRoute
+  '/clinical-documents/': typeof AuthenticatedClinicalDocumentsIndexRoute
+  '/consents/': typeof AuthenticatedConsentsIndexRoute
   '/encounters/': typeof AuthenticatedEncountersIndexRoute
+  '/ihce-bundles/': typeof AuthenticatedIhceBundlesIndexRoute
+  '/incapacity-certificates/': typeof AuthenticatedIncapacityCertificatesIndexRoute
+  '/interconsultations/': typeof AuthenticatedInterconsultationsIndexRoute
+  '/medication-orders/': typeof AuthenticatedMedicationOrdersIndexRoute
   '/patients/': typeof AuthenticatedPatientsIndexRoute
+  '/rips-exports/': typeof AuthenticatedRipsExportsIndexRoute
+  '/service-requests/': typeof AuthenticatedServiceRequestsIndexRoute
 }
 export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/': typeof AuthenticatedIndexRoute
   '/admin/users': typeof AuthenticatedAdminUsersRoute
   '/catalogs/$tableName': typeof AuthenticatedCatalogsTableNameRoute
+  '/clinical-documents/$documentId': typeof AuthenticatedClinicalDocumentsDocumentIdRoute
   '/encounters/$encounterId': typeof AuthenticatedEncountersEncounterIdRoute
   '/facilities/organizations': typeof AuthenticatedFacilitiesOrganizationsRoute
   '/facilities/practitioners': typeof AuthenticatedFacilitiesPractitionersRoute
   '/facilities/service-units': typeof AuthenticatedFacilitiesServiceUnitsRoute
   '/facilities/sites': typeof AuthenticatedFacilitiesSitesRoute
   '/patients/$patientId': typeof AuthenticatedPatientsPatientIdRoute
+  '/attachments': typeof AuthenticatedAttachmentsIndexRoute
+  '/audit-events': typeof AuthenticatedAuditEventsIndexRoute
   '/catalogs': typeof AuthenticatedCatalogsIndexRoute
+  '/clinical-documents': typeof AuthenticatedClinicalDocumentsIndexRoute
+  '/consents': typeof AuthenticatedConsentsIndexRoute
   '/encounters': typeof AuthenticatedEncountersIndexRoute
+  '/ihce-bundles': typeof AuthenticatedIhceBundlesIndexRoute
+  '/incapacity-certificates': typeof AuthenticatedIncapacityCertificatesIndexRoute
+  '/interconsultations': typeof AuthenticatedInterconsultationsIndexRoute
+  '/medication-orders': typeof AuthenticatedMedicationOrdersIndexRoute
   '/patients': typeof AuthenticatedPatientsIndexRoute
+  '/rips-exports': typeof AuthenticatedRipsExportsIndexRoute
+  '/service-requests': typeof AuthenticatedServiceRequestsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -141,15 +240,26 @@ export interface FileRoutesById {
   '/_authenticated/': typeof AuthenticatedIndexRoute
   '/_authenticated/admin/users': typeof AuthenticatedAdminUsersRoute
   '/_authenticated/catalogs/$tableName': typeof AuthenticatedCatalogsTableNameRoute
+  '/_authenticated/clinical-documents/$documentId': typeof AuthenticatedClinicalDocumentsDocumentIdRoute
   '/_authenticated/encounters/$encounterId': typeof AuthenticatedEncountersEncounterIdRoute
   '/_authenticated/facilities/organizations': typeof AuthenticatedFacilitiesOrganizationsRoute
   '/_authenticated/facilities/practitioners': typeof AuthenticatedFacilitiesPractitionersRoute
   '/_authenticated/facilities/service-units': typeof AuthenticatedFacilitiesServiceUnitsRoute
   '/_authenticated/facilities/sites': typeof AuthenticatedFacilitiesSitesRoute
   '/_authenticated/patients/$patientId': typeof AuthenticatedPatientsPatientIdRoute
+  '/_authenticated/attachments/': typeof AuthenticatedAttachmentsIndexRoute
+  '/_authenticated/audit-events/': typeof AuthenticatedAuditEventsIndexRoute
   '/_authenticated/catalogs/': typeof AuthenticatedCatalogsIndexRoute
+  '/_authenticated/clinical-documents/': typeof AuthenticatedClinicalDocumentsIndexRoute
+  '/_authenticated/consents/': typeof AuthenticatedConsentsIndexRoute
   '/_authenticated/encounters/': typeof AuthenticatedEncountersIndexRoute
+  '/_authenticated/ihce-bundles/': typeof AuthenticatedIhceBundlesIndexRoute
+  '/_authenticated/incapacity-certificates/': typeof AuthenticatedIncapacityCertificatesIndexRoute
+  '/_authenticated/interconsultations/': typeof AuthenticatedInterconsultationsIndexRoute
+  '/_authenticated/medication-orders/': typeof AuthenticatedMedicationOrdersIndexRoute
   '/_authenticated/patients/': typeof AuthenticatedPatientsIndexRoute
+  '/_authenticated/rips-exports/': typeof AuthenticatedRipsExportsIndexRoute
+  '/_authenticated/service-requests/': typeof AuthenticatedServiceRequestsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -158,30 +268,52 @@ export interface FileRouteTypes {
     | '/login'
     | '/admin/users'
     | '/catalogs/$tableName'
+    | '/clinical-documents/$documentId'
     | '/encounters/$encounterId'
     | '/facilities/organizations'
     | '/facilities/practitioners'
     | '/facilities/service-units'
     | '/facilities/sites'
     | '/patients/$patientId'
+    | '/attachments/'
+    | '/audit-events/'
     | '/catalogs/'
+    | '/clinical-documents/'
+    | '/consents/'
     | '/encounters/'
+    | '/ihce-bundles/'
+    | '/incapacity-certificates/'
+    | '/interconsultations/'
+    | '/medication-orders/'
     | '/patients/'
+    | '/rips-exports/'
+    | '/service-requests/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/login'
     | '/'
     | '/admin/users'
     | '/catalogs/$tableName'
+    | '/clinical-documents/$documentId'
     | '/encounters/$encounterId'
     | '/facilities/organizations'
     | '/facilities/practitioners'
     | '/facilities/service-units'
     | '/facilities/sites'
     | '/patients/$patientId'
+    | '/attachments'
+    | '/audit-events'
     | '/catalogs'
+    | '/clinical-documents'
+    | '/consents'
     | '/encounters'
+    | '/ihce-bundles'
+    | '/incapacity-certificates'
+    | '/interconsultations'
+    | '/medication-orders'
     | '/patients'
+    | '/rips-exports'
+    | '/service-requests'
   id:
     | '__root__'
     | '/_authenticated'
@@ -189,15 +321,26 @@ export interface FileRouteTypes {
     | '/_authenticated/'
     | '/_authenticated/admin/users'
     | '/_authenticated/catalogs/$tableName'
+    | '/_authenticated/clinical-documents/$documentId'
     | '/_authenticated/encounters/$encounterId'
     | '/_authenticated/facilities/organizations'
     | '/_authenticated/facilities/practitioners'
     | '/_authenticated/facilities/service-units'
     | '/_authenticated/facilities/sites'
     | '/_authenticated/patients/$patientId'
+    | '/_authenticated/attachments/'
+    | '/_authenticated/audit-events/'
     | '/_authenticated/catalogs/'
+    | '/_authenticated/clinical-documents/'
+    | '/_authenticated/consents/'
     | '/_authenticated/encounters/'
+    | '/_authenticated/ihce-bundles/'
+    | '/_authenticated/incapacity-certificates/'
+    | '/_authenticated/interconsultations/'
+    | '/_authenticated/medication-orders/'
     | '/_authenticated/patients/'
+    | '/_authenticated/rips-exports/'
+    | '/_authenticated/service-requests/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -228,11 +371,53 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/service-requests/': {
+      id: '/_authenticated/service-requests/'
+      path: '/service-requests'
+      fullPath: '/service-requests/'
+      preLoaderRoute: typeof AuthenticatedServiceRequestsIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/rips-exports/': {
+      id: '/_authenticated/rips-exports/'
+      path: '/rips-exports'
+      fullPath: '/rips-exports/'
+      preLoaderRoute: typeof AuthenticatedRipsExportsIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/patients/': {
       id: '/_authenticated/patients/'
       path: '/patients'
       fullPath: '/patients/'
       preLoaderRoute: typeof AuthenticatedPatientsIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/medication-orders/': {
+      id: '/_authenticated/medication-orders/'
+      path: '/medication-orders'
+      fullPath: '/medication-orders/'
+      preLoaderRoute: typeof AuthenticatedMedicationOrdersIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/interconsultations/': {
+      id: '/_authenticated/interconsultations/'
+      path: '/interconsultations'
+      fullPath: '/interconsultations/'
+      preLoaderRoute: typeof AuthenticatedInterconsultationsIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/incapacity-certificates/': {
+      id: '/_authenticated/incapacity-certificates/'
+      path: '/incapacity-certificates'
+      fullPath: '/incapacity-certificates/'
+      preLoaderRoute: typeof AuthenticatedIncapacityCertificatesIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/ihce-bundles/': {
+      id: '/_authenticated/ihce-bundles/'
+      path: '/ihce-bundles'
+      fullPath: '/ihce-bundles/'
+      preLoaderRoute: typeof AuthenticatedIhceBundlesIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/encounters/': {
@@ -242,11 +427,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedEncountersIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/consents/': {
+      id: '/_authenticated/consents/'
+      path: '/consents'
+      fullPath: '/consents/'
+      preLoaderRoute: typeof AuthenticatedConsentsIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/clinical-documents/': {
+      id: '/_authenticated/clinical-documents/'
+      path: '/clinical-documents'
+      fullPath: '/clinical-documents/'
+      preLoaderRoute: typeof AuthenticatedClinicalDocumentsIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/catalogs/': {
       id: '/_authenticated/catalogs/'
       path: '/catalogs'
       fullPath: '/catalogs/'
       preLoaderRoute: typeof AuthenticatedCatalogsIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/audit-events/': {
+      id: '/_authenticated/audit-events/'
+      path: '/audit-events'
+      fullPath: '/audit-events/'
+      preLoaderRoute: typeof AuthenticatedAuditEventsIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/attachments/': {
+      id: '/_authenticated/attachments/'
+      path: '/attachments'
+      fullPath: '/attachments/'
+      preLoaderRoute: typeof AuthenticatedAttachmentsIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/patients/$patientId': {
@@ -291,6 +504,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedEncountersEncounterIdRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/clinical-documents/$documentId': {
+      id: '/_authenticated/clinical-documents/$documentId'
+      path: '/clinical-documents/$documentId'
+      fullPath: '/clinical-documents/$documentId'
+      preLoaderRoute: typeof AuthenticatedClinicalDocumentsDocumentIdRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/catalogs/$tableName': {
       id: '/_authenticated/catalogs/$tableName'
       path: '/catalogs/$tableName'
@@ -312,21 +532,34 @@ interface AuthenticatedRouteChildren {
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
   AuthenticatedAdminUsersRoute: typeof AuthenticatedAdminUsersRoute
   AuthenticatedCatalogsTableNameRoute: typeof AuthenticatedCatalogsTableNameRoute
+  AuthenticatedClinicalDocumentsDocumentIdRoute: typeof AuthenticatedClinicalDocumentsDocumentIdRoute
   AuthenticatedEncountersEncounterIdRoute: typeof AuthenticatedEncountersEncounterIdRoute
   AuthenticatedFacilitiesOrganizationsRoute: typeof AuthenticatedFacilitiesOrganizationsRoute
   AuthenticatedFacilitiesPractitionersRoute: typeof AuthenticatedFacilitiesPractitionersRoute
   AuthenticatedFacilitiesServiceUnitsRoute: typeof AuthenticatedFacilitiesServiceUnitsRoute
   AuthenticatedFacilitiesSitesRoute: typeof AuthenticatedFacilitiesSitesRoute
   AuthenticatedPatientsPatientIdRoute: typeof AuthenticatedPatientsPatientIdRoute
+  AuthenticatedAttachmentsIndexRoute: typeof AuthenticatedAttachmentsIndexRoute
+  AuthenticatedAuditEventsIndexRoute: typeof AuthenticatedAuditEventsIndexRoute
   AuthenticatedCatalogsIndexRoute: typeof AuthenticatedCatalogsIndexRoute
+  AuthenticatedClinicalDocumentsIndexRoute: typeof AuthenticatedClinicalDocumentsIndexRoute
+  AuthenticatedConsentsIndexRoute: typeof AuthenticatedConsentsIndexRoute
   AuthenticatedEncountersIndexRoute: typeof AuthenticatedEncountersIndexRoute
+  AuthenticatedIhceBundlesIndexRoute: typeof AuthenticatedIhceBundlesIndexRoute
+  AuthenticatedIncapacityCertificatesIndexRoute: typeof AuthenticatedIncapacityCertificatesIndexRoute
+  AuthenticatedInterconsultationsIndexRoute: typeof AuthenticatedInterconsultationsIndexRoute
+  AuthenticatedMedicationOrdersIndexRoute: typeof AuthenticatedMedicationOrdersIndexRoute
   AuthenticatedPatientsIndexRoute: typeof AuthenticatedPatientsIndexRoute
+  AuthenticatedRipsExportsIndexRoute: typeof AuthenticatedRipsExportsIndexRoute
+  AuthenticatedServiceRequestsIndexRoute: typeof AuthenticatedServiceRequestsIndexRoute
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
   AuthenticatedAdminUsersRoute: AuthenticatedAdminUsersRoute,
   AuthenticatedCatalogsTableNameRoute: AuthenticatedCatalogsTableNameRoute,
+  AuthenticatedClinicalDocumentsDocumentIdRoute:
+    AuthenticatedClinicalDocumentsDocumentIdRoute,
   AuthenticatedEncountersEncounterIdRoute:
     AuthenticatedEncountersEncounterIdRoute,
   AuthenticatedFacilitiesOrganizationsRoute:
@@ -337,9 +570,24 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
     AuthenticatedFacilitiesServiceUnitsRoute,
   AuthenticatedFacilitiesSitesRoute: AuthenticatedFacilitiesSitesRoute,
   AuthenticatedPatientsPatientIdRoute: AuthenticatedPatientsPatientIdRoute,
+  AuthenticatedAttachmentsIndexRoute: AuthenticatedAttachmentsIndexRoute,
+  AuthenticatedAuditEventsIndexRoute: AuthenticatedAuditEventsIndexRoute,
   AuthenticatedCatalogsIndexRoute: AuthenticatedCatalogsIndexRoute,
+  AuthenticatedClinicalDocumentsIndexRoute:
+    AuthenticatedClinicalDocumentsIndexRoute,
+  AuthenticatedConsentsIndexRoute: AuthenticatedConsentsIndexRoute,
   AuthenticatedEncountersIndexRoute: AuthenticatedEncountersIndexRoute,
+  AuthenticatedIhceBundlesIndexRoute: AuthenticatedIhceBundlesIndexRoute,
+  AuthenticatedIncapacityCertificatesIndexRoute:
+    AuthenticatedIncapacityCertificatesIndexRoute,
+  AuthenticatedInterconsultationsIndexRoute:
+    AuthenticatedInterconsultationsIndexRoute,
+  AuthenticatedMedicationOrdersIndexRoute:
+    AuthenticatedMedicationOrdersIndexRoute,
   AuthenticatedPatientsIndexRoute: AuthenticatedPatientsIndexRoute,
+  AuthenticatedRipsExportsIndexRoute: AuthenticatedRipsExportsIndexRoute,
+  AuthenticatedServiceRequestsIndexRoute:
+    AuthenticatedServiceRequestsIndexRoute,
 }
 
 const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(

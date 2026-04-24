@@ -87,8 +87,15 @@ const revokeDataDisclosureSchema = z.object({
   revokedAt: z.coerce.date(),
 });
 
-const listResponseSchema = z.object({
-  items: z.array(z.unknown()),
+const listConsentsResponseSchema = z.object({
+  items: z.array(consentSchema),
+  limit: z.number(),
+  offset: z.number(),
+  total: z.number(),
+});
+
+const listDataDisclosuresResponseSchema = z.object({
+  items: z.array(dataDisclosureSchema),
   limit: z.number(),
   offset: z.number(),
   total: z.number(),
@@ -117,7 +124,7 @@ const createConsentProcedure = protectedProcedure
 
 const listConsentsProcedure = protectedProcedure
   .input(listConsentsSchema)
-  .output(listResponseSchema)
+  .output(listConsentsResponseSchema)
   .handler(async ({ context, input }) => {
     const where = eq(consentRecord.patientId, input.patientId);
     const orderBy =
@@ -180,7 +187,7 @@ const createDataDisclosureProcedure = protectedProcedure
 
 const listDataDisclosuresProcedure = protectedProcedure
   .input(listDataDisclosuresSchema)
-  .output(listResponseSchema)
+  .output(listDataDisclosuresResponseSchema)
   .handler(async ({ context, input }) => {
     const where = eq(dataDisclosureAuthorization.patientId, input.patientId);
     const orderBy =

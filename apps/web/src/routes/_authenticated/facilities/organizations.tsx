@@ -17,7 +17,9 @@ import { PageHeader } from "@/components/page-header";
 import { authClient } from "@/lib/auth-client";
 import { orpc } from "@/utils/orpc";
 
-export const Route = createFileRoute("/_authenticated/facilities/organizations")({
+export const Route = createFileRoute(
+  "/_authenticated/facilities/organizations"
+)({
   component: OrganizationsPage,
   beforeLoad: async () => {
     const session = await authClient.getSession();

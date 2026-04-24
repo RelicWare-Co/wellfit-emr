@@ -91,8 +91,15 @@ const listAdministrationsSchema = z.object({
   sortDirection: z.enum(["asc", "desc"]).default("asc"),
 });
 
-const listResponseSchema = z.object({
-  items: z.array(z.unknown()),
+const listMedicationOrdersResponseSchema = z.object({
+  items: z.array(medicationOrderSchema),
+  limit: z.number(),
+  offset: z.number(),
+  total: z.number(),
+});
+
+const listAdministrationsResponseSchema = z.object({
+  items: z.array(medicationAdministrationSchema),
   limit: z.number(),
   offset: z.number(),
   total: z.number(),
@@ -121,7 +128,7 @@ const createMedicationOrderProcedure = protectedProcedure
 
 const listMedicationOrdersProcedure = protectedProcedure
   .input(listMedicationOrdersSchema)
-  .output(listResponseSchema)
+  .output(listMedicationOrdersResponseSchema)
   .handler(async ({ context, input }) => {
     const filters = [
       input.patientId
@@ -174,7 +181,7 @@ const createAdministrationProcedure = protectedProcedure
 
 const listAdministrationsProcedure = protectedProcedure
   .input(listAdministrationsSchema)
-  .output(listResponseSchema)
+  .output(listAdministrationsResponseSchema)
   .handler(async ({ context, input }) => {
     const where = eq(
       medicationAdministration.medicationOrderId,

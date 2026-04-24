@@ -25,9 +25,11 @@ import { DataTable } from "@/components/data-table";
 import { PageHeader } from "@/components/page-header";
 import { orpc } from "@/utils/orpc";
 
-export const Route = createFileRoute("/_authenticated/encounters/$encounterId")({
-  component: EncounterDetailPage,
-});
+export const Route = createFileRoute("/_authenticated/encounters/$encounterId")(
+  {
+    component: EncounterDetailPage,
+  }
+);
 
 const TABS = [
   { id: "diagnoses", label: "Diagnósticos", icon: Activity },
@@ -37,7 +39,9 @@ const TABS = [
 ];
 
 function EncounterDetailPage() {
-  const { encounterId } = useParams({ from: "/_authenticated/encounters/$encounterId" });
+  const { encounterId } = useParams({
+    from: "/_authenticated/encounters/$encounterId",
+  });
   const [activeTab, setActiveTab] = useState("diagnoses");
 
   const { data: encounter, isLoading: encounterLoading } = useQuery(

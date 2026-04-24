@@ -56,7 +56,7 @@ const listAttachmentLinksSchema = z.object({
 });
 
 const listResponseSchema = z.object({
-  items: z.array(z.unknown()),
+  items: z.array(attachmentLinkSchema),
   limit: z.number(),
   offset: z.number(),
   total: z.number(),

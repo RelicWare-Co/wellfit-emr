@@ -13,29 +13,27 @@
  *   node live-inject.mjs --check       # Check whether config.json exists
  */
 
-import fs from 'node:fs';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const CONFIG_PATH = process.env.IMPECCABLE_LIVE_CONFIG || path.join(__dirname, 'config.json');
-const MARKER_OPEN_TEXT = 'impeccable-live-start';
-const MARKER_CLOSE_TEXT = 'impeccable-live-end';
+const CONFIG_PATH =
+  process.env.IMPECCABLE_LIVE_CONFIG || path.join(__dirname, "config.json");
+const MARKER_OPEN_TEXT = "impeccable-live-start";
+const MARKER_CLOSE_TEXT = "impeccable-live-end";
 
 /**
  * Hard-excluded directory patterns. These are NEVER user-facing pages and
  * matching them would silently inject tracking scripts into third-party
  * code. The user cannot turn these off via config — they are the floor.
  */
-const HARD_EXCLUDES = [
-  '**/node_modules/**',
-  '**/.git/**',
-];
+const HARD_EXCLUDES = ["**/node_modules/**", "**/.git/**"];
 
 export async function injectCli() {
   const args = process.argv.slice(2);
 
-  if (args.includes('--help') || args.includes('-h')) {
+  if (args.includes("--help") || args.includes("-h")) {
     console.log(`Usage: node live-inject.mjs [options]
 
 Insert or remove the live mode script tag in the project's HTML entry point.
@@ -51,22 +49,42 @@ Output (JSON):
     process.exit(0);
   }
 
-  if (args.includes('--check')) {
+  if (args.includes("--check")) {
     if (!fs.existsSync(CONFIG_PATH)) {
-      console.log(JSON.stringify({ ok: false, error: 'config_missing', path: CONFIG_PATH }));
+      console.log(
+        JSON.stringify({
+          ok: false,
+          error: "config_missing",
+          path: CONFIG_PATH,
+        })
+      );
       process.exit(0);
     }
     let cfg;
     try {
-      cfg = JSON.parse(fs.readFileSync(CONFIG_PATH, 'utf-8'));
+      cfg = JSON.parse(fs.readFileSync(CONFIG_PATH, "utf-8"));
     } catch (err) {
-      console.log(JSON.stringify({ ok: false, error: 'config_invalid', message: err.message, path: CONFIG_PATH }));
+      console.log(
+        JSON.stringify({
+          ok: false,
+          error: "config_invalid",
+          message: err.message,
+          path: CONFIG_PATH,
+        })
+      );
       return;
     }
     try {
       validateConfig(cfg);
     } catch (err) {
-      console.log(JSON.stringify({ ok: false, error: 'config_invalid', message: err.message, path: CONFIG_PATH }));
+      console.log(
+        JSON.stringify({
+          ok: false,
+          error: "config_invalid",
+          message: err.message,
+          path: CONFIG_PATH,
+        })
+      );
       return;
     }
     console.log(JSON.stringify({ ok: true, config: cfg, path: CONFIG_PATH }));
@@ -75,22 +93,28 @@ Output (JSON):
 
   // Load config
   if (!fs.existsSync(CONFIG_PATH)) {
-    console.error(JSON.stringify({ ok: false, error: 'config_missing', path: CONFIG_PATH }));
+    console.error(
+      JSON.stringify({ ok: false, error: "config_missing", path: CONFIG_PATH })
+    );
     process.exit(1);
   }
-  const config = JSON.parse(fs.readFileSync(CONFIG_PATH, 'utf-8'));
+  const config = JSON.parse(fs.readFileSync(CONFIG_PATH, "utf-8"));
   validateConfig(config);
 
   const resolvedFiles = resolveFiles(process.cwd(), config);
 
-  if (args.includes('--remove')) {
+  if (args.includes("--remove")) {
     const results = resolvedFiles.map((relFile) => {
       const absFile = path.resolve(process.cwd(), relFile);
-      if (!fs.existsSync(absFile)) return { file: relFile, error: 'file_not_found' };
-      const content = fs.readFileSync(absFile, 'utf-8');
+      if (!fs.existsSync(absFile)) {
+        return { file: relFile, error: "file_not_found" };
+      }
+      const content = fs.readFileSync(absFile, "utf-8");
       const updated = removeTag(content, config.commentSyntax);
-      if (updated === content) return { file: relFile, removed: false, note: 'no tag present' };
-      fs.writeFileSync(absFile, updated, 'utf-8');
+      if (updated === content) {
+        return { file: relFile, removed: false, note: "no tag present" };
+      }
+      fs.writeFileSync(absFile, updated, "utf-8");
       return { file: relFile, removed: true };
     });
     console.log(JSON.stringify({ ok: true, results }));
@@ -98,26 +122,37 @@ Output (JSON):
   }
 
   // Insert mode — need --port
-  const portIdx = args.indexOf('--port');
-  const port = portIdx !== -1 ? parseInt(args[portIdx + 1], 10) : NaN;
+  const portIdx = args.indexOf("--port");
+  const port =
+    portIdx === -1 ? Number.NaN : Number.parseInt(args[portIdx + 1], 10);
   if (!Number.isFinite(port)) {
-    console.error(JSON.stringify({ ok: false, error: 'missing_port' }));
+    console.error(JSON.stringify({ ok: false, error: "missing_port" }));
     process.exit(1);
   }
 
   const results = resolvedFiles.map((relFile) => {
     const absFile = path.resolve(process.cwd(), relFile);
-    if (!fs.existsSync(absFile)) return { file: relFile, error: 'file_not_found' };
-    const content = fs.readFileSync(absFile, 'utf-8');
+    if (!fs.existsSync(absFile)) {
+      return { file: relFile, error: "file_not_found" };
+    }
+    const content = fs.readFileSync(absFile, "utf-8");
     const withoutOld = removeTag(content, config.commentSyntax);
     const updated = insertTag(withoutOld, config, port);
-    if (updated === withoutOld) return { file: relFile, error: 'insertion_point_not_found', anchor: config.insertBefore || config.insertAfter };
-    fs.writeFileSync(absFile, updated, 'utf-8');
+    if (updated === withoutOld) {
+      return {
+        file: relFile,
+        error: "insertion_point_not_found",
+        anchor: config.insertBefore || config.insertAfter,
+      };
+    }
+    fs.writeFileSync(absFile, updated, "utf-8");
     return { file: relFile, inserted: true };
   });
   const anyInserted = results.some((r) => r.inserted);
   console.log(JSON.stringify({ ok: anyInserted, port, results }));
-  if (!anyInserted) process.exit(1);
+  if (!anyInserted) {
+    process.exit(1);
+  }
 }
 
 /**
@@ -156,11 +191,17 @@ export function resolveFiles(rootDir, config) {
       continue;
     }
     for (const ent of matches) {
-      if (!ent.isFile || !ent.isFile()) continue;
+      if (!(ent.isFile && ent.isFile())) {
+        continue;
+      }
       const abs = path.join(ent.parentPath || ent.path || rootDir, ent.name);
-      const rel = path.relative(rootDir, abs).split(path.sep).join('/');
-      if (isExcluded(rel)) continue;
-      if (seen.has(rel)) continue;
+      const rel = path.relative(rootDir, abs).split(path.sep).join("/");
+      if (isExcluded(rel)) {
+        continue;
+      }
+      if (seen.has(rel)) {
+        continue;
+      }
       seen.add(rel);
       out.push(rel);
     }
@@ -176,37 +217,37 @@ export function resolveFiles(rootDir, config) {
  * Paths are normalized to forward slashes before matching.
  */
 function globToRegex(pattern) {
-  let re = '';
+  let re = "";
   let i = 0;
   while (i < pattern.length) {
     const c = pattern[i];
-    if (c === '*') {
-      if (pattern[i + 1] === '*') {
+    if (c === "*") {
+      if (pattern[i + 1] === "*") {
         // ** — any number of segments, including zero. Handle the common
         // **/ and /** forms so `a/**/b` matches `a/b` as well as `a/x/y/b`.
-        if (pattern[i + 2] === '/') {
-          re += '(?:.*/)?';
+        if (pattern[i + 2] === "/") {
+          re += "(?:.*/)?";
           i += 3;
         } else {
-          re += '.*';
+          re += ".*";
           i += 2;
         }
       } else {
-        re += '[^/]*';
+        re += "[^/]*";
         i += 1;
       }
-    } else if (c === '?') {
-      re += '[^/]';
+    } else if (c === "?") {
+      re += "[^/]";
       i += 1;
     } else if (/[.+^${}()|[\]\\]/.test(c)) {
-      re += '\\' + c;
+      re += "\\" + c;
       i += 1;
     } else {
       re += c;
       i += 1;
     }
   }
-  return new RegExp('^' + re + '$');
+  return new RegExp("^" + re + "$");
 }
 
 // ---------------------------------------------------------------------------
@@ -214,42 +255,65 @@ function globToRegex(pattern) {
 // ---------------------------------------------------------------------------
 
 function validateConfig(cfg) {
-  if (!cfg || typeof cfg !== 'object') throw new Error('config.json must be an object');
-  if (!Array.isArray(cfg.files) || cfg.files.length === 0) {
-    throw new Error('config.files (non-empty string array) required');
+  if (!cfg || typeof cfg !== "object") {
+    throw new Error("config.json must be an object");
   }
-  if (!cfg.files.every((f) => typeof f === 'string' && f.length > 0)) {
-    throw new Error('config.files must contain only non-empty strings');
+  if (!Array.isArray(cfg.files) || cfg.files.length === 0) {
+    throw new Error("config.files (non-empty string array) required");
+  }
+  if (!cfg.files.every((f) => typeof f === "string" && f.length > 0)) {
+    throw new Error("config.files must contain only non-empty strings");
   }
   if (cfg.exclude !== undefined) {
     if (!Array.isArray(cfg.exclude)) {
-      throw new Error('config.exclude, if present, must be a string array');
+      throw new Error("config.exclude, if present, must be a string array");
     }
-    if (!cfg.exclude.every((f) => typeof f === 'string' && f.length > 0)) {
-      throw new Error('config.exclude must contain only non-empty strings');
+    if (!cfg.exclude.every((f) => typeof f === "string" && f.length > 0)) {
+      throw new Error("config.exclude must contain only non-empty strings");
     }
   }
-  if (typeof cfg.insertBefore !== 'string' && typeof cfg.insertAfter !== 'string') {
-    throw new Error('config.insertBefore or config.insertAfter (string) required');
+  if (
+    typeof cfg.insertBefore !== "string" &&
+    typeof cfg.insertAfter !== "string"
+  ) {
+    throw new Error(
+      "config.insertBefore or config.insertAfter (string) required"
+    );
   }
-  if (cfg.commentSyntax !== 'html' && cfg.commentSyntax !== 'jsx') {
+  if (cfg.commentSyntax !== "html" && cfg.commentSyntax !== "jsx") {
     throw new Error("config.commentSyntax must be 'html' or 'jsx'");
   }
-  if (cfg.cspChecked !== undefined && typeof cfg.cspChecked !== 'boolean') {
+  if (cfg.cspChecked !== undefined && typeof cfg.cspChecked !== "boolean") {
     throw new Error("config.cspChecked, if present, must be a boolean");
   }
 }
 
-function commentOpen(syntax) { return syntax === 'jsx' ? '{/*' : '<!--'; }
-function commentClose(syntax) { return syntax === 'jsx' ? '*/}' : '-->'; }
+function commentOpen(syntax) {
+  return syntax === "jsx" ? "{/*" : "<!--";
+}
+function commentClose(syntax) {
+  return syntax === "jsx" ? "*/}" : "-->";
+}
 
 function buildTagBlock(syntax, port) {
   const open = commentOpen(syntax);
   const close = commentClose(syntax);
   return (
-    open + ' ' + MARKER_OPEN_TEXT + ' ' + close + '\n' +
-    '<script src="http://localhost:' + port + '/live.js"></script>\n' +
-    open + ' ' + MARKER_CLOSE_TEXT + ' ' + close + '\n'
+    open +
+    " " +
+    MARKER_OPEN_TEXT +
+    " " +
+    close +
+    "\n" +
+    '<script src="http://localhost:' +
+    port +
+    '/live.js"></script>\n' +
+    open +
+    " " +
+    MARKER_CLOSE_TEXT +
+    " " +
+    close +
+    "\n"
   );
 }
 
@@ -260,16 +324,23 @@ function insertTag(content, config, port) {
   // within rendered documentation pages.
   if (config.insertBefore) {
     const idx = content.lastIndexOf(config.insertBefore);
-    if (idx === -1) return content;
+    if (idx === -1) {
+      return content;
+    }
     return content.slice(0, idx) + block + content.slice(idx);
   }
   // insertAfter: match the FIRST occurrence — typical anchors like `<head>` or
   // `<body>` open near the top of the document.
   const idx = content.indexOf(config.insertAfter);
-  if (idx === -1) return content;
+  if (idx === -1) {
+    return content;
+  }
   const after = idx + config.insertAfter.length;
   // Preserve a single trailing newline if the anchor didn't end with one
-  const prefix = content[after] === '\n' ? content.slice(0, after + 1) : content.slice(0, after) + '\n';
+  const prefix =
+    content[after] === "\n"
+      ? content.slice(0, after + 1)
+      : content.slice(0, after) + "\n";
   return prefix + block + content.slice(prefix.length);
 }
 
@@ -290,8 +361,10 @@ function removeTag(content, _syntax) {
     /([ \t]*)\{\/\*\s*impeccable-live-start\s*\*\/\}[\s\S]*?\{\/\*\s*impeccable-live-end\s*\*\/\}[ \t]*\n/,
   ];
   for (const pat of patterns) {
-    const next = content.replace(pat, '$1');
-    if (next !== content) return next;
+    const next = content.replace(pat, "$1");
+    if (next !== content) {
+      return next;
+    }
   }
   return content;
 }
@@ -301,8 +374,11 @@ function removeTag(content, _syntax) {
 // ---------------------------------------------------------------------------
 
 const _running = process.argv[1];
-if (_running?.endsWith('live-inject.mjs') || _running?.endsWith('live-inject.mjs/')) {
+if (
+  _running?.endsWith("live-inject.mjs") ||
+  _running?.endsWith("live-inject.mjs/")
+) {
   injectCli();
 }
 
-export { insertTag, removeTag, validateConfig, buildTagBlock };
+export { buildTagBlock, insertTag, removeTag, validateConfig };
