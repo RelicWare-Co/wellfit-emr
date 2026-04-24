@@ -2,7 +2,7 @@ import {
   ripsReferenceEntry,
   ripsReferenceTable,
 } from "@wellfit-emr/db/schema/rips-reference";
-import { eq, sql } from "drizzle-orm";
+import { and, count, eq } from "drizzle-orm";
 import type { Db } from "../context";
 
 const SISPRO_STATE_URL =
@@ -171,7 +171,10 @@ export async function syncSingleTable(
       .select()
       .from(ripsReferenceEntry)
       .where(
-        sql`${ripsReferenceEntry.tableId} = ${tableId} AND ${ripsReferenceEntry.code} = ${record.Codigo}`
+        and(
+          eq(ripsReferenceEntry.tableId, tableId),
+          eq(ripsReferenceEntry.code, record.Codigo)
+        )
       )
       .limit(1);
 
@@ -224,7 +227,7 @@ export async function syncSingleTable(
     .set({
       lastSyncedAt: new Date(),
       entryCount: await db
-        .select({ count: sql<number>`count(*)` })
+        .select({ count: count() })
         .from(ripsReferenceEntry)
         .where(eq(ripsReferenceEntry.tableId, tableId))
         .then((r: { count: number }[]) => r[0]?.count ?? 0),

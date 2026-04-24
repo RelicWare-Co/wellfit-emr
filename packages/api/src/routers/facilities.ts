@@ -6,7 +6,7 @@ import {
   serviceUnit,
   site,
 } from "@wellfit-emr/db/schema/clinical";
-import { asc, count, desc, eq, like, or } from "drizzle-orm";
+import { and, asc, count, desc, eq, like, or } from "drizzle-orm";
 import { z } from "zod";
 
 import { protectedProcedure } from "../index";
@@ -203,9 +203,20 @@ const listSitesProcedure = protectedProcedure
   .input(listSitesSchema)
   .output(listSitesResponseSchema)
   .handler(async ({ context, input }) => {
-    const where = input.organizationId
-      ? eq(site.organizationId, input.organizationId)
-      : undefined;
+    const filters = [
+      input.organizationId
+        ? eq(site.organizationId, input.organizationId)
+        : undefined,
+      input.search
+        ? or(
+            like(site.name, `%${input.search}%`),
+            like(site.siteCode, `%${input.search}%`),
+            like(site.address, `%${input.search}%`),
+            like(site.municipalityCode, `%${input.search}%`)
+          )
+        : undefined,
+    ].filter((filter) => filter !== undefined);
+    const where = filters.length > 0 ? and(...filters) : undefined;
     const orderBy =
       input.sortDirection === "asc" ? asc(site.name) : desc(site.name);
     const [sites, totalRows] = await Promise.all([
@@ -246,9 +257,17 @@ const listServiceUnitsProcedure = protectedProcedure
   .input(listServiceUnitsSchema)
   .output(listServiceUnitsResponseSchema)
   .handler(async ({ context, input }) => {
-    const where = input.siteId
-      ? eq(serviceUnit.siteId, input.siteId)
-      : undefined;
+    const filters = [
+      input.siteId ? eq(serviceUnit.siteId, input.siteId) : undefined,
+      input.search
+        ? or(
+            like(serviceUnit.name, `%${input.search}%`),
+            like(serviceUnit.serviceCode, `%${input.search}%`),
+            like(serviceUnit.careSetting, `%${input.search}%`)
+          )
+        : undefined,
+    ].filter((filter) => filter !== undefined);
+    const where = filters.length > 0 ? and(...filters) : undefined;
     const orderBy =
       input.sortDirection === "asc"
         ? asc(serviceUnit.name)

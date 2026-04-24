@@ -4,7 +4,7 @@ import {
   ripsReferenceEntry,
   ripsReferenceTable,
 } from "@wellfit-emr/db/schema/rips-reference";
-import { and, asc, count, desc, eq, like, sql } from "drizzle-orm";
+import { and, asc, count, desc, eq, like, or } from "drizzle-orm";
 import { z } from "zod";
 
 import { protectedProcedure } from "../index";
@@ -165,9 +165,14 @@ const listEntriesProcedure = protectedProcedure
     }
 
     if (input.search) {
-      whereConditions.push(
-        sql`${ripsReferenceEntry.code} LIKE ${`%${input.search}%`} OR ${ripsReferenceEntry.name} LIKE ${`%${input.search}%`}`
+      const searchCondition = or(
+        like(ripsReferenceEntry.code, `%${input.search}%`),
+        like(ripsReferenceEntry.name, `%${input.search}%`)
       );
+
+      if (searchCondition) {
+        whereConditions.push(searchCondition);
+      }
     }
 
     const whereClause = and(...whereConditions);

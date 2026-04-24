@@ -11,7 +11,7 @@ Historia Clínica Electrónica conforme con la normativa colombiana. Diseñada p
 - **API**: oRPC (similar a tRPC) + Hono + Zod
 - **DB**: SQLite (libsql) + Drizzle ORM
 - **Auth**: Better Auth (email/password, admin plugin)
-- **UI**: Componentes custom basados en `@base-ui/react` (shadcn-like), estilo cuadrado/angular (`rounded-none`). Incluye `SearchSelect` (búsqueda con dropdown) para reemplazar inputs de ID crudos y seleccionar entidades de catálogos RIPS.
+- **UI**: Componentes custom basados en `@base-ui/react` (shadcn-like), estilo cuadrado/angular (`rounded-none`). Incluye `SearchSelect` (búsqueda con dropdown) para reemplazar inputs de ID crudos y seleccionar entidades de catálogos RIPS. Los formularios de pacientes, prescripciones, atenciones y otros usan catálogos SISPRO en vivo.
 
 ## Arquitectura de rutas (frontend)
 
@@ -48,9 +48,9 @@ const mutation = useMutation({ ...orpc.patients.create.mutationOptions(), onSucc
 - `auditEvents` — create/list con filtros
 - `ripsExports` — create/list
 - `ihceBundles` — create/list
-- `facilities` — organizations, sites, serviceUnits, practitioners
+- `facilities` — organizations, sites, serviceUnits, practitioners. Los listados de sedes y unidades de servicio aplican filtros de búsqueda además del alcance por organización/sede.
 - `admin` — gestión de usuarios (Better Auth admin plugin)
-- `ripsReference` — catálogos SISPRO (list tables/entries, sync)
+- `ripsReference` — catálogos SISPRO (list tables/entries, sync). `listEntries` filtra por tabla y agrupa correctamente la búsqueda por código/nombre para no mezclar resultados de otras tablas. La sincronización RIPS usa condiciones Drizzle estructuradas para búsquedas por tabla/código y conteos.
 
 ### Backend routers PENDIENTES
 _Ninguno. Todos los routers planificados están implementados._
