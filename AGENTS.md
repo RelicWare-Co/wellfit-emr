@@ -15,7 +15,7 @@ Historia Clínica Electrónica conforme con la normativa colombiana. Diseñada p
 
 ## Arquitectura de rutas (frontend)
 
-File-based routing con Tanstack Router. Las rutas públicas están en `apps/web/src/routes/`. Las rutas protegidas viven bajo `_authenticated/` y heredan el layout con guard de autenticación (`beforeLoad` que redirige a `/login`).
+File-based routing con Tanstack Router. Las rutas públicas están en `apps/web/src/routes/`. Las rutas protegidas viven bajo `_authenticated/` y heredan el layout con guard de autenticación (`beforeLoad` que redirige a `/login`). El `AppShell` (sidebar + main) se renderiza únicamente en el layout `_authenticated.tsx`; las rutas públicas como `/login` usan su propio layout independiente.
 
 Patrón de oRPC en este proyecto:
 ```tsx

@@ -91,6 +91,16 @@ const syncAllResultSchema = z.object({
   errors: z.array(z.string()),
 });
 
+const syncStatusSchema = z.object({
+  totalTables: z.number(),
+  syncedTables: z.number(),
+  pendingTables: z.number(),
+  lastSync: z.date().nullable(),
+  needsSync: z.boolean(),
+  status: z.enum(["ok", "pending", "error"]),
+  message: z.string(),
+});
+
 const getEntrySchema = z.object({
   tableName: z.string().min(1),
   code: z.string().min(1),
@@ -254,10 +264,65 @@ const syncAllProcedure = protectedProcedure
     return result;
   });
 
+const syncStatusProcedure = protectedProcedure
+  .input(z.void().optional())
+  .output(syncStatusSchema)
+  .handler(async ({ context }) => {
+    const tables = await context.db
+      .select()
+      .from(ripsReferenceTable)
+      .where(eq(ripsReferenceTable.isActive, true));
+
+    const totalTables = tables.length;
+    const syncedTables = tables.filter((t) => t.lastSyncedAt !== null).length;
+    const pendingTables = totalTables - syncedTables;
+
+    const lastSync =
+      tables
+        .filter((t) => t.lastSyncedAt !== null)
+        .map((t) => t.lastSyncedAt as Date)
+        .sort((a, b) => b.getTime() - a.getTime())[0] ?? null;
+
+    if (totalTables === 0) {
+      return {
+        totalTables: 0,
+        syncedTables: 0,
+        pendingTables: 0,
+        lastSync: null,
+        needsSync: true,
+        status: "pending" as const,
+        message: "No hay tablas RIPS configuradas",
+      };
+    }
+
+    if (pendingTables > 0) {
+      return {
+        totalTables,
+        syncedTables,
+        pendingTables,
+        lastSync,
+        needsSync: true,
+        status: "pending" as const,
+        message: `${pendingTables} tabla(s) pendiente(s) de sincronización`,
+      };
+    }
+
+    return {
+      totalTables,
+      syncedTables,
+      pendingTables: 0,
+      lastSync,
+      needsSync: false,
+      status: "ok" as const,
+      message: `Todas las tablas sincronizadas (${syncedTables}/${totalTables})`,
+    };
+  });
+
 export const ripsReferenceRouter = {
   listTables: listTablesProcedure,
   listEntries: listEntriesProcedure,
   getEntry: getEntryProcedure,
   syncTable: syncTableProcedure,
   syncAll: syncAllProcedure,
+  syncStatus: syncStatusProcedure,
 } satisfies AnyRouter;
