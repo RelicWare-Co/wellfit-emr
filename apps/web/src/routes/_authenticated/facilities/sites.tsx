@@ -9,6 +9,7 @@ import {
 } from "@wellfit-emr/ui/components/card";
 import { Input } from "@wellfit-emr/ui/components/input";
 import { Label } from "@wellfit-emr/ui/components/label";
+import { SearchSelect } from "@wellfit-emr/ui/components/search-select";
 import { Plus, Search } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -43,6 +44,7 @@ function SitesPage() {
   const [siteCode, setSiteCode] = useState("");
   const [organizationId, setOrganizationId] = useState("");
   const [municipalityCode, setMunicipalityCode] = useState("");
+  const [municipalitySearch, setMunicipalitySearch] = useState("");
   const [address, setAddress] = useState("");
 
   const { data, isLoading, refetch } = useQuery(
@@ -64,6 +66,17 @@ function SitesPage() {
     })
   );
 
+  const { data: municipalitiesData, isLoading: municipalitiesLoading } =
+    useQuery(
+      orpc.ripsReference.listEntries.queryOptions({
+        input: {
+          tableName: "Municipio",
+          limit: 20,
+          search: municipalitySearch || undefined,
+        },
+      })
+    );
+
   const createMutation = useMutation({
     ...orpc.facilities.createSite.mutationOptions(),
     onSuccess: () => {
@@ -72,6 +85,7 @@ function SitesPage() {
       setSiteCode("");
       setOrganizationId("");
       setMunicipalityCode("");
+      setMunicipalitySearch("");
       setAddress("");
       setShowForm(false);
       refetch();
@@ -173,10 +187,22 @@ function SitesPage() {
                 </div>
                 <div className="space-y-1.5">
                   <Label htmlFor="site-muni">Codigo municipio</Label>
-                  <Input
+                  <SearchSelect
+                    clearable
+                    emptyMessage="Escribe para buscar"
                     id="site-muni"
-                    onChange={(e) => setMunicipalityCode(e.target.value)}
-                    placeholder="Codigo DANE"
+                    loading={municipalitiesLoading}
+                    onChange={setMunicipalityCode}
+                    onSearchChange={setMunicipalitySearch}
+                    options={
+                      municipalitiesData?.entries.map((entry) => ({
+                        value: entry.code,
+                        label: entry.name,
+                        description: entry.code,
+                      })) ?? []
+                    }
+                    placeholder="Buscar municipio..."
+                    search={municipalitySearch}
                     value={municipalityCode}
                   />
                 </div>

@@ -10,6 +10,7 @@ import {
 } from "@wellfit-emr/ui/components/card";
 import { Input } from "@wellfit-emr/ui/components/input";
 import { Label } from "@wellfit-emr/ui/components/label";
+import { SearchSelect } from "@wellfit-emr/ui/components/search-select";
 import { Skeleton } from "@wellfit-emr/ui/components/skeleton";
 import { Pencil } from "lucide-react";
 import { useState } from "react";
@@ -78,6 +79,32 @@ function EditPatientForm({
   patient: Patient;
   onCancel: () => void;
 }) {
+  const [countrySearch, setCountrySearch] = useState(patient.countryCode ?? "");
+  const [municipalitySearch, setMunicipalitySearch] = useState(
+    patient.municipalityCode ?? ""
+  );
+
+  const { data: countriesData, isLoading: countriesLoading } = useQuery(
+    orpc.ripsReference.listEntries.queryOptions({
+      input: {
+        tableName: "Pais",
+        limit: 20,
+        search: countrySearch || undefined,
+      },
+    })
+  );
+
+  const { data: municipalitiesData, isLoading: municipalitiesLoading } =
+    useQuery(
+      orpc.ripsReference.listEntries.queryOptions({
+        input: {
+          tableName: "Municipio",
+          limit: 20,
+          search: municipalitySearch || undefined,
+        },
+      })
+    );
+
   const updateMutation = useMutation({
     ...orpc.patients.update.mutationOptions(),
     onSuccess: () => {
@@ -152,14 +179,24 @@ function EditPatientForm({
               {(field) => (
                 <div className={fieldGrid}>
                   <Label htmlFor={field.name}>Tipo de documento</Label>
-                  <Input
-                    className="text-xs"
+                  <select
+                    className="h-8 w-full rounded-none border border-input bg-transparent px-2.5 text-xs outline-none focus-visible:border-ring focus-visible:ring-1 focus-visible:ring-ring/50"
                     id={field.name}
                     name={field.name}
                     onBlur={field.handleBlur}
                     onChange={(e) => field.handleChange(e.target.value)}
                     value={field.state.value}
-                  />
+                  >
+                    <option value="">Seleccione...</option>
+                    <option value="CC">Cédula de ciudadanía</option>
+                    <option value="CE">Cédula de extranjería</option>
+                    <option value="PA">Pasaporte</option>
+                    <option value="RC">Registro civil</option>
+                    <option value="TI">Tarjeta de identidad</option>
+                    <option value="PEP">Permiso especial de permanencia</option>
+                    <option value="PPT">Permiso por protección temporal</option>
+                    <option value="NIT">NIT</option>
+                  </select>
                   {field.state.meta.errors.map((error) => (
                     <p
                       className="text-destructive text-xs"
@@ -305,14 +342,19 @@ function EditPatientForm({
               {(field) => (
                 <div className={fieldGrid}>
                   <Label htmlFor={field.name}>Sexo al nacer</Label>
-                  <Input
-                    className="text-xs"
+                  <select
+                    className="h-8 w-full rounded-none border border-input bg-transparent px-2.5 text-xs outline-none focus-visible:border-ring focus-visible:ring-1 focus-visible:ring-ring/50"
                     id={field.name}
                     name={field.name}
                     onBlur={field.handleBlur}
                     onChange={(e) => field.handleChange(e.target.value)}
                     value={field.state.value}
-                  />
+                  >
+                    <option value="">Seleccione...</option>
+                    <option value="H">Hombre</option>
+                    <option value="M">Mujer</option>
+                    <option value="I">Indeterminado</option>
+                  </select>
                   {field.state.meta.errors.map((error) => (
                     <p
                       className="text-destructive text-xs"
@@ -329,14 +371,22 @@ function EditPatientForm({
               {(field) => (
                 <div className={fieldGrid}>
                   <Label htmlFor={field.name}>Identidad de género</Label>
-                  <Input
-                    className="text-xs"
+                  <select
+                    className="h-8 w-full rounded-none border border-input bg-transparent px-2.5 text-xs outline-none focus-visible:border-ring focus-visible:ring-1 focus-visible:ring-ring/50"
                     id={field.name}
                     name={field.name}
                     onBlur={field.handleBlur}
                     onChange={(e) => field.handleChange(e.target.value)}
                     value={field.state.value}
-                  />
+                  >
+                    <option value="">Seleccione...</option>
+                    <option value="masculino">Masculino</option>
+                    <option value="femenino">Femenino</option>
+                    <option value="transgenero">Transgénero</option>
+                    <option value="no_binario">No binario</option>
+                    <option value="otro">Otro</option>
+                    <option value="prefiero_no_decir">Prefiero no decir</option>
+                  </select>
                 </div>
               )}
             </form.Field>
@@ -344,13 +394,25 @@ function EditPatientForm({
             <form.Field name="countryCode">
               {(field) => (
                 <div className={fieldGrid}>
-                  <Label htmlFor={field.name}>Código país</Label>
-                  <Input
-                    className="text-xs"
+                  <Label htmlFor={field.name}>País</Label>
+                  <SearchSelect
+                    clearable
+                    emptyMessage="Escribe para buscar"
                     id={field.name}
+                    loading={countriesLoading}
                     name={field.name}
                     onBlur={field.handleBlur}
-                    onChange={(e) => field.handleChange(e.target.value)}
+                    onChange={(v) => field.handleChange(v)}
+                    onSearchChange={setCountrySearch}
+                    options={
+                      countriesData?.entries.map((e) => ({
+                        value: e.code,
+                        label: e.name,
+                        description: e.code,
+                      })) ?? []
+                    }
+                    placeholder="Buscar país..."
+                    search={countrySearch}
                     value={field.state.value}
                   />
                 </div>
@@ -360,13 +422,25 @@ function EditPatientForm({
             <form.Field name="municipalityCode">
               {(field) => (
                 <div className={fieldGrid}>
-                  <Label htmlFor={field.name}>Código municipio</Label>
-                  <Input
-                    className="text-xs"
+                  <Label htmlFor={field.name}>Municipio</Label>
+                  <SearchSelect
+                    clearable
+                    emptyMessage="Escribe para buscar"
                     id={field.name}
+                    loading={municipalitiesLoading}
                     name={field.name}
                     onBlur={field.handleBlur}
-                    onChange={(e) => field.handleChange(e.target.value)}
+                    onChange={(v) => field.handleChange(v)}
+                    onSearchChange={setMunicipalitySearch}
+                    options={
+                      municipalitiesData?.entries.map((e) => ({
+                        value: e.code,
+                        label: e.name,
+                        description: e.code,
+                      })) ?? []
+                    }
+                    placeholder="Buscar municipio..."
+                    search={municipalitySearch}
                     value={field.state.value}
                   />
                 </div>
@@ -376,15 +450,19 @@ function EditPatientForm({
             <form.Field name="zoneCode">
               {(field) => (
                 <div className={fieldGrid}>
-                  <Label htmlFor={field.name}>Código zona</Label>
-                  <Input
-                    className="text-xs"
+                  <Label htmlFor={field.name}>Zona</Label>
+                  <select
+                    className="h-8 w-full rounded-none border border-input bg-transparent px-2.5 text-xs outline-none focus-visible:border-ring focus-visible:ring-1 focus-visible:ring-ring/50"
                     id={field.name}
                     name={field.name}
                     onBlur={field.handleBlur}
                     onChange={(e) => field.handleChange(e.target.value)}
                     value={field.state.value}
-                  />
+                  >
+                    <option value="">Seleccione...</option>
+                    <option value="01">Rural</option>
+                    <option value="02">Urbano</option>
+                  </select>
                 </div>
               )}
             </form.Field>

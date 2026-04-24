@@ -11,7 +11,7 @@ Historia Clínica Electrónica conforme con la normativa colombiana. Diseñada p
 - **API**: oRPC (similar a tRPC) + Hono + Zod
 - **DB**: SQLite (libsql) + Drizzle ORM
 - **Auth**: Better Auth (email/password, admin plugin)
-- **UI**: Componentes custom basados en `@base-ui/react` (shadcn-like), estilo cuadrado/angular (`rounded-none`). Incluye `SearchSelect` (búsqueda con dropdown) para reemplazar inputs de ID crudos y seleccionar entidades de catálogos RIPS. Los formularios de pacientes, prescripciones, atenciones y otros usan catálogos SISPRO en vivo.
+- **UI**: Componentes custom basados en `@base-ui/react` (shadcn-like), estilo cuadrado/angular (`rounded-none`). Incluye `SearchSelect` (búsqueda con dropdown) para reemplazar inputs de ID crudos y seleccionar entidades de catálogos RIPS. Los formularios de pacientes, prescripciones, atenciones y otros usan catálogos SISPRO en vivo. La revisión transversal de formularios cubre edición de pacientes, creación de atenciones, detalle de atenciones (diagnósticos CIE10/tipo diagnóstico, procedimientos CUPS/profesionales), sedes/unidades de servicio y anexos para evitar IDs/códigos manuales cuando existe fuente consultable.
 
 ## Arquitectura de rutas (frontend)
 

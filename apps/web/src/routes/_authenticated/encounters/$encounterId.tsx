@@ -9,6 +9,7 @@ import {
 } from "@wellfit-emr/ui/components/card";
 import { Input } from "@wellfit-emr/ui/components/input";
 import { Label } from "@wellfit-emr/ui/components/label";
+import { SearchSelect } from "@wellfit-emr/ui/components/search-select";
 import { Skeleton } from "@wellfit-emr/ui/components/skeleton";
 import {
   Activity,
@@ -254,6 +255,8 @@ function EncounterDetailPage() {
 
 function DiagnosesTab({ encounterId }: { encounterId: string }) {
   const [showForm, setShowForm] = useState(false);
+  const [diagnosisSearch, setDiagnosisSearch] = useState("");
+  const [diagnosisTypeSearch, setDiagnosisTypeSearch] = useState("");
   const [form, setForm] = useState({
     codeSystem: "CIE10",
     code: "",
@@ -266,6 +269,27 @@ function DiagnosesTab({ encounterId }: { encounterId: string }) {
   const { data, isLoading, refetch } = useQuery(
     orpc.clinicalRecords.listDiagnoses.queryOptions({ input: { encounterId } })
   );
+
+  const { data: diagnosesData, isLoading: diagnosesLoading } = useQuery(
+    orpc.ripsReference.listEntries.queryOptions({
+      input: {
+        tableName: "CIE10",
+        limit: 20,
+        search: diagnosisSearch || undefined,
+      },
+    })
+  );
+
+  const { data: diagnosisTypesData, isLoading: diagnosisTypesLoading } =
+    useQuery(
+      orpc.ripsReference.listEntries.queryOptions({
+        input: {
+          tableName: "RIPSTipoDiagnosticoPrincipalVersion2",
+          limit: 20,
+          search: diagnosisTypeSearch || undefined,
+        },
+      })
+    );
 
   const create = useMutation({
     ...orpc.clinicalRecords.createDiagnosis.mutationOptions(),
@@ -345,29 +369,61 @@ function DiagnosesTab({ encounterId }: { encounterId: string }) {
         >
           <div className="space-y-1">
             <Label>Sistema de codificación</Label>
-            <Input
+            <select
+              className="h-8 w-full rounded-none border border-input bg-transparent px-2.5 text-xs outline-none focus-visible:border-ring focus-visible:ring-1 focus-visible:ring-ring/50"
               onChange={(e) => setForm({ ...form, codeSystem: e.target.value })}
               required
               value={form.codeSystem}
-            />
+            >
+              <option value="CIE10">CIE10</option>
+            </select>
           </div>
           <div className="space-y-1">
-            <Label>Código</Label>
-            <Input
-              onChange={(e) => setForm({ ...form, code: e.target.value })}
-              placeholder="Ej: J06.9"
+            <Label>Diagnóstico CIE10</Label>
+            <SearchSelect
+              emptyMessage="Escribe para buscar en CIE10"
+              loading={diagnosesLoading}
+              onChange={(v) => {
+                const selected = diagnosesData?.entries.find(
+                  (entry) => entry.code === v
+                );
+                setForm((f) => ({
+                  ...f,
+                  code: v,
+                  description: selected?.name ?? f.description,
+                }));
+              }}
+              onSearchChange={setDiagnosisSearch}
+              options={
+                diagnosesData?.entries.map((e) => ({
+                  value: e.code,
+                  label: e.name,
+                  description: e.code,
+                })) ?? []
+              }
+              placeholder="Buscar diagnóstico..."
               required
+              search={diagnosisSearch}
               value={form.code}
             />
           </div>
           <div className="space-y-1">
             <Label>Tipo de diagnóstico</Label>
-            <Input
-              onChange={(e) =>
-                setForm({ ...form, diagnosisType: e.target.value })
+            <SearchSelect
+              emptyMessage="Escribe para buscar tipo"
+              loading={diagnosisTypesLoading}
+              onChange={(v) => setForm((f) => ({ ...f, diagnosisType: v }))}
+              onSearchChange={setDiagnosisTypeSearch}
+              options={
+                diagnosisTypesData?.entries.map((e) => ({
+                  value: e.code,
+                  label: e.name,
+                  description: e.code,
+                })) ?? []
               }
-              placeholder="Ej: principal"
+              placeholder="Buscar tipo..."
               required
+              search={diagnosisTypeSearch}
               value={form.diagnosisType}
             />
           </div>
@@ -419,6 +475,7 @@ function DiagnosesTab({ encounterId }: { encounterId: string }) {
 
 function AllergiesTab({ patientId }: { patientId: string }) {
   const [showForm, setShowForm] = useState(false);
+  const [practitionerSearch, setPractitionerSearch] = useState("");
   const [form, setForm] = useState({
     substanceCode: "",
     codeSystem: "",
@@ -434,6 +491,16 @@ function AllergiesTab({ patientId }: { patientId: string }) {
     }),
     enabled: !!patientId,
   });
+
+  const { data: practitionersData, isLoading: practitionersLoading } = useQuery(
+    orpc.facilities.listPractitioners.queryOptions({
+      input: {
+        limit: 20,
+        offset: 0,
+        search: practitionerSearch || undefined,
+      },
+    })
+  );
 
   const create = useMutation({
     ...orpc.clinicalRecords.createAllergy.mutationOptions(),
@@ -530,13 +597,18 @@ function AllergiesTab({ patientId }: { patientId: string }) {
           </div>
           <div className="space-y-1">
             <Label>Criticidad</Label>
-            <Input
+            <select
+              className="h-8 w-full rounded-none border border-input bg-transparent px-2.5 text-xs outline-none focus-visible:border-ring focus-visible:ring-1 focus-visible:ring-ring/50"
               onChange={(e) =>
                 setForm({ ...form, criticality: e.target.value })
               }
-              placeholder="Ej: high"
               value={form.criticality}
-            />
+            >
+              <option value="">Seleccione...</option>
+              <option value="low">Baja</option>
+              <option value="high">Alta</option>
+              <option value="unable-to-assess">No evaluable</option>
+            </select>
           </div>
           <div className="space-y-1 md:col-span-2">
             <Label>Texto de reacción</Label>
@@ -550,18 +622,34 @@ function AllergiesTab({ patientId }: { patientId: string }) {
           </div>
           <div className="space-y-1">
             <Label>Estado</Label>
-            <Input
+            <select
+              className="h-8 w-full rounded-none border border-input bg-transparent px-2.5 text-xs outline-none focus-visible:border-ring focus-visible:ring-1 focus-visible:ring-ring/50"
               onChange={(e) => setForm({ ...form, status: e.target.value })}
               required
               value={form.status}
-            />
+            >
+              <option value="active">Activa</option>
+              <option value="inactive">Inactiva</option>
+              <option value="resolved">Resuelta</option>
+            </select>
           </div>
           <div className="space-y-1 md:col-span-2">
             <Label>Registrado por</Label>
-            <Input
-              onChange={(e) => setForm({ ...form, recordedBy: e.target.value })}
-              placeholder="ID o nombre del profesional"
+            <SearchSelect
+              emptyMessage="Escribe para buscar profesionales"
+              loading={practitionersLoading}
+              onChange={(v) => setForm((f) => ({ ...f, recordedBy: v }))}
+              onSearchChange={setPractitionerSearch}
+              options={
+                practitionersData?.practitioners.map((p) => ({
+                  value: p.id,
+                  label: p.fullName,
+                  description: p.documentNumber,
+                })) ?? []
+              }
+              placeholder="Buscar profesional..."
               required
+              search={practitionerSearch}
               value={form.recordedBy}
             />
           </div>
@@ -790,6 +878,8 @@ function ProceduresTab({
   patientId: string;
 }) {
   const [showForm, setShowForm] = useState(false);
+  const [cupsSearch, setCupsSearch] = useState("");
+  const [performerSearch, setPerformerSearch] = useState("");
   const [form, setForm] = useState({
     cupsCode: "",
     description: "",
@@ -798,9 +888,23 @@ function ProceduresTab({
     status: "completed",
   });
 
-  const { data: practitionersData } = useQuery(
+  const { data: practitionersData, isLoading: practitionersLoading } = useQuery(
     orpc.facilities.listPractitioners.queryOptions({
-      input: { limit: 50, offset: 0 },
+      input: {
+        limit: 20,
+        offset: 0,
+        search: performerSearch || undefined,
+      },
+    })
+  );
+
+  const { data: cupsData, isLoading: cupsLoading } = useQuery(
+    orpc.ripsReference.listEntries.queryOptions({
+      input: {
+        tableName: "CUPSRips",
+        limit: 20,
+        search: cupsSearch || undefined,
+      },
     })
   );
 
@@ -884,10 +988,30 @@ function ProceduresTab({
         >
           <div className="space-y-1">
             <Label>Código CUPS</Label>
-            <Input
-              onChange={(e) => setForm({ ...form, cupsCode: e.target.value })}
-              placeholder="Ej: 890201"
+            <SearchSelect
+              emptyMessage="Escribe para buscar en CUPS"
+              loading={cupsLoading}
+              onChange={(v) => {
+                const selected = cupsData?.entries.find(
+                  (entry) => entry.code === v
+                );
+                setForm((f) => ({
+                  ...f,
+                  cupsCode: v,
+                  description: selected?.name ?? f.description,
+                }));
+              }}
+              onSearchChange={setCupsSearch}
+              options={
+                cupsData?.entries.map((e) => ({
+                  value: e.code,
+                  label: e.name,
+                  description: e.code,
+                })) ?? []
+              }
+              placeholder="Buscar CUPS..."
               required
+              search={cupsSearch}
               value={form.cupsCode}
             />
           </div>
@@ -913,30 +1037,36 @@ function ProceduresTab({
           </div>
           <div className="space-y-1">
             <Label>Profesional</Label>
-            <select
-              className="h-8 w-full rounded-none border border-input bg-transparent px-2.5 text-xs outline-none focus-visible:border-ring focus-visible:ring-1 focus-visible:ring-ring/50"
-              onChange={(e) =>
-                setForm({ ...form, performerId: e.target.value })
+            <SearchSelect
+              clearable
+              emptyMessage="Escribe para buscar profesionales"
+              loading={practitionersLoading}
+              onChange={(v) => setForm((f) => ({ ...f, performerId: v }))}
+              onSearchChange={setPerformerSearch}
+              options={
+                practitionersData?.practitioners.map((p) => ({
+                  value: p.id,
+                  label: p.fullName,
+                  description: p.documentNumber,
+                })) ?? []
               }
+              placeholder="Buscar profesional..."
+              search={performerSearch}
               value={form.performerId}
-            >
-              <option value="">Seleccione profesional</option>
-              {practitionersData?.practitioners.map(
-                (p: (typeof practitionersData.practitioners)[0]) => (
-                  <option key={p.id} value={p.id}>
-                    {p.fullName}
-                  </option>
-                )
-              )}
-            </select>
+            />
           </div>
           <div className="space-y-1">
             <Label>Estado</Label>
-            <Input
+            <select
+              className="h-8 w-full rounded-none border border-input bg-transparent px-2.5 text-xs outline-none focus-visible:border-ring focus-visible:ring-1 focus-visible:ring-ring/50"
               onChange={(e) => setForm({ ...form, status: e.target.value })}
               required
               value={form.status}
-            />
+            >
+              <option value="completed">Completado</option>
+              <option value="in-progress">En progreso</option>
+              <option value="cancelled">Cancelado</option>
+            </select>
           </div>
           <div className="flex items-end">
             <Button disabled={create.isPending} size="sm" type="submit">

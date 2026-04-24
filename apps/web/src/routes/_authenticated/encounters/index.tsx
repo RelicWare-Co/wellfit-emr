@@ -63,6 +63,8 @@ function EncountersPage() {
   const [admissionSearch, setAdmissionSearch] = useState("");
   const [causeSearch, setCauseSearch] = useState("");
   const [finalidadSearch, setFinalidadSearch] = useState("");
+  const [groupSearch, setGroupSearch] = useState("");
+  const [modalitySearch, setModalitySearch] = useState("");
 
   const [formData, setFormData] = useState({
     encounterClass: "",
@@ -126,6 +128,26 @@ function EncountersPage() {
     })
   );
 
+  const { data: groupData, isLoading: groupLoading } = useQuery(
+    orpc.ripsReference.listEntries.queryOptions({
+      input: {
+        tableName: "GrupoServicios",
+        limit: 20,
+        search: groupSearch || undefined,
+      },
+    })
+  );
+
+  const { data: modalityData, isLoading: modalityLoading } = useQuery(
+    orpc.ripsReference.listEntries.queryOptions({
+      input: {
+        tableName: "ModalidadAtencion",
+        limit: 20,
+        search: modalitySearch || undefined,
+      },
+    })
+  );
+
   const { data: causeData, isLoading: causeLoading } = useQuery(
     orpc.ripsReference.listEntries.queryOptions({
       input: {
@@ -164,6 +186,11 @@ function EncountersPage() {
     setSelectedSiteId("");
     setSelectedServiceUnitId("");
     setPatientSearch("");
+    setGroupSearch("");
+    setModalitySearch("");
+    setAdmissionSearch("");
+    setCauseSearch("");
+    setFinalidadSearch("");
     setFormData({
       encounterClass: "",
       careModality: "",
@@ -289,51 +316,22 @@ function EncountersPage() {
             >
               <div className="space-y-1">
                 <Label>Paciente</Label>
-                <Input
-                  onChange={(e) => {
-                    setPatientSearch(e.target.value);
-                    setSelectedPatientId("");
-                  }}
+                <SearchSelect
+                  emptyMessage="Escribe para buscar pacientes"
+                  onChange={setSelectedPatientId}
+                  onSearchChange={setPatientSearch}
+                  options={
+                    patientsData?.patients.map((p) => ({
+                      value: p.id,
+                      label: `${p.firstName} ${p.lastName1}`,
+                      description: `${p.primaryDocumentType} ${p.primaryDocumentNumber}`,
+                    })) ?? []
+                  }
                   placeholder="Buscar paciente..."
-                  value={patientSearch}
+                  required
+                  search={patientSearch}
+                  value={selectedPatientId}
                 />
-                {patientsData &&
-                  patientsData.patients.length > 0 &&
-                  !selectedPatientId && (
-                    <div className="max-h-32 overflow-auto border">
-                      {patientsData.patients.map(
-                        (p: (typeof patientsData.patients)[0]) => (
-                          <button
-                            className="w-full px-2.5 py-1.5 text-left text-xs hover:bg-muted"
-                            key={p.id}
-                            onClick={() => {
-                              setSelectedPatientId(p.id);
-                              setPatientSearch(`${p.firstName} ${p.lastName1}`);
-                            }}
-                            type="button"
-                          >
-                            {p.firstName} {p.lastName1} ·{" "}
-                            {p.primaryDocumentType} {p.primaryDocumentNumber}
-                          </button>
-                        )
-                      )}
-                    </div>
-                  )}
-                {selectedPatientId && (
-                  <div className="flex items-center justify-between border px-2.5 py-1.5 text-xs">
-                    <span>Paciente seleccionado</span>
-                    <Button
-                      onClick={() => {
-                        setSelectedPatientId("");
-                        setPatientSearch("");
-                      }}
-                      size="icon-xs"
-                      variant="ghost"
-                    >
-                      <X size={12} />
-                    </Button>
-                  </div>
-                )}
               </div>
 
               <div className="space-y-1">
@@ -382,24 +380,50 @@ function EncountersPage() {
 
               <div className="space-y-1">
                 <Label>Clase de atención (grupo servicios)</Label>
-                <Input
-                  onChange={(e) =>
-                    setFormData({ ...formData, encounterClass: e.target.value })
+                <SearchSelect
+                  emptyMessage="Escribe para buscar grupo"
+                  loading={groupLoading}
+                  onChange={(v) =>
+                    setFormData((f) => ({ ...f, encounterClass: v }))
                   }
-                  placeholder="Ej: consultaExterna"
+                  onSearchChange={setGroupSearch}
+                  options={
+                    groupData?.entries.map((e) => ({
+                      value: e.code,
+                      label: e.name,
+                      description: e.code,
+                    })) ?? []
+                  }
+                  placeholder="Buscar grupo de servicios..."
                   required
+                  search={groupSearch}
                   value={formData.encounterClass}
                 />
               </div>
 
               <div className="space-y-1">
                 <Label>Modalidad de atención</Label>
-                <Input
-                  onChange={(e) =>
-                    setFormData({ ...formData, careModality: e.target.value })
+                <SearchSelect
+                  emptyMessage="Escribe para buscar modalidad"
+                  loading={modalityLoading}
+                  onChange={(v) =>
+                    setFormData((f) => ({
+                      ...f,
+                      careModality: v,
+                      modalidadAtencionCode: v,
+                    }))
                   }
-                  placeholder="Ej: presencial"
+                  onSearchChange={setModalitySearch}
+                  options={
+                    modalityData?.entries.map((e) => ({
+                      value: e.code,
+                      label: e.name,
+                      description: e.code,
+                    })) ?? []
+                  }
+                  placeholder="Buscar modalidad..."
                   required
+                  search={modalitySearch}
                   value={formData.careModality}
                 />
               </div>
@@ -431,11 +455,12 @@ function EncountersPage() {
               <div className="space-y-1">
                 <Label>Vía de ingreso (RIPS)</Label>
                 <SearchSelect
-                  value={formData.admissionSource}
+                  clearable
+                  emptyMessage="Escribe para buscar"
+                  loading={admissionLoading}
                   onChange={(v) =>
                     setFormData((f) => ({ ...f, admissionSource: v }))
                   }
-                  search={admissionSearch}
                   onSearchChange={setAdmissionSearch}
                   options={
                     admissionData?.entries.map((e) => ({
@@ -444,21 +469,21 @@ function EncountersPage() {
                       description: e.code,
                     })) ?? []
                   }
-                  loading={admissionLoading}
                   placeholder="Buscar vía de ingreso..."
-                  emptyMessage="Escribe para buscar"
-                  clearable
+                  search={admissionSearch}
+                  value={formData.admissionSource}
                 />
               </div>
 
               <div className="space-y-1">
                 <Label>Causa externa (RIPS)</Label>
                 <SearchSelect
-                  value={formData.causeExternalCode}
+                  clearable
+                  emptyMessage="Escribe para buscar"
+                  loading={causeLoading}
                   onChange={(v) =>
                     setFormData((f) => ({ ...f, causeExternalCode: v }))
                   }
-                  search={causeSearch}
                   onSearchChange={setCauseSearch}
                   options={
                     causeData?.entries.map((e) => ({
@@ -467,21 +492,21 @@ function EncountersPage() {
                       description: e.code,
                     })) ?? []
                   }
-                  loading={causeLoading}
                   placeholder="Buscar causa externa..."
-                  emptyMessage="Escribe para buscar"
-                  clearable
+                  search={causeSearch}
+                  value={formData.causeExternalCode}
                 />
               </div>
 
               <div className="space-y-1">
                 <Label>Finalidad consulta (RIPS)</Label>
                 <SearchSelect
-                  value={formData.finalidadConsultaCode}
+                  clearable
+                  emptyMessage="Escribe para buscar"
+                  loading={finalidadLoading}
                   onChange={(v) =>
                     setFormData((f) => ({ ...f, finalidadConsultaCode: v }))
                   }
-                  search={finalidadSearch}
                   onSearchChange={setFinalidadSearch}
                   options={
                     finalidadData?.entries.map((e) => ({
@@ -490,23 +515,35 @@ function EncountersPage() {
                       description: e.code,
                     })) ?? []
                   }
-                  loading={finalidadLoading}
                   placeholder="Buscar finalidad..."
-                  emptyMessage="Escribe para buscar"
-                  clearable
+                  search={finalidadSearch}
+                  value={formData.finalidadConsultaCode}
                 />
               </div>
 
               <div className="space-y-1">
                 <Label>Modalidad atención (RIPS)</Label>
-                <Input
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      modalidadAtencionCode: e.target.value,
-                    })
+                <SearchSelect
+                  clearable
+                  emptyMessage="Escribe para buscar modalidad"
+                  loading={modalityLoading}
+                  onChange={(v) =>
+                    setFormData((f) => ({
+                      ...f,
+                      modalidadAtencionCode: v,
+                      careModality: f.careModality || v,
+                    }))
                   }
-                  placeholder="Código RIPS"
+                  onSearchChange={setModalitySearch}
+                  options={
+                    modalityData?.entries.map((e) => ({
+                      value: e.code,
+                      label: e.name,
+                      description: e.code,
+                    })) ?? []
+                  }
+                  placeholder="Buscar modalidad RIPS..."
+                  search={modalitySearch}
                   value={formData.modalidadAtencionCode}
                 />
               </div>

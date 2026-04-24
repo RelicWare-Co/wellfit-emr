@@ -9,6 +9,7 @@ import {
 } from "@wellfit-emr/ui/components/card";
 import { Input } from "@wellfit-emr/ui/components/input";
 import { Label } from "@wellfit-emr/ui/components/label";
+import { SearchSelect } from "@wellfit-emr/ui/components/search-select";
 import { Plus, Search } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -43,6 +44,7 @@ function ServiceUnitsPage() {
   const [showForm, setShowForm] = useState(false);
   const [name, setName] = useState("");
   const [serviceCode, setServiceCode] = useState("");
+  const [serviceSearch, setServiceSearch] = useState("");
   const [siteId, setSiteId] = useState("");
   const [careSetting, setCareSetting] = useState("");
 
@@ -65,12 +67,23 @@ function ServiceUnitsPage() {
     })
   );
 
+  const { data: servicesData, isLoading: servicesLoading } = useQuery(
+    orpc.ripsReference.listEntries.queryOptions({
+      input: {
+        tableName: "Servicios",
+        limit: 20,
+        search: serviceSearch || undefined,
+      },
+    })
+  );
+
   const createMutation = useMutation({
     ...orpc.facilities.createServiceUnit.mutationOptions(),
     onSuccess: () => {
       toast.success("Unidad de servicio creada correctamente");
       setName("");
       setServiceCode("");
+      setServiceSearch("");
       setSiteId("");
       setCareSetting("");
       setShowForm(false);
@@ -140,11 +153,28 @@ function ServiceUnitsPage() {
                 </div>
                 <div className="space-y-1.5">
                   <Label htmlFor="su-code">Codigo de servicio *</Label>
-                  <Input
+                  <SearchSelect
+                    emptyMessage="Escribe para buscar servicios"
                     id="su-code"
-                    onChange={(e) => setServiceCode(e.target.value)}
-                    placeholder="Codigo interno"
+                    loading={servicesLoading}
+                    onChange={(value) => {
+                      const selected = servicesData?.entries.find(
+                        (entry) => entry.code === value
+                      );
+                      setServiceCode(value);
+                      setName((current) => current || selected?.name || "");
+                    }}
+                    onSearchChange={setServiceSearch}
+                    options={
+                      servicesData?.entries.map((entry) => ({
+                        value: entry.code,
+                        label: entry.name,
+                        description: entry.code,
+                      })) ?? []
+                    }
+                    placeholder="Buscar servicio..."
                     required
+                    search={serviceSearch}
                     value={serviceCode}
                   />
                 </div>
