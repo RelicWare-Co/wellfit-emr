@@ -1,5 +1,7 @@
 # WellFit EMR — Contexto del proyecto
 
+> **Regla para agentes:** Si realizas cualquier avance funcional, arquitectónico o de implementación en este proyecto, debes actualizar este archivo `AGENTS.md` para reflejar el nuevo estado. No dejes el documento desactualizado.
+
 Historia Clínica Electrónica conforme con la normativa colombiana. Diseñada para cumplir con: Ley 23 de 1981, Resolución 1995 de 1999, Ley 2015 de 2020 (HCE interoperable), Resolución 866 de 2021, Resolución 1888 de 2025 (IHCE/RDA), Ley 1581 de 2012 (protección de datos), Decreto 780 de 2016 (habilitación), y regulación de RIPS.
 
 ## Stack
@@ -36,21 +38,22 @@ const mutation = useMutation({ ...orpc.patients.create.mutationOptions(), onSucc
 - `patients` — CRUD + list paginado
 - `encounters` — CRUD + list + close
 - `clinicalRecords` — create/list de diagnosis, allergy, observation, procedure
+- `clinicalDocuments` — create/get/list/sign/correct con versionado inmutable, secciones y hash SHA-256
+- `consents` — consent_record (create/list/revoke) + data_disclosure_authorization (create/list/revoke)
+- `medicationOrders` — medication_order (create/list) + medication_administration (create/list)
+- `serviceRequests` — service_request (create/list) + diagnostic_report (create/get)
+- `interconsultations` — create/list/respond
+- `incapacityCertificates` — create/list
+- `attachments` — binary_object (create) + attachment_link (create/list)
+- `auditEvents` — create/list con filtros
+- `ripsExports` — create/list
+- `ihceBundles` — create/list
 - `facilities` — organizations, sites, serviceUnits, practitioners
 - `admin` — gestión de usuarios (Better Auth admin plugin)
 - `ripsReference` — catálogos SISPRO (list tables/entries, sync)
 
-### Backend routers PENDIENTES (tablas en DB sin API)
-- `clinical-documents` (clinical_document, clinical_document_version, document_section)
-- `consents` (consent_record, data_disclosure_authorization)
-- `medication-orders` (medication_order, medication_administration)
-- `service-requests` + `diagnostic-reports`
-- `interconsultations`
-- `incapacity-certificates`
-- `attachments` (binary_object, attachment_link)
-- `audit-events`
-- `rips-exports`
-- `ihce-bundles`
+### Backend routers PENDIENTES
+_Ninguno. Todos los routers planificados están implementados._
 
 ### Vistas frontend implementadas
 - `/` — Dashboard

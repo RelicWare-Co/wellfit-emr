@@ -5,9 +5,19 @@ import {
   Building2,
   ChevronLeft,
   ChevronRight,
+  ClipboardList,
+  Eye,
+  FileOutput,
   FileText,
+  FlaskConical,
   Home,
+  Mail,
+  Paperclip,
+  Pill,
+  ScrollText,
   Settings,
+  Share2,
+  ShieldCheck,
   Stethoscope,
   Users,
 } from "lucide-react";
@@ -29,6 +39,27 @@ const navGroups: { label: string; items: NavItem[] }[] = [
     items: [
       { icon: Users, label: "Pacientes", to: "/patients" },
       { icon: Stethoscope, label: "Atenciones", to: "/encounters" },
+      { icon: ScrollText, label: "Documentos clínicos", to: "/clinical-documents" },
+      { icon: ShieldCheck, label: "Consentimientos", to: "/consents" },
+      { icon: Pill, label: "Prescripciones", to: "/medication-orders" },
+      { icon: FlaskConical, label: "Órdenes y resultados", to: "/service-requests" },
+      { icon: Mail, label: "Interconsultas", to: "/interconsultations" },
+      { icon: ClipboardList, label: "Incapacidades", to: "/incapacity-certificates" },
+    ],
+  },
+  {
+    label: "Documental",
+    items: [
+      { icon: Paperclip, label: "Anexos", to: "/attachments" },
+      { icon: Eye, label: "Auditoría", to: "/audit-events" },
+    ],
+  },
+  {
+    label: "Regulatorio",
+    items: [
+      { icon: FileOutput, label: "RIPS", to: "/rips-exports" },
+      { icon: Share2, label: "IHCE", to: "/ihce-bundles" },
+      { icon: FileText, label: "Catálogos RIPS", to: "/catalogs" },
     ],
   },
   {
@@ -39,7 +70,6 @@ const navGroups: { label: string; items: NavItem[] }[] = [
         label: "Institución",
         to: "/facilities/organizations",
       },
-      { icon: FileText, label: "Catálogos RIPS", to: "/catalogs" },
     ],
   },
   {
