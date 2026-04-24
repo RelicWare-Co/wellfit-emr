@@ -6,6 +6,7 @@ import { clinicalRecordsRouter } from "./clinical-records";
 import { encountersRouter } from "./encounters";
 import { facilitiesRouter } from "./facilities";
 import { patientsRouter } from "./patients";
+import { ripsReferenceRouter } from "./rips-reference";
 
 const healthCheckProcedure = publicProcedure.handler(() => "OK");
 
@@ -22,6 +23,7 @@ export interface AppRouter extends Record<string, AnyRouter> {
   healthCheck: typeof healthCheckProcedure;
   patients: typeof patientsRouter;
   privateData: typeof privateDataProcedure;
+  ripsReference: typeof ripsReferenceRouter;
 }
 
 export const appRouter: AppRouter = {
@@ -32,5 +34,6 @@ export const appRouter: AppRouter = {
   healthCheck: healthCheckProcedure,
   patients: patientsRouter,
   privateData: privateDataProcedure,
+  ripsReference: ripsReferenceRouter,
 };
 export type AppRouterClient = RouterClient<typeof appRouter>;

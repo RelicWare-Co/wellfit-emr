@@ -31,12 +31,13 @@ const diagnosisRecord = {
   code: "I10X",
   codeSystem: "CIE10",
   description: "Hipertension esencial",
-  diagnosisType: "principal",
+  diagnosisType: "01",
   documentVersionId: null,
   encounterId: "encounter-id",
   id: "diagnosis-id",
   onsetAt: null,
   rank: 1,
+  ripsReferenceName: null,
 };
 
 const observationRecord = {
@@ -104,15 +105,23 @@ function createInsertDb(returnedRows: unknown[]) {
 
 describe("clinicalRecordsRouter", () => {
   test("creates diagnoses with generated ids", async () => {
+    const ripsLimit = mock(async () => [
+      { code: "01", name: "Confirmado nuevo", enabled: true, extraData: null },
+    ]);
+    const ripsWhere = mock(() => ({ limit: ripsLimit }));
+    const ripsFrom = mock(() => ({ where: ripsWhere }));
     const { db, values } = createInsertDb([diagnosisRecord]);
-    const client = createClinicalRecordsClient(db);
+    const client = createClinicalRecordsClient({
+      ...db,
+      select: mock(() => ({ from: ripsFrom })),
+    });
 
     const result = await client.clinicalRecords.createDiagnosis({
       certainty: "confirmed",
       code: "I10X",
       codeSystem: "CIE10",
       description: "Hipertension esencial",
-      diagnosisType: "principal",
+      diagnosisType: "01",
       encounterId: "encounter-id",
       rank: 1,
     });
@@ -125,7 +134,7 @@ describe("clinicalRecordsRouter", () => {
       code: "I10X",
       codeSystem: "CIE10",
       description: "Hipertension esencial",
-      diagnosisType: "principal",
+      diagnosisType: "01",
       encounterId: "encounter-id",
       rank: 1,
     });

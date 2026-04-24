@@ -5,6 +5,10 @@ import { and, asc, count, desc, eq, like, or } from "drizzle-orm";
 import { z } from "zod";
 
 import { protectedProcedure } from "../index";
+import {
+  RIPS_TABLE_NAMES,
+  validateRipsCode,
+} from "../services/rips-validation";
 
 const nonEmptyStringSchema = z.string().min(1);
 const optionalNullableStringSchema = z.string().min(1).nullable().optional();
@@ -12,10 +16,14 @@ const optionalNullableStringSchema = z.string().min(1).nullable().optional();
 const encounterSchema = z.object({
   admissionSource: z.string().nullable(),
   careModality: z.string(),
+  causeExternalCode: z.string().nullable(),
+  condicionDestinoCode: z.string().nullable(),
   createdAt: z.date(),
   encounterClass: z.string(),
   endedAt: z.date().nullable(),
+  finalidadConsultaCode: z.string().nullable(),
   id: z.string(),
+  modalidadAtencionCode: z.string().nullable(),
   patientId: z.string(),
   reasonForVisit: z.string(),
   serviceUnitId: z.string(),
@@ -29,7 +37,11 @@ const encounterSchema = z.object({
 const createEncounterSchema = z.object({
   admissionSource: optionalNullableStringSchema,
   careModality: nonEmptyStringSchema,
+  causeExternalCode: optionalNullableStringSchema,
+  condicionDestinoCode: optionalNullableStringSchema,
   encounterClass: nonEmptyStringSchema,
+  finalidadConsultaCode: optionalNullableStringSchema,
+  modalidadAtencionCode: optionalNullableStringSchema,
   patientId: nonEmptyStringSchema,
   reasonForVisit: nonEmptyStringSchema,
   serviceUnitId: nonEmptyStringSchema,
@@ -72,10 +84,78 @@ const listEncountersResponseSchema = z.object({
   total: z.number(),
 });
 
+async function validateEncounterRipsFields(
+  db: Parameters<typeof validateRipsCode>[0],
+  input: Partial<z.infer<typeof createEncounterSchema>>
+) {
+  if (input.encounterClass) {
+    await validateRipsCode(
+      db,
+      RIPS_TABLE_NAMES.grupoServicios,
+      input.encounterClass,
+      {
+        requireEnabled: true,
+      }
+    );
+  }
+  if (input.careModality) {
+    await validateRipsCode(
+      db,
+      RIPS_TABLE_NAMES.modalidadAtencion,
+      input.careModality,
+      { requireEnabled: true }
+    );
+  }
+  if (input.admissionSource) {
+    await validateRipsCode(
+      db,
+      RIPS_TABLE_NAMES.viaIngreso,
+      input.admissionSource,
+      {
+        requireEnabled: true,
+      }
+    );
+  }
+  if (input.causeExternalCode) {
+    await validateRipsCode(
+      db,
+      RIPS_TABLE_NAMES.causaExterna,
+      input.causeExternalCode,
+      { requireEnabled: true }
+    );
+  }
+  if (input.finalidadConsultaCode) {
+    await validateRipsCode(
+      db,
+      RIPS_TABLE_NAMES.finalidadConsulta,
+      input.finalidadConsultaCode,
+      { requireEnabled: true }
+    );
+  }
+  if (input.condicionDestinoCode) {
+    await validateRipsCode(
+      db,
+      RIPS_TABLE_NAMES.condicionDestino,
+      input.condicionDestinoCode,
+      { requireEnabled: true }
+    );
+  }
+  if (input.modalidadAtencionCode) {
+    await validateRipsCode(
+      db,
+      RIPS_TABLE_NAMES.modalidadAtencion,
+      input.modalidadAtencionCode,
+      { requireEnabled: true }
+    );
+  }
+}
+
 const createEncounterProcedure = protectedProcedure
   .input(createEncounterSchema)
   .output(encounterSchema)
   .handler(async ({ context, input }) => {
+    await validateEncounterRipsFields(context.db, input);
+
     const [createdEncounter] = await context.db
       .insert(encounter)
       .values({
@@ -162,6 +242,8 @@ const updateEncounterProcedure = protectedProcedure
         message: "No encounter fields were provided to update.",
       });
     }
+
+    await validateEncounterRipsFields(context.db, data);
 
     const [updatedEncounter] = await context.db
       .update(encounter)

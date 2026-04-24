@@ -8,6 +8,20 @@
       "when": 1777004025425,
       "tag": "0000_hard_karnak",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1777016232921,
+      "tag": "0001_tiresome_kulan_gath",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1777017561856,
+      "tag": "0002_silky_scalphunter",
+      "breakpoints": true
     }
   ]
 }

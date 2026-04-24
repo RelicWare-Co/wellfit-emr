@@ -11,6 +11,10 @@ import { asc, desc, eq } from "drizzle-orm";
 import { z } from "zod";
 
 import { protectedProcedure } from "../index";
+import {
+  RIPS_TABLE_NAMES,
+  validateRipsCode,
+} from "../services/rips-validation";
 
 const nonEmptyStringSchema = z.string().min(1);
 const optionalNullableStringSchema = z.string().min(1).nullable().optional();
@@ -26,6 +30,7 @@ const diagnosisSchema = z.object({
   id: z.string(),
   onsetAt: z.date().nullable(),
   rank: z.number().nullable(),
+  ripsReferenceName: z.string().nullable(),
 });
 
 const allergySchema = z.object({
@@ -63,6 +68,7 @@ const procedureSchema = z.object({
   patientId: z.string(),
   performedAt: z.date().nullable(),
   performerId: z.string().nullable(),
+  ripsReferenceName: z.string().nullable(),
   status: z.string(),
 });
 
@@ -137,11 +143,30 @@ const createDiagnosisProcedure = protectedProcedure
   .input(createDiagnosisSchema)
   .output(diagnosisSchema)
   .handler(async ({ context, input }) => {
+    await validateRipsCode(
+      context.db,
+      RIPS_TABLE_NAMES.tipoDiagnosticoPrincipal,
+      input.diagnosisType,
+      { requireEnabled: true }
+    );
+
+    let ripsReferenceName: string | null = null;
+    if (input.codeSystem.toUpperCase() === "CIE10") {
+      const cieEntry = await validateRipsCode(
+        context.db,
+        RIPS_TABLE_NAMES.cie10,
+        input.code,
+        { requireEnabled: true }
+      );
+      ripsReferenceName = cieEntry.name;
+    }
+
     const [createdDiagnosis] = await context.db
       .insert(diagnosis)
       .values({
         ...input,
         id: crypto.randomUUID(),
+        ripsReferenceName,
       })
       .returning();
 
@@ -217,11 +242,19 @@ const createProcedureProcedure = protectedProcedure
   .input(createProcedureSchema)
   .output(procedureSchema)
   .handler(async ({ context, input }) => {
+    const cupsEntry = await validateRipsCode(
+      context.db,
+      RIPS_TABLE_NAMES.cups,
+      input.cupsCode,
+      { requireEnabled: true }
+    );
+
     const [createdProcedure] = await context.db
       .insert(procedureRecord)
       .values({
         ...input,
         id: crypto.randomUUID(),
+        ripsReferenceName: cupsEntry.name,
       })
       .returning();
 

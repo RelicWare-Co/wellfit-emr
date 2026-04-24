@@ -1,0 +1,5295 @@
+[
+  {
+    "id": 1,
+    "nombreTabla": "TipoNota",
+    "descripcion": "Tipos de notas que aplican para el proceso FEV RIPS, usadas para modificar informacion de facturacion o RIPS.",
+    "campos": [
+      {
+        "nombre": "Codigo",
+        "valores": [
+          {
+            "valor": "NA",
+            "descripcion": "Hace referencia a NOTA DE AJUSTE DE RIPS"
+          },
+          {
+            "valor": "NC",
+            "descripcion": "Hace referencia a NOTA CREDITO"
+          },
+          {
+            "valor": "ND",
+            "descripcion": "Hace referencia a NOTA DEBITO"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "nombreTabla": "ModalidadContratoyPago",
+    "descripcion": "Posibles modalidades de contratación, permitidas en el proceso fev rips",
+    "campos": [
+      {
+        "nombre": "Codigo",
+        "valores": [
+          {
+            "valor": "01",
+            "descripcion": "Paquete / Canasta / Conjunto Integral en Salud"
+          },
+          {
+            "valor": "02",
+            "descripcion": "Grupos Relacionados por diagnóstico"
+          },
+          {
+            "valor": "03",
+            "descripcion": "Integral por grupo de riesgo"
+          },
+          {
+            "valor": "04",
+            "descripcion": "Pago por contacto por especialidad"
+          },
+          {
+            "valor": "05",
+            "descripcion": "Pago por escenario de atención"
+          },
+          {
+            "valor": "06",
+            "descripcion": "Pago por tipo de servicio"
+          },
+          {
+            "valor": "07",
+            "descripcion": "Pago global prospectivo por episodio"
+          },
+          {
+            "valor": "08",
+            "descripcion": "Pago global prospectivo por grupo de riesgo"
+          },
+          {
+            "valor": "09",
+            "descripcion": "Pago global prospectivo por especialidad"
+          },
+          {
+            "valor": "10",
+            "descripcion": "Pago global prospectivo por nivel de complejidad"
+          },
+          {
+            "valor": "11",
+            "descripcion": "Capitación"
+          },
+          {
+            "valor": "12",
+            "descripcion": "Pago por Servicio"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "nombreTabla": "CoberturaPlanBeneficios",
+    "descripcion": "Planes de beneficio validos para e proceso FEV RIPS",
+    "campos": [
+      {
+        "nombre": "Codigo",
+        "valores": [
+          {
+            "valor": "01",
+            "descripcion": "Plan de beneficios en salud financiado con UPC"
+          },
+          {
+            "valor": "02",
+            "descripcion": "Presupuesto máximo"
+          },
+          {
+            "valor": "03",
+            "descripcion": "Prima EPS, no asegurados SOAT"
+          },
+          {
+            "valor": "04",
+            "descripcion": "Cobertura Póliza SOAT"
+          },
+          {
+            "valor": "05",
+            "descripcion": "Cobertura ARL"
+          },
+          {
+            "valor": "06",
+            "descripcion": "Cobertura ADRES"
+          },
+          {
+            "valor": "07",
+            "descripcion": "Cobertura salud pública"
+          },
+          {
+            "valor": "08",
+            "descripcion": "Cobertura entidad territorial, recursos de oferta"
+          },
+          {
+            "valor": "09",
+            "descripcion": "Urgencias población migrante"
+          },
+          {
+            "valor": "10",
+            "descripcion": "Plan complementario en salud"
+          },
+          {
+            "valor": "11",
+            "descripcion": "Plan medicina prepagada"
+          },
+          {
+            "valor": "12",
+            "descripcion": "Pólizas en salud"
+          },
+          {
+            "valor": "13",
+            "descripcion": "Cobertura Régimen Especial o Excepción"
+          },
+          {
+            "valor": "14",
+            "descripcion": "Cobertura Fondo Nacional de Salud de las Personas Privadas de la Libertad"
+          },
+          {
+            "valor": "15",
+            "descripcion": "Particular"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "nombreTabla": "RIPSTipoUsuarioVersion2",
+    "descripcion": "Tipos de usuarios, del sistema de salud",
+    "campos": [
+      {
+        "nombre": "Codigo",
+        "valores": [
+          {
+            "valor": "01",
+            "descripcion": "Contributivo cotizante"
+          },
+          {
+            "valor": "02",
+            "descripcion": "Contributivo beneficiario"
+          },
+          {
+            "valor": "03",
+            "descripcion": "Contributivo adicional"
+          },
+          {
+            "valor": "04",
+            "descripcion": "Subsidiado"
+          },
+          {
+            "valor": "05",
+            "descripcion": "No afiliado"
+          },
+          {
+            "valor": "06",
+            "descripcion": "Especial o Excepción cotizante"
+          },
+          {
+            "valor": "07",
+            "descripcion": "Especial o Excepción beneficiario"
+          },
+          {
+            "valor": "08",
+            "descripcion": "Personas privadas de la libertad a cargo del Fondo Nacional de Salud"
+          },
+          {
+            "valor": "09",
+            "descripcion": "Tomador / Amparado ARL"
+          },
+          {
+            "valor": "10",
+            "descripcion": "Tomador / Amparado SOAT"
+          },
+          {
+            "valor": "11",
+            "descripcion": "Tomador / Amparado Planes voluntarios de salud"
+          },
+          {
+            "valor": "12",
+            "descripcion": "Particular"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "nombreTabla": "GrupoServicios",
+    "descripcion": "Clasificación de grupo de servicios",
+    "campos": [
+      {
+        "nombre": "Codigo",
+        "valores": [
+          {
+            "valor": "01",
+            "descripcion": "Consulta externa"
+          },
+          {
+            "valor": "02",
+            "descripcion": "Apoyo diagnóstico y complementación terapéutica"
+          },
+          {
+            "valor": "03",
+            "descripcion": "Internación"
+          },
+          {
+            "valor": "04",
+            "descripcion": "Quirúrgico"
+          },
+          {
+            "valor": "05",
+            "descripcion": "Atención inmediata"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "nombreTabla": "RIPSTipoDiagnosticoPrincipalVersion2",
+    "descripcion": "Tipos de diagnóstico principal",
+    "campos": [
+      {
+        "nombre": "Codigo",
+        "valores": [
+          {
+            "valor": "01",
+            "descripcion": "Impresión diagnóstica"
+          },
+          {
+            "valor": "02",
+            "descripcion": "Confirmado nuevo"
+          },
+          {
+            "valor": "03",
+            "descripcion": "Confirmado repetido"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "nombreTabla": "TipoOtrosServicios",
+    "descripcion": "Tipos de otros servicios permitidos en el proceso FEV RIPS",
+    "campos": [
+      {
+        "nombre": "Codigo",
+        "valores": [
+          {
+            "valor": "01",
+            "descripcion": "Dispositivos médicos e insumos"
+          },
+          {
+            "valor": "02",
+            "descripcion": "Traslados"
+          },
+          {
+            "valor": "03",
+            "descripcion": "Estancias"
+          },
+          {
+            "valor": "04",
+            "descripcion": "Servicios complementarios"
+          },
+          {
+            "valor": "05",
+            "descripcion": "Medicamento con autorización sanitaria de uso emergencia ASUE"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "nombreTabla": "TipoMedicamentoPOSVersion2",
+    "descripcion": "Tipos de medicamentos del POS",
+    "campos": [
+      {
+        "nombre": "Codigo",
+        "valores": [
+          {
+            "valor": "01",
+            "descripcion": "Medicamento con uso con registro sanitario"
+          },
+          {
+            "valor": "02",
+            "descripcion": "Medicamento con uso como vital no disponible definido por INVIMA"
+          },
+          {
+            "valor": "03",
+            "descripcion": "Preparación magistral"
+          },
+          {
+            "valor": "04",
+            "descripcion": "Medicamento con uso no incluido en el registro sanitario (Listado UNIRS)"
+          },
+          {
+            "valor": "05",
+            "descripcion": "Medicamento con autorizacionsanitariade uso emergencia ASUE"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "nombreTabla": "modalidadPago",
+    "descripcion": "modalidades de pago de FEV",
+    "campos": [
+      {
+        "nombre": "Codigo",
+        "valores": [
+          {
+            "valor": "01",
+            "descripcion": "Pago individual por caso / Conjunto integral de atenciones / Paquete / Canasta."
+          },
+          {
+            "valor": "02",
+            "descripcion": "Pago global prospectivo."
+          },
+          {
+            "valor": "03",
+            "descripcion": "Pago por capitación."
+          },
+          {
+            "valor": "04",
+            "descripcion": "Pago por evento."
+          },
+          {
+            "valor": "05",
+            "descripcion": "Otra modalidad (específica)"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "nombreTabla": "coberturaPlan",
+    "descripcion": "coberturas planes de beneficio",
+    "campos": [
+      {
+        "nombre": "Codigo",
+        "valores": [
+          {
+            "valor": "01",
+            "descripcion": "Plan de beneficios en salud financiado con UPC"
+          },
+          {
+            "valor": "02",
+            "descripcion": "Presupuesto máximo"
+          },
+          {
+            "valor": "03",
+            "descripcion": "Prima EPS / EOC, no asegurados SOAT"
+          },
+          {
+            "valor": "04",
+            "descripcion": "Cobertura Póliza SOAT"
+          },
+          {
+            "valor": "05",
+            "descripcion": "Cobertura ARL"
+          },
+          {
+            "valor": "06",
+            "descripcion": "Cobertura ADRES"
+          },
+          {
+            "valor": "07",
+            "descripcion": "Cobertura Salud Pública"
+          },
+          {
+            "valor": "08",
+            "descripcion": "Cobertura entidad territorial, recursos de oferta"
+          },
+          {
+            "valor": "09",
+            "descripcion": "Urgencias población migrante"
+          },
+          {
+            "valor": "10",
+            "descripcion": "Plan complementario en salud"
+          },
+          {
+            "valor": "11",
+            "descripcion": "Plan medicina prepagada"
+          },
+          {
+            "valor": "12",
+            "descripcion": "Otras pólizas en salud"
+          },
+          {
+            "valor": "13",
+            "descripcion": "Cobertura Régimen Especial o Excepción"
+          },
+          {
+            "valor": "14",
+            "descripcion": "Cobertura Fondo Nacional de Salud de las Personas Privadas de la Libertad"
+          },
+          {
+            "valor": "15",
+            "descripcion": "Particular"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "nombreTabla": "conceptoRecaudo",
+    "descripcion": "Conceptos de recaudo permitidos",
+    "campos": [
+      {
+        "nombre": "Codigo",
+        "valores": [
+          {
+            "valor": "01",
+            "descripcion": "Copago"
+          },
+          {
+            "valor": "02",
+            "descripcion": "Cuota moderadora"
+          },
+          {
+            "valor": "03",
+            "descripcion": "Cuota de recuperación"
+          },
+          {
+            "valor": "04",
+            "descripcion": "Pagos compartidos en planes voluntarios de salud"
+          },
+          {
+            "valor": "05",
+            "descripcion": "Anticipos"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "nombreTabla": "RIPSFinalidadConsultaVersion2",
+    "descripcion": "Finalidades de consultas y procedimientos resolucion 2275 de 2023",
+    "campos": [
+      {
+        "nombre": "Codigo",
+        "valores": [
+          {
+            "valor": "11",
+            "descripcion": "Valoración integral para la promoción y mantenimiento"
+          },
+          {
+            "valor": "12",
+            "descripcion": "Detección temprana de enfermedad general"
+          },
+          {
+            "valor": "13",
+            "descripcion": "Detección temprana de enfermedad laboral"
+          },
+          {
+            "valor": "14",
+            "descripcion": "Protección específica"
+          },
+          {
+            "valor": "15",
+            "descripcion": "Diagnóstico"
+          },
+          {
+            "valor": "16",
+            "descripcion": "Tratamiento"
+          },
+          {
+            "valor": "17",
+            "descripcion": "Rehabilitación"
+          },
+          {
+            "valor": "18",
+            "descripcion": "Paliación"
+          },
+          {
+            "valor": "19",
+            "descripcion": "Planificación familiar y anticoncepción"
+          },
+          {
+            "valor": "20",
+            "descripcion": "Promoción y apoyo a la lactancia materna"
+          },
+          {
+            "valor": "21",
+            "descripcion": "Atención básica de orientación familiar"
+          },
+          {
+            "valor": "22",
+            "descripcion": "Atención para el cuidado preconcepcional"
+          },
+          {
+            "valor": "23",
+            "descripcion": "Atención para el cuidado prenatal"
+          },
+          {
+            "valor": "24",
+            "descripcion": "Interrupción Voluntaria del Embarazo"
+          },
+          {
+            "valor": "25",
+            "descripcion": "Atención del parto y puerperio"
+          },
+          {
+            "valor": "26",
+            "descripcion": "Atención para el cuidado del recién nacido"
+          },
+          {
+            "valor": "27",
+            "descripcion": "Atención para el seguimiento del recién nacido"
+          },
+          {
+            "valor": "28",
+            "descripcion": "Preparación para la maternidad y la paternidad"
+          },
+          {
+            "valor": "29",
+            "descripcion": "Promoción de actividad física"
+          },
+          {
+            "valor": "30",
+            "descripcion": "Promoción de la cesación del tabaquismo"
+          },
+          {
+            "valor": "31",
+            "descripcion": "Prevención del consumo de sustancias psicoactivas"
+          },
+          {
+            "valor": "32",
+            "descripcion": "Promoción de la alimentación saludable"
+          },
+          {
+            "valor": "33",
+            "descripcion": "Promoción para el ejercicio de los derechos sexuales y derechos reproductivos"
+          },
+          {
+            "valor": "34",
+            "descripcion": "Promoción para el desarrollo de habilidades para la vida"
+          },
+          {
+            "valor": "35",
+            "descripcion": "Promoción para la construcción de estrategias de afrontamiento frente a sucesos vitales"
+          },
+          {
+            "valor": "36",
+            "descripcion": "Promoción de la sana convivencia y el tejido social"
+          },
+          {
+            "valor": "37",
+            "descripcion": "Promoción de un ambiente seguro y de cuidado y Protección del ambiente"
+          },
+          {
+            "valor": "38",
+            "descripcion": "Promoción del empoderamiento para el ejercicio del Derecho a la salud"
+          },
+          {
+            "valor": "39",
+            "descripcion": "Promoción para la adopción de prácticas de crianza y cuidado para la salud"
+          },
+          {
+            "valor": "40",
+            "descripcion": "Promoción de la capacidad de la agencia y cuidado de la salud"
+          },
+          {
+            "valor": "41",
+            "descripcion": "Desarrollo de habilidades cognitivas"
+          },
+          {
+            "valor": "42",
+            "descripcion": "Intervención colectiva"
+          },
+          {
+            "valor": "43",
+            "descripcion": "Modificación de la estética corporal (fines estéticos)"
+          },
+          {
+            "valor": "44",
+            "descripcion": "Otra"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_I:Consultas",
+        "valores": [
+          {
+            "valor": "SI",
+            "descripcion": "Si es consulta"
+          },
+          {
+            "valor": "NO",
+            "descripcion": "No es consulta"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_II:Procedimientos",
+        "valores": [
+          {
+            "valor": "SI",
+            "descripcion": "Si es Procedimiento"
+          },
+          {
+            "valor": "NO",
+            "descripcion": "No es Procedimiento"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_III:Urgencias",
+        "valores": [
+          {
+            "valor": "NA",
+            "descripcion": "No aplica"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_IV:Hospitalizacion",
+        "valores": [
+          {
+            "valor": "NA",
+            "descripcion": "No aplica"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_V:RNacidos",
+        "valores": [
+          {
+            "valor": "NA",
+            "descripcion": "No aplica"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_VI: Sexo",
+        "valores": [
+          {
+            "valor": "Z",
+            "descripcion": "Ambos"
+          },
+          {
+            "valor": "M",
+            "descripcion": "Masculino"
+          },
+          {
+            "valor": "F",
+            "descripcion": "Femenino"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_VII: Edad_mínima",
+        "valores": [
+          {
+            "valor": "0-99",
+            "descripcion": "años"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra__VIII: Edad_máaxima",
+        "valores": [
+          {
+            "valor": "0-99",
+            "descripcion": "años"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "nombreTabla": "ViaIngresoUsuario",
+    "descripcion": "Via de ingreso del paciente",
+    "campos": [
+      {
+        "nombre": "Codigo",
+        "valores": [
+          {
+            "valor": "01",
+            "descripcion": "Demanda espontánea"
+          },
+          {
+            "valor": "02",
+            "descripcion": "Derivado de consulta externa"
+          },
+          {
+            "valor": "03",
+            "descripcion": "Derivado de urgencias"
+          },
+          {
+            "valor": "04",
+            "descripcion": "Derivado de hospitalización"
+          },
+          {
+            "valor": "05",
+            "descripcion": "Derivado de sala de cirugía"
+          },
+          {
+            "valor": "06",
+            "descripcion": "Derivado de sala de partos"
+          },
+          {
+            "valor": "07",
+            "descripcion": "Recién nacido en la institución"
+          },
+          {
+            "valor": "08",
+            "descripcion": "Recién nacido en otra institución"
+          },
+          {
+            "valor": "09",
+            "descripcion": "Derivado o referido de hospitalización domiciliaria"
+          },
+          {
+            "valor": "10",
+            "descripcion": "Derivado de atención domiciliaria"
+          },
+          {
+            "valor": "11",
+            "descripcion": "Derivado de telemedicina"
+          },
+          {
+            "valor": "12",
+            "descripcion": "Derivado de jornada de salud"
+          },
+          {
+            "valor": "13",
+            "descripcion": "Referido de otra institución"
+          },
+          {
+            "valor": "14",
+            "descripcion": "Contrarreferido de otra institución"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_I:Consultas",
+        "valores": [
+          {
+            "valor": "NA",
+            "descripcion": "No aplica"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_II:Procedimientos",
+        "valores": [
+          {
+            "valor": "SI",
+            "descripcion": "Si es Procedimiento"
+          },
+          {
+            "valor": "NO",
+            "descripcion": "No es Procedimiento"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_III:Urgencias",
+        "valores": [
+          {
+            "valor": "SI",
+            "descripcion": "Si es por urgencias"
+          },
+          {
+            "valor": "NO",
+            "descripcion": "No es por urgencias"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_IV:Hospitalizacion",
+        "valores": [
+          {
+            "valor": "SI",
+            "descripcion": "Si es por Hospitalización"
+          },
+          {
+            "valor": "NO",
+            "descripcion": "No es por Hospitalización"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_V:RNacidos",
+        "valores": [
+          {
+            "valor": "NA",
+            "descripcion": "No aplica"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "nombreTabla": "RIPSCausaExternaVersion2",
+    "descripcion": "Causas externas resolución 2275 de 2023",
+    "campos": [
+      {
+        "nombre": "Codigo",
+        "valores": [
+          {
+            "valor": "21",
+            "descripcion": "Accidente de trabajo"
+          },
+          {
+            "valor": "22",
+            "descripcion": "Accidente en el hogar"
+          },
+          {
+            "valor": "23",
+            "descripcion": "Accidente de tránsito de origen común"
+          },
+          {
+            "valor": "24",
+            "descripcion": "Accidente de tránsito de origen laboral"
+          },
+          {
+            "valor": "25",
+            "descripcion": "Accidente en el entorno educativo"
+          },
+          {
+            "valor": "26",
+            "descripcion": "Otro tipo de accidente"
+          },
+          {
+            "valor": "27",
+            "descripcion": "Evento catastrófico de origen natural"
+          },
+          {
+            "valor": "28",
+            "descripcion": "Lesión por agresión"
+          },
+          {
+            "valor": "29",
+            "descripcion": "Lesión auto infligida"
+          },
+          {
+            "valor": "30",
+            "descripcion": "Sospecha de violencia física"
+          },
+          {
+            "valor": "31",
+            "descripcion": "Sospecha de violencia psicológica"
+          },
+          {
+            "valor": "32",
+            "descripcion": "Sospecha de violencia sexual"
+          },
+          {
+            "valor": "33",
+            "descripcion": "Sospecha de negligencia y abandono"
+          },
+          {
+            "valor": "34",
+            "descripcion": "IVE relacionado con peligro a la Salud o vida de la mujer"
+          },
+          {
+            "valor": "35",
+            "descripcion": "IVE por malformación congénita incompatible con la vida"
+          },
+          {
+            "valor": "36",
+            "descripcion": "IVE por violencia sexual, incesto o por inseminación artificial o transferencia de ovulo fecundado no consentida"
+          },
+          {
+            "valor": "37",
+            "descripcion": "Evento adverso en salud"
+          },
+          {
+            "valor": "38",
+            "descripcion": "Enfermedad general"
+          },
+          {
+            "valor": "39",
+            "descripcion": "Enfermedad laboral"
+          },
+          {
+            "valor": "40",
+            "descripcion": "Promoción y mantenimiento de la salud – intervenciones individuales"
+          },
+          {
+            "valor": "41",
+            "descripcion": "Intervención colectiva"
+          },
+          {
+            "valor": "42",
+            "descripcion": "Atención de población materno perinatal"
+          },
+          {
+            "valor": "43",
+            "descripcion": "Riesgo ambiental"
+          },
+          {
+            "valor": "44",
+            "descripcion": "Otros eventos Catastróficos"
+          },
+          {
+            "valor": "45",
+            "descripcion": "Accidente de mina antipersonal – MAP"
+          },
+          {
+            "valor": "46",
+            "descripcion": "Accidente de Artefacto Explosivo Improvisado – AEI"
+          },
+          {
+            "valor": "47",
+            "descripcion": "Accidente de Munición Sin Explotar- MUSE"
+          },
+          {
+            "valor": "48",
+            "descripcion": "Otra víctima de conflicto armado colombiano"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_I:Consultas",
+        "valores": [
+          {
+            "valor": "SI",
+            "descripcion": "Si es consulta"
+          },
+          {
+            "valor": "NO",
+            "descripcion": "No es consulta"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_II:Procedimientos",
+        "valores": [
+          {
+            "valor": "NA",
+            "descripcion": "No aplica"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_III:Urgencias",
+        "valores": [
+          {
+            "valor": "SI",
+            "descripcion": "Si es por urgencias"
+          },
+          {
+            "valor": "NO",
+            "descripcion": "No es por urgencias"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_IV:Hospitalizacion",
+        "valores": [
+          {
+            "valor": "SI",
+            "descripcion": "Si es por Hospitalización"
+          },
+          {
+            "valor": "NO",
+            "descripcion": "No es por Hospitalización"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_V:RNacidos",
+        "valores": [
+          {
+            "valor": "NA",
+            "descripcion": "No aplica"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "nombreTabla": "CondicionyDestinoUsuarioEgreso",
+    "descripcion": "Condicion y destrino del usuario a la salida de hospitalizaion",
+    "campos": [
+      {
+        "nombre": "Codigo",
+        "valores": [
+          {
+            "valor": "01",
+            "descripcion": "Paciente con destino a su domicilio"
+          },
+          {
+            "valor": "02",
+            "descripcion": "Paciente muerto"
+          },
+          {
+            "valor": "03",
+            "descripcion": "Paciente derivado a otro servicio"
+          },
+          {
+            "valor": "04",
+            "descripcion": "Referido a otra institución"
+          },
+          {
+            "valor": "05",
+            "descripcion": "Contra referido a otra institución"
+          },
+          {
+            "valor": "06",
+            "descripcion": "Derivado o referido a hospitalización domiciliaria"
+          },
+          {
+            "valor": "07",
+            "descripcion": "Derivado a servicio social"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_I:Consultas",
+        "valores": [
+          {
+            "valor": "NA",
+            "descripcion": "No aplica"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_II:Procedimientos",
+        "valores": [
+          {
+            "valor": "NA",
+            "descripcion": "No aplica"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_III:Urgencias",
+        "valores": [
+          {
+            "valor": "SI",
+            "descripcion": "Si es por urgencias"
+          },
+          {
+            "valor": "NO",
+            "descripcion": "No es por urgencias"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_IV:Hospitalizacion",
+        "valores": [
+          {
+            "valor": "SI",
+            "descripcion": "Si es por Hospitalización"
+          },
+          {
+            "valor": "NO",
+            "descripcion": "No es por Hospitalización"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_V:RNacidos",
+        "valores": [
+          {
+            "valor": "SI",
+            "descripcion": "Si es recien nacido"
+          },
+          {
+            "valor": "NO",
+            "descripcion": "No es recien nacido"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "nombreTabla": "ModalidadAtencion",
+    "descripcion": "Modalidades de atención",
+    "campos": [
+      {
+        "nombre": "Codigo",
+        "valores": [
+          {
+            "valor": "01",
+            "descripcion": "Intramural"
+          },
+          {
+            "valor": "02",
+            "descripcion": "Extramural unidad móvil"
+          },
+          {
+            "valor": "03",
+            "descripcion": "Extramural domiciliaria"
+          },
+          {
+            "valor": "04",
+            "descripcion": "Extramural jornada de salud"
+          },
+          {
+            "valor": "05",
+            "descripcion": "Extramural"
+          },
+          {
+            "valor": "06",
+            "descripcion": "Telemedicina interactiva"
+          },
+          {
+            "valor": "07",
+            "descripcion": "Telemedicina no interactiva"
+          },
+          {
+            "valor": "08",
+            "descripcion": "Telemedicina telexperticia"
+          },
+          {
+            "valor": "09",
+            "descripcion": "Telemedicina telemonitoreo"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_I:Consultas",
+        "valores": [
+          {
+            "valor": "SI",
+            "descripcion": "Si es consulta"
+          },
+          {
+            "valor": "NO",
+            "descripcion": "No es consulta"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_II:Procedimientos",
+        "valores": [
+          {
+            "valor": "SI",
+            "descripcion": "Si es Procedimiento"
+          },
+          {
+            "valor": "NO",
+            "descripcion": "No es Procedimiento"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_III:Urgencias",
+        "valores": [
+          {
+            "valor": "NA",
+            "descripcion": "No aplica"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_IV:Hospitalizacion",
+        "valores": [
+          {
+            "valor": "NA",
+            "descripcion": "No aplica"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_V:RNacidos",
+        "valores": [
+          {
+            "valor": "NA",
+            "descripcion": "No aplica"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 17,
+    "nombreTabla": "tipoPagoModerador",
+    "descripcion": "tipode pagos moderadores",
+    "campos": [
+      {
+        "nombre": "Codigo",
+        "valores": [
+          {
+            "valor": "01",
+            "descripcion": "Cuota moderadora"
+          },
+          {
+            "valor": "02",
+            "descripcion": "Copago"
+          },
+          {
+            "valor": "03",
+            "descripcion": "Bono o vale de plan complementario"
+          },
+          {
+            "valor": "04",
+            "descripcion": "No aplica pago moderador"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_I:Consultas",
+        "valores": [
+          {
+            "valor": "SI",
+            "descripcion": "Si es consulta"
+          },
+          {
+            "valor": "NO",
+            "descripcion": "No es consulta"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_II:Procedimientos",
+        "valores": [
+          {
+            "valor": "SI",
+            "descripcion": "Si es Procedimiento"
+          },
+          {
+            "valor": "NO",
+            "descripcion": "No es Procedimiento"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_III:Urgencias",
+        "valores": [
+          {
+            "valor": "SI",
+            "descripcion": "Si es por urgencias"
+          },
+          {
+            "valor": "NO",
+            "descripcion": "No es por urgencias"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_IV:Hospitalizacion",
+        "valores": [
+          {
+            "valor": "SI",
+            "descripcion": "Si es por Hospitalización"
+          },
+          {
+            "valor": "NO",
+            "descripcion": "No es por Hospitalización"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_V:RNacidos",
+        "valores": [
+          {
+            "valor": "SI",
+            "descripcion": "Si es recien nacido"
+          },
+          {
+            "valor": "NO",
+            "descripcion": "No es recien nacido"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 18,
+    "nombreTabla": "TipoPagoCompartido",
+    "descripcion": "tipos de pago compartidos",
+    "campos": [
+      {
+        "nombre": "Codigo",
+        "valores": [
+          {
+            "valor": "01",
+            "descripcion": "Cuota moderadora"
+          },
+          {
+            "valor": "02",
+            "descripcion": "Copago"
+          },
+          {
+            "valor": "03",
+            "descripcion": "Cuota de recuperación"
+          },
+          {
+            "valor": "04",
+            "descripcion": "Bono o vale de plan voluntario"
+          },
+          {
+            "valor": "05",
+            "descripcion": "no aplica pago compartido"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_I:Consultas",
+        "valores": [
+          {
+            "valor": "SI",
+            "descripcion": "Si es consulta"
+          },
+          {
+            "valor": "NO",
+            "descripcion": "No es consulta"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_II:Procedimientos",
+        "valores": [
+          {
+            "valor": "SI",
+            "descripcion": "Si es Procedimiento"
+          },
+          {
+            "valor": "NO",
+            "descripcion": "No es Procedimiento"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_III:Urgencias",
+        "valores": [
+          {
+            "valor": "SI",
+            "descripcion": "Si es por urgencias"
+          },
+          {
+            "valor": "NO",
+            "descripcion": "No es por urgencias"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_IV:Hospitalizacion",
+        "valores": [
+          {
+            "valor": "SI",
+            "descripcion": "Si es por Hospitalización"
+          },
+          {
+            "valor": "NO",
+            "descripcion": "No es por Hospitalización"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_V:RNacidos",
+        "valores": [
+          {
+            "valor": "SI",
+            "descripcion": "Si es recien nacido"
+          },
+          {
+            "valor": "NO",
+            "descripcion": "No es recien nacido"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 19,
+    "nombreTabla": "CIE10",
+    "descripcion": "Codificación internacional de eenfermedades CIE Versión 10",
+    "campos": [
+      {
+        "nombre": "Codigo",
+        "valores": [
+          {
+            "valor": "https://web.sispro.gov.co/WebPublico/Consultas/ConsultarDetalleReferenciaBasica.aspx?Code=CIE10",
+            "descripcion": null
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_I:AplicaASexo",
+        "valores": [
+          {
+            "valor": "2",
+            "descripcion": "Femenino"
+          },
+          {
+            "valor": "3",
+            "descripcion": "Indetermninado"
+          },
+          {
+            "valor": "1",
+            "descripcion": "Masculino"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_II:EdadMinima",
+        "valores": [
+          {
+            "valor": "0",
+            "descripcion": "edad minima"
+          },
+          {
+            "valor": "1",
+            "descripcion": "edad minima"
+          },
+          {
+            "valor": "10",
+            "descripcion": "edad minima"
+          },
+          {
+            "valor": "12",
+            "descripcion": "edad minima"
+          },
+          {
+            "valor": "15",
+            "descripcion": "edad minima"
+          },
+          {
+            "valor": "16",
+            "descripcion": "edad minima"
+          },
+          {
+            "valor": "18",
+            "descripcion": "edad minima"
+          },
+          {
+            "valor": "2",
+            "descripcion": "edad minima"
+          },
+          {
+            "valor": "20",
+            "descripcion": "edad minima"
+          },
+          {
+            "valor": "25",
+            "descripcion": "edad minima"
+          },
+          {
+            "valor": "3",
+            "descripcion": "edad minima"
+          },
+          {
+            "valor": "30",
+            "descripcion": "edad minima"
+          },
+          {
+            "valor": "4",
+            "descripcion": "edad minima"
+          },
+          {
+            "valor": "5",
+            "descripcion": "edad minima"
+          },
+          {
+            "valor": "50",
+            "descripcion": "edad minima"
+          },
+          {
+            "valor": "55",
+            "descripcion": "edad minima"
+          },
+          {
+            "valor": "6",
+            "descripcion": "edad minima"
+          },
+          {
+            "valor": "65",
+            "descripcion": "edad minima"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_III:EdadMaxima",
+        "valores": [
+          {
+            "valor": "0",
+            "descripcion": "edad maxima"
+          },
+          {
+            "valor": "10",
+            "descripcion": "edad maxima"
+          },
+          {
+            "valor": "100",
+            "descripcion": "edad maxima"
+          },
+          {
+            "valor": "12",
+            "descripcion": "edad maxima"
+          },
+          {
+            "valor": "120",
+            "descripcion": "edad maxima"
+          },
+          {
+            "valor": "14",
+            "descripcion": "edad maxima"
+          },
+          {
+            "valor": "15",
+            "descripcion": "edad maxima"
+          },
+          {
+            "valor": "17",
+            "descripcion": "edad maxima"
+          },
+          {
+            "valor": "18",
+            "descripcion": "edad maxima"
+          },
+          {
+            "valor": "21",
+            "descripcion": "edad maxima"
+          },
+          {
+            "valor": "25",
+            "descripcion": "edad maxima"
+          },
+          {
+            "valor": "35",
+            "descripcion": "edad maxima"
+          },
+          {
+            "valor": "4",
+            "descripcion": "edad maxima"
+          },
+          {
+            "valor": "50",
+            "descripcion": "edad maxima"
+          },
+          {
+            "valor": "54",
+            "descripcion": "edad maxima"
+          },
+          {
+            "valor": "64",
+            "descripcion": "edad maxima"
+          },
+          {
+            "valor": "8",
+            "descripcion": "edad maxima"
+          },
+          {
+            "valor": "80",
+            "descripcion": "edad maxima"
+          },
+          {
+            "valor": "85",
+            "descripcion": "edad maxima"
+          },
+          {
+            "valor": "9",
+            "descripcion": "edad maxima"
+          },
+          {
+            "valor": "95",
+            "descripcion": "edad maxima"
+          },
+          {
+            "valor": "999",
+            "descripcion": "edad maxima"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_IV:GrupoMortalidad",
+        "valores": [
+          {
+            "valor": "1 - 22",
+            "descripcion": "Numero entre 1 y 22"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_V Nombre capítulo",
+        "valores": [
+          {
+            "valor": "CIERTAS ENFERMEDADES INFECCIOSAS Y PARASITARIAS (A00-B99)",
+            "descripcion": null
+          },
+          {
+            "valor": "TUMORES [NEOPLASIAS] (C00-D48)",
+            "descripcion": null
+          },
+          {
+            "valor": "LINFOMA NO HODGKIN MIXTO, DE CELULAS PEQUEðAS Y GRANDES (DIFUSO)",
+            "descripcion": null
+          },
+          {
+            "valor": "LINFOMA NO HODGKIN INMUNOBLASTICO (DIFUSO)",
+            "descripcion": null
+          },
+          {
+            "valor": "LINFOMA NO HODGKIN INDIFERENCIADO (DIFUSO)",
+            "descripcion": null
+          },
+          {
+            "valor": "LINFOMA DE ZONA T",
+            "descripcion": null
+          },
+          {
+            "valor": "LINFOMA LINFOEPITELIOIDE",
+            "descripcion": null
+          },
+          {
+            "valor": "LINFOSARCOMA",
+            "descripcion": null
+          },
+          {
+            "valor": "ENFERMEDAD DE CADENA PESADA ALFA",
+            "descripcion": null
+          },
+          {
+            "valor": "LEUCEMIA MONOCITICA SUBAGUDA",
+            "descripcion": null
+          },
+          {
+            "valor": "ERITREMIA CRONICA",
+            "descripcion": null
+          },
+          {
+            "valor": "MIELOFIBROSIS AGUDA",
+            "descripcion": null
+          },
+          {
+            "valor": "LEUCEMIA SUBAGUDA, CELULAS DE TIPO NO ESPECIFICADO",
+            "descripcion": null
+          },
+          {
+            "valor": "HISTIOCITOSIS MALIGNA",
+            "descripcion": null
+          },
+          {
+            "valor": "LINFOMA HISTIOCITICO VERDADERO",
+            "descripcion": null
+          },
+          {
+            "valor": "ANEMIA REFRACTARIA SIN SIDEROBLASTOS EN FORMA DE ANILLO, ASI DESCRITA",
+            "descripcion": null
+          },
+          {
+            "valor": "ANEMIA REFRACTARIA CON EXCESO DE BLASTOS CON TRANSFORMACION",
+            "descripcion": null
+          },
+          {
+            "valor": "ENFERMEDADES DE LA SANGRE Y DE LOS ORGANOS HEMATOPOYETICOS, Y CIERTOS TRASTORNOS QUE AFECTAN EL MECANISMO DE LA INMUNIDAD (D50-D89)",
+            "descripcion": null
+          },
+          {
+            "valor": "ENFERMEDADES ENDOCRINAS, NUTRICIONALES Y METABOLICAS (E00-E90)",
+            "descripcion": null
+          },
+          {
+            "valor": "TRASTORNOS MENTALES Y DEL COMPORTAMIENTO (F00-F99)",
+            "descripcion": null
+          },
+          {
+            "valor": "ENFERMEDADES DEL SISTEMA NERVIOSO (G00-G99)",
+            "descripcion": null
+          },
+          {
+            "valor": "MIELOPATIA ASOCIADA AL VIRUS LINFOTROPICO DE CELULAS T HUMANAS",
+            "descripcion": null
+          },
+          {
+            "valor": "ATROFIA SISTEMICA MULTIPLE, TIPO PARKINSONIANA [AMS-P]",
+            "descripcion": null
+          },
+          {
+            "valor": "ATROFIA MULTISISTEMICA TIPO CEREBELOSA [ASM-C]",
+            "descripcion": null
+          },
+          {
+            "valor": "SINDROME DE ENCLAUSTRAMIENTO",
+            "descripcion": null
+          },
+          {
+            "valor": "ENFERMEDADES DEL OJO Y SUS ANEXOS (H00-H59)",
+            "descripcion": null
+          },
+          {
+            "valor": "ENFERMEDADES DEL SISTEMA CIRCULATORIO (I00-I99)",
+            "descripcion": null
+          },
+          {
+            "valor": "HEMORROIDES INTERNAS TROMBOSADAS",
+            "descripcion": null
+          },
+          {
+            "valor": "HEMORROIDES INTERNAS CON OTRAS COMPLICACIONES",
+            "descripcion": null
+          },
+          {
+            "valor": "HEMORROIDES INTERNAS SIN COMPLICACION",
+            "descripcion": null
+          },
+          {
+            "valor": "HEMORROIDES EXTERNAS TROMBOSADAS",
+            "descripcion": null
+          },
+          {
+            "valor": "HEMORROIDES EXTERNAS CON OTRAS COMPLICACIONES",
+            "descripcion": null
+          },
+          {
+            "valor": "HEMORROIDES EXTERNAS SIN COMPLICACION",
+            "descripcion": null
+          },
+          {
+            "valor": "PROMINENCIAS CUTANEAS, RESIDUO DE HEMORROIDES",
+            "descripcion": null
+          },
+          {
+            "valor": "HEMORROIDES TROMBOSADAS NO ESPECIFICADAS",
+            "descripcion": null
+          },
+          {
+            "valor": "HEMORROIDES NO ESPECIFICADAS, CON OTRAS COMPLICACIONES",
+            "descripcion": null
+          },
+          {
+            "valor": "HEMORROIDES NO ESPECIFICADAS, SIN COMPLICACION",
+            "descripcion": null
+          },
+          {
+            "valor": "ENFERMEDADES DEL SISTEMA RESPIRATORIO (J00-J99)",
+            "descripcion": null
+          },
+          {
+            "valor": "ENFERMEDADES DEL SISTEMA DIGESTIVO (K00-K93)",
+            "descripcion": null
+          },
+          {
+            "valor": "APENDICITIS AGUDA CON PERITONITIS GENERALIZADA",
+            "descripcion": null
+          },
+          {
+            "valor": "APENDICITIS AGUDA CON ABSCESO PERITONEAL",
+            "descripcion": null
+          },
+          {
+            "valor": "APENDICITIS AGUDA, NO ESPECIFICADA",
+            "descripcion": null
+          },
+          {
+            "valor": "ENFERMEDADES DE LA PIEL Y DEL TEJIDO SUBCUTANEO (L00-L99)",
+            "descripcion": null
+          },
+          {
+            "valor": "PAPULOSIS LINFOMATOIDE",
+            "descripcion": null
+          },
+          {
+            "valor": "PIEL Y TEJIDO SUBCUTANEO EXCESIVA Y REDUNDANTE",
+            "descripcion": null
+          },
+          {
+            "valor": "ENFERMEDADES DEL SISTEMA OSTEOMUSCULAR Y DEL TEJIDO CONJUNTIVO (M00-M99)",
+            "descripcion": null
+          },
+          {
+            "valor": "ENFERMEDADES DEL SISTEMA GENITOURINARIO (N00-N99)",
+            "descripcion": null
+          },
+          {
+            "valor": "INSUFICIENCIA RENAL TERMINAL",
+            "descripcion": null
+          },
+          {
+            "valor": "OTRAS INSUFICIENCIAS RENALES CRONICAS",
+            "descripcion": null
+          },
+          {
+            "valor": "EMBARAZO, PARTO Y PUERPERIO (O00-O99)",
+            "descripcion": null
+          },
+          {
+            "valor": "MUERTE MATERNA DE CAUSA BASICA ESPECIFICADA EN OTRO CAPITULO",
+            "descripcion": null
+          },
+          {
+            "valor": "MUERTE MATERNA DEBIDA A CUALQUIER CAUSA OBSTETRICA QUE OCURRE DESPUES DE 42 DIAS PERO ANTES DE UN AðO DEL PARTO",
+            "descripcion": null
+          },
+          {
+            "valor": "MUERTE POR SECUELAS DE CAUSAS OBSTETRICAS DIRECTAS",
+            "descripcion": null
+          },
+          {
+            "valor": "CIERTAS AFECCIONES ORIGINADAS EN EL PERIODO PERINATAL (P00-P96)",
+            "descripcion": null
+          },
+          {
+            "valor": "HIDROCEFALIA ADQUIRIDA DEL RECIEN NACIDO",
+            "descripcion": null
+          },
+          {
+            "valor": "MALFORMACIONES CONGENITAS, DEFORMIDADES Y ANOMALIAS CROMOSOMICAS (Q00-Q99)",
+            "descripcion": null
+          },
+          {
+            "valor": "SINTOMAS, SIGNOS Y HALLAZGOS ANORMALES CLINICOS Y DE LABORATORIO, NO CLASIFICADOS EN OTRA PARTE (R00-R99)",
+            "descripcion": null
+          },
+          {
+            "valor": "SINDROME DE LA MUERTE SUBITA INFANTIL",
+            "descripcion": null
+          },
+          {
+            "valor": "TRAUMATISMOS, ENVENENAMIENTO Y ALGUNAS OTRAS CONSECUENCIAS DE CAUSAS EXTERNAS (S00-T98)",
+            "descripcion": null
+          },
+          {
+            "valor": "CODIGOS PARA PROPOSITOS ESPECIALES (U00-U99)",
+            "descripcion": null
+          },
+          {
+            "valor": "ENFERMEDAD POR EL VIRUS DEL ZIKA, SIN ESPECIFICACION",
+            "descripcion": null
+          },
+          {
+            "valor": "COVID-19 VIRUS NO IDENTIFICADO",
+            "descripcion": null
+          },
+          {
+            "valor": "AGENTE BACTERIANO RESISTENTE A PENICILINA",
+            "descripcion": null
+          },
+          {
+            "valor": "AGENTE BACTERIANO RESISTENTE A METICILINA",
+            "descripcion": null
+          },
+          {
+            "valor": "AGENTE BACTERIANO RESISTENTE A OTRO ANTIBIOTICO SIMILAR A LA PENICILINA",
+            "descripcion": null
+          },
+          {
+            "valor": "AGENTE BACTERIANO RESISTENTE A VANCOMICINA",
+            "descripcion": null
+          },
+          {
+            "valor": "AGENTE BACTERIANO RESISTENTE A OTRO ANTIBIOTICO SIMILAR A LA VANCOMICINA",
+            "descripcion": null
+          },
+          {
+            "valor": "AGENTE BACTERIANO RESISTENTE A MULTIPLES ANTIBIOTICOS",
+            "descripcion": null
+          },
+          {
+            "valor": "AGENTE BACTERIANO RESISTENTE A OTRO ANTIBIOTICO UNICO ESPECIFICADO",
+            "descripcion": null
+          },
+          {
+            "valor": "AGENTE BACTERIANO RESISTENTE A ANTIBIOTICO NO ESPECIFICADO",
+            "descripcion": null
+          },
+          {
+            "valor": "CAUSAS EXTERNAS DE MORBILIDAD Y DE MORTALIDAD (V01-Y98)",
+            "descripcion": null
+          },
+          {
+            "valor": "FACTORES QUE INFLUYEN EN EL ESTADO DE SALUD Y CONTACTO CON LOS SERVICIOS DE SALUD (Z00-Z99)",
+            "descripcion": null
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_VI:Capitulo",
+        "valores": [
+          {
+            "valor": "https://web.sispro.gov.co/WebPublico/Consultas/ConsultarDetalleReferenciaBasica.aspx?Code=CIE10",
+            "descripcion": null
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_VIII:SubGrupo",
+        "valores": [
+          {
+            "valor": "1 - 22",
+            "descripcion": "Numero entre 1 y 22"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_X:Sexo",
+        "valores": [
+          {
+            "valor": "A",
+            "descripcion": null
+          },
+          {
+            "valor": "F",
+            "descripcion": "Femenino"
+          },
+          {
+            "valor": "M",
+            "descripcion": "Masculino"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 20,
+    "nombreTabla": "EntidadResponsablePago",
+    "descripcion": "Entidades responsables de pago",
+    "campos": [
+      {
+        "nombre": "Codigo",
+        "valores": [
+          {
+            "valor": "https://web.sispro.gov.co/WebPublico/Consultas/ConsultarDetalleReferenciaBasica.aspx?Code=EntidadResponsablePago",
+            "descripcion": null
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_II:NombreResponsable",
+        "valores": [
+          {
+            "valor": "Valor numerico de 9 digitos",
+            "descripcion": "NIT de la entidad sin digito de verificación"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_III:TipoEntidadResponsable",
+        "valores": [
+          {
+            "valor": "0",
+            "descripcion": null
+          },
+          {
+            "valor": "1",
+            "descripcion": null
+          },
+          {
+            "valor": "2",
+            "descripcion": null
+          },
+          {
+            "valor": "3",
+            "descripcion": null
+          },
+          {
+            "valor": "4",
+            "descripcion": null
+          },
+          {
+            "valor": "5",
+            "descripcion": null
+          },
+          {
+            "valor": "6",
+            "descripcion": null
+          },
+          {
+            "valor": "7",
+            "descripcion": null
+          },
+          {
+            "valor": "8",
+            "descripcion": null
+          },
+          {
+            "valor": "9",
+            "descripcion": null
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_IV:NIT",
+        "valores": [
+          {
+            "valor": "Valor numerico de 10 digitos",
+            "descripcion": "NIT de la entidad con digito de verificación"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_V",
+        "valores": [
+          {
+            "valor": "1. MUNICIPIO",
+            "descripcion": null
+          },
+          {
+            "valor": "2. DEPARTAMENTO",
+            "descripcion": null
+          },
+          {
+            "valor": "3. DISTRITO",
+            "descripcion": null
+          },
+          {
+            "valor": "4. EPS REGIMEN SUBSIDIADO",
+            "descripcion": null
+          },
+          {
+            "valor": "5. EPS REGIMEN CONTRIBUTIVO",
+            "descripcion": null
+          },
+          {
+            "valor": "6. EPS REGIMEN SUBSIDIADO MOVILIDAD",
+            "descripcion": null
+          },
+          {
+            "valor": "7. EPS REGIMEN CONTRIBUTIVO MOVILIDAD",
+            "descripcion": null
+          },
+          {
+            "valor": "8. ARL",
+            "descripcion": null
+          },
+          {
+            "valor": "9. ENTIDAD ADAPTADA",
+            "descripcion": null
+          },
+          {
+            "valor": "10. REGIMEN ESPECIAL Y DE EXCEPCION",
+            "descripcion": null
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_VI",
+        "valores": [
+          {
+            "valor": "Texto",
+            "descripcion": "Correo de la entidad responsable de pago"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 21,
+    "nombreTabla": "CUPSRips",
+    "descripcion": "Codificación Ünica de Procesimientos en Salud, aprobada para el país y para los RIPS",
+    "campos": [
+      {
+        "nombre": "Codigo",
+        "valores": [
+          {
+            "valor": "https://web.sispro.gov.co/WebPublico/Consultas/ConsultarDetalleReferenciaBasica.aspx?Code=CUPSRips",
+            "descripcion": null
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_I:UsoCodigoCUP",
+        "valores": [
+          {
+            "valor": "AP",
+            "descripcion": null
+          },
+          {
+            "valor": "AC",
+            "descripcion": null
+          },
+          {
+            "valor": "AT",
+            "descripcion": null
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_II:Qx",
+        "valores": [
+          {
+            "valor": "S",
+            "descripcion": null
+          },
+          {
+            "valor": "N",
+            "descripcion": null
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_III:NroMinimo",
+        "valores": [
+          {
+            "valor": "0",
+            "descripcion": null
+          },
+          {
+            "valor": "1",
+            "descripcion": null
+          },
+          {
+            "valor": "2",
+            "descripcion": null
+          },
+          {
+            "valor": "3",
+            "descripcion": null
+          },
+          {
+            "valor": "4",
+            "descripcion": null
+          },
+          {
+            "valor": "5",
+            "descripcion": null
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_IV:NroMaximo",
+        "valores": [
+          {
+            "valor": "1",
+            "descripcion": null
+          },
+          {
+            "valor": "2",
+            "descripcion": null
+          },
+          {
+            "valor": "3",
+            "descripcion": null
+          },
+          {
+            "valor": "4",
+            "descripcion": null
+          },
+          {
+            "valor": "5",
+            "descripcion": null
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_V:DxRequerido",
+        "valores": [
+          {
+            "valor": "S",
+            "descripcion": null
+          },
+          {
+            "valor": "N",
+            "descripcion": null
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_VI:Sexo",
+        "valores": [
+          {
+            "valor": "F",
+            "descripcion": null
+          },
+          {
+            "valor": "M",
+            "descripcion": null
+          },
+          {
+            "valor": "Z",
+            "descripcion": null
+          },
+          {
+            "valor": "NULL",
+            "descripcion": null
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_VII:Ambito",
+        "valores": [
+          {
+            "valor": "A",
+            "descripcion": null
+          },
+          {
+            "valor": "D",
+            "descripcion": null
+          },
+          {
+            "valor": "H",
+            "descripcion": null
+          },
+          {
+            "valor": "U",
+            "descripcion": null
+          },
+          {
+            "valor": "Z",
+            "descripcion": null
+          },
+          {
+            "valor": "NULL",
+            "descripcion": null
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_VIII:Estancia",
+        "valores": [
+          {
+            "valor": "E",
+            "descripcion": null
+          },
+          {
+            "valor": "Z",
+            "descripcion": null
+          },
+          {
+            "valor": "NULL",
+            "descripcion": null
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_IX:Cobertura",
+        "valores": [
+          {
+            "valor": "PBS",
+            "descripcion": null
+          },
+          {
+            "valor": "NOPBS",
+            "descripcion": null
+          },
+          {
+            "valor": "FOME",
+            "descripcion": null
+          },
+          {
+            "valor": "SALUD_PUBLICA",
+            "descripcion": null
+          },
+          {
+            "valor": "RIESGO_LABORAL",
+            "descripcion": null
+          },
+          {
+            "valor": "PBS CONDICIONADO",
+            "descripcion": null
+          },
+          {
+            "valor": "EXCLUSION",
+            "descripcion": null
+          },
+          {
+            "valor": "NULL",
+            "descripcion": null
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_X:Duplicado",
+        "valores": [
+          {
+            "valor": "A",
+            "descripcion": null
+          },
+          {
+            "valor": "D",
+            "descripcion": null
+          },
+          {
+            "valor": "Z",
+            "descripcion": null
+          },
+          {
+            "valor": "NULL",
+            "descripcion": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 22,
+    "nombreTabla": "TipoIdPISIS",
+    "descripcion": "Tipos de identificación de pacientes",
+    "campos": [
+      {
+        "nombre": "Codigo",
+        "valores": [
+          {
+            "valor": "AS",
+            "descripcion": "Adulto sin identificacion"
+          },
+          {
+            "valor": "CC",
+            "descripcion": "Cedula de Ciudadania"
+          },
+          {
+            "valor": "CD",
+            "descripcion": "Carnet Diplomatico"
+          },
+          {
+            "valor": "CE",
+            "descripcion": "Cedula de Extranjeria"
+          },
+          {
+            "valor": "CN",
+            "descripcion": "Certificado de nacido vivo"
+          },
+          {
+            "valor": "DE",
+            "descripcion": "Documento extranjero"
+          },
+          {
+            "valor": "MS",
+            "descripcion": "Menor sin identificacion"
+          },
+          {
+            "valor": "NI",
+            "descripcion": "Número de identificación tributario NIT"
+          },
+          {
+            "valor": "NV",
+            "descripcion": "Certificado nacido vivo"
+          },
+          {
+            "valor": "PA",
+            "descripcion": "Pasaporte"
+          },
+          {
+            "valor": "PE",
+            "descripcion": "Permiso Especial de Permanencia"
+          },
+          {
+            "valor": "PT",
+            "descripcion": "Permiso por protección temporal"
+          },
+          {
+            "valor": "RC",
+            "descripcion": "Registro civil"
+          },
+          {
+            "valor": "SC",
+            "descripcion": "Salvoconducto"
+          },
+          {
+            "valor": "SI",
+            "descripcion": "Sin identificación"
+          },
+          {
+            "valor": "TI",
+            "descripcion": "Tarjeta de Identidad"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_I",
+        "valores": [
+          {
+            "valor": "CC",
+            "descripcion": "Cedula de Ciudadania",
+            "observaciones": "Los extranjeros que se \nencuentran de paso en el país se pueden identificar con CC,CD,CE, PA. Para los venezolanos se crea el PE."
+          },
+          {
+            "valor": "CD",
+            "descripcion": "Carnet Diplomatico"
+          },
+          {
+            "valor": "CE",
+            "descripcion": "Cedula de Extranjeria"
+          },
+          {
+            "valor": "PA",
+            "descripcion": "Pasaporte"
+          },
+          {
+            "valor": "PE",
+            "descripcion": "Permiso Especial de Permanencia"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_II",
+        "valores": [
+          {
+            "valor": "AS",
+            "descripcion": "Adulto sin identificacion"
+          },
+          {
+            "valor": "CC",
+            "descripcion": "Cedula de Ciudadania"
+          },
+          {
+            "valor": "CE",
+            "descripcion": "Cedula de Extranjeria"
+          },
+          {
+            "valor": "PA",
+            "descripcion": "Pasaporte"
+          },
+          {
+            "valor": "PE",
+            "descripcion": "Permiso Especial de Permanencia"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_III",
+        "valores": [
+          {
+            "valor": "CC",
+            "descripcion": "Cedula de Ciudadania"
+          },
+          {
+            "valor": "CE",
+            "descripcion": "Cedula de Extranjeria"
+          },
+          {
+            "valor": "NI",
+            "descripcion": "Número de identificación tributario NIT"
+          },
+          {
+            "valor": "PA",
+            "descripcion": "Pasaporte"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_IV",
+        "valores": [
+          {
+            "valor": "AS",
+            "descripcion": "Adulto sin identificacion"
+          },
+          {
+            "valor": "CC",
+            "descripcion": "Cedula de Ciudadania"
+          },
+          {
+            "valor": "CD",
+            "descripcion": "Carnet Diplomatico"
+          },
+          {
+            "valor": "CE",
+            "descripcion": "Cedula de Extranjeria"
+          },
+          {
+            "valor": "TI",
+            "descripcion": "Tarjeta de Identidad"
+          },
+          {
+            "valor": "MS",
+            "descripcion": "Menor sin identificacion"
+          },
+          {
+            "valor": "PA",
+            "descripcion": "Pasaporte"
+          },
+          {
+            "valor": "RC",
+            "descripcion": "Registro civil"
+          },
+          {
+            "valor": "SC",
+            "descripcion": "Salvoconducto"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_V",
+        "valores": [
+          {
+            "valor": "CC",
+            "descripcion": "Cedula de Ciudadania"
+          },
+          {
+            "valor": "CD",
+            "descripcion": "Carnet Diplomatico"
+          },
+          {
+            "valor": "CE",
+            "descripcion": "Cedula de Extranjeria"
+          },
+          {
+            "valor": "PA",
+            "descripcion": "Pasaporte"
+          },
+          {
+            "valor": "RC",
+            "descripcion": "Registro civil"
+          },
+          {
+            "valor": "SC",
+            "descripcion": "Salvoconducto"
+          },
+          {
+            "valor": "TI",
+            "descripcion": "Tarjeta de Identidad"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_VI",
+        "valores": [
+          {
+            "valor": "CC",
+            "descripcion": "Cedula de Ciudadania"
+          },
+          {
+            "valor": "CE",
+            "descripcion": "Cedula de Extranjeria"
+          },
+          {
+            "valor": "PA",
+            "descripcion": "Pasaporte"
+          },
+          {
+            "valor": "PT",
+            "descripcion": "Permiso por protección temporal"
+          },
+          {
+            "valor": "TI",
+            "descripcion": "Tarjeta de Identidad"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 23,
+    "nombreTabla": "RIPSTipoUsuarioVersion2",
+    "descripcion": "Tipos de Usuario",
+    "campos": [
+      {
+        "nombre": "Codigo",
+        "valores": [
+          {
+            "valor": "01",
+            "descripcion": "Contributivo cotizante"
+          },
+          {
+            "valor": "02",
+            "descripcion": "Contributivo beneficiario"
+          },
+          {
+            "valor": "03",
+            "descripcion": "Contributivo adicional"
+          },
+          {
+            "valor": "04",
+            "descripcion": "Subsidiado"
+          },
+          {
+            "valor": "05",
+            "descripcion": "No afiliado"
+          },
+          {
+            "valor": "06",
+            "descripcion": "Especial o Excepción cotizante"
+          },
+          {
+            "valor": "07",
+            "descripcion": "Especial o Excepción beneficiario"
+          },
+          {
+            "valor": "08",
+            "descripcion": "Personas privadas de la libertad a cargo del Fondo Nacional de Salud"
+          },
+          {
+            "valor": "09",
+            "descripcion": "Tomador / Amparado ARL"
+          },
+          {
+            "valor": "10",
+            "descripcion": "Tomador / Amparado SOAT"
+          },
+          {
+            "valor": "11",
+            "descripcion": "Tomador / Amparado Planes voluntarios de salud"
+          },
+          {
+            "valor": "12",
+            "descripcion": "Particular"
+          },
+          {
+            "valor": "13",
+            "descripcion": "Especial o Exepcion no cotizante Ley 352 de 1997"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 24,
+    "nombreTabla": "Sexo",
+    "descripcion": "Sexo, tanto de usuarios como de recien nacidos",
+    "campos": [
+      {
+        "nombre": "Codigo",
+        "valores": [
+          {
+            "valor": "H",
+            "descripcion": "Hombre"
+          },
+          {
+            "valor": "I",
+            "descripcion": "Indeterminado o Intersexual"
+          },
+          {
+            "valor": "M",
+            "descripcion": "Mujer"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_I:Sexo12",
+        "valores": [
+          {
+            "valor": "1",
+            "descripcion": null
+          },
+          {
+            "valor": "3",
+            "descripcion": null
+          },
+          {
+            "valor": "2",
+            "descripcion": null
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_II",
+        "valores": [
+          {
+            "valor": "01",
+            "descripcion": "Masculino"
+          },
+          {
+            "valor": "03",
+            "descripcion": "Indetermninado"
+          },
+          {
+            "valor": "02",
+            "descripcion": "Femenino"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_III",
+        "valores": [
+          {
+            "valor": "M",
+            "descripcion": "Masculino"
+          },
+          {
+            "valor": "I",
+            "descripcion": "Indetermninado"
+          },
+          {
+            "valor": "F",
+            "descripcion": "Femenino"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 25,
+    "nombreTabla": "Pais",
+    "descripcion": "País de origen del paciente",
+    "campos": [
+      {
+        "nombre": "Codigo",
+        "valores": [
+          {
+            "valor": "https://web.sispro.gov.co/WebPublico/Consultas/ConsultarDetalleReferenciaBasica.aspx?Code=Pais",
+            "descripcion": null
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_II",
+        "valores": [
+          {
+            "valor": "https://web.sispro.gov.co/WebPublico/Consultas/ConsultarDetalleReferenciaBasica.aspx?Code=Pais",
+            "descripcion": null
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_III",
+        "valores": [
+          {
+            "valor": "https://web.sispro.gov.co/WebPublico/Consultas/ConsultarDetalleReferenciaBasica.aspx?Code=Pais",
+            "descripcion": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 26,
+    "nombreTabla": "Municipio",
+    "descripcion": "Municipio si el paciente es colombiano",
+    "campos": [
+      {
+        "nombre": "Codigo",
+        "valores": [
+          {
+            "valor": "https://web.sispro.gov.co/WebPublico/Consultas/ConsultarDetalleReferenciaBasica.aspx?Code=Municipio",
+            "descripcion": null
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_I:Departamento",
+        "valores": [
+          {
+            "valor": "https://web.sispro.gov.co/WebPublico/Consultas/ConsultarDetalleReferenciaBasica.aspx?Code=Municipio",
+            "descripcion": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 27,
+    "nombreTabla": "ZonaVersion2",
+    "descripcion": "Zona de residencia si es colombiano",
+    "campos": [
+      {
+        "nombre": "Codigo",
+        "valores": [
+          {
+            "valor": "01",
+            "descripcion": "Rural"
+          },
+          {
+            "valor": "02",
+            "descripcion": "Urbano"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 28,
+    "nombreTabla": "LstSiNo",
+    "descripcion": "Indicador de si o no",
+    "campos": [
+      {
+        "nombre": "Codigo",
+        "valores": [
+          {
+            "valor": "NO",
+            "descripcion": "NO"
+          },
+          {
+            "valor": "SI",
+            "descripcion": "SI"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_I:ListSINO12",
+        "valores": [
+          {
+            "valor": "2",
+            "descripcion": "NO"
+          },
+          {
+            "valor": "1",
+            "descripcion": "SI"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_II:ListSINOSN",
+        "valores": [
+          {
+            "valor": "N",
+            "descripcion": "NO"
+          },
+          {
+            "valor": "S",
+            "descripcion": "SI"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_III:ListSINO10",
+        "valores": [
+          {
+            "valor": "0",
+            "descripcion": "NO"
+          },
+          {
+            "valor": "1",
+            "descripcion": "SI"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_IV",
+        "valores": [
+          {
+            "valor": "02",
+            "descripcion": "NO"
+          },
+          {
+            "valor": "01",
+            "descripcion": "SI"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 29,
+    "nombreTabla": "IPSCodHabilitacion",
+    "descripcion": "Icódigos prestadores de servicios de salud habilitados",
+    "campos": [
+      {
+        "nombre": "Codigo",
+        "valores": [
+          {
+            "valor": "Valor numerico de 12 digitos",
+            "descripcion": "Esta comformoda por el numero de prestador de 10 digitos y 2 digitos que indican la sede"
+          }
+        ]
+      },
+      {
+        "nombre": "Nombre",
+        "valores": [
+          {
+            "valor": "Texto",
+            "descripcion": "Nombre del profesional independiente o del PSS."
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_I:TipoIDPrestador",
+        "valores": [
+          {
+            "valor": "CC",
+            "descripcion": "Cedula de Ciudadania",
+            "observaciones": "Tipo de documento de identificación del profesional independiente o del PSS."
+          },
+          {
+            "valor": "CE",
+            "descripcion": "Cedula de Extranjeria"
+          },
+          {
+            "valor": "NI",
+            "descripcion": "Número de identificación tributario NIT"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_II:NroIDPrestador",
+        "valores": [
+          {
+            "valor": "Valor numerico entre 6 y 9 digitos",
+            "descripcion": "Numero del documento de identidad",
+            "observaciones": "la longitud puede varia dependiendo del tipo de documento y la fecha de expedición"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_III:CodigoPrestador",
+        "valores": [
+          {
+            "valor": "Valor numerico de 10 digitos",
+            "descripcion": "CodigoPrestador"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_IV:CodMpioSede",
+        "valores": [
+          {
+            "valor": "Valor numerico de 5 digitos",
+            "descripcion": "Codigo de Municipio"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_V:NombreMpioSede",
+        "valores": [
+          {
+            "valor": "Texto",
+            "descripcion": "Nombre del Municipio"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_VI:NombreDptoSede",
+        "valores": [
+          {
+            "valor": "Texto",
+            "descripcion": "Nombre del Departamento"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 30,
+    "nombreTabla": "IPSnoREPS",
+    "descripcion": "Prestadores de servicios de salud no habilitados",
+    "campos": [
+      {
+        "nombre": "Codigo",
+        "valores": [
+          {
+            "valor": "Valor numerico de 12 digitos",
+            "descripcion": "Esta comformoda por el codigo de municipio de 5 digitos, seguido de 2 digitos que indican el tipo de entidad: 80 GESTORES FARMACEUTICOS\n84 OPERADORES LOGÍSTICOS\n85 proveedores de Tecnologías en salud\n87 Mayoristas seguido de 3 digitos que indican el orden de las entidades del mismo tipo dentro del mismo municipio y 2 digitos que indican el numero de la sede."
+          }
+        ]
+      },
+      {
+        "nombre": "Nombre",
+        "valores": [
+          {
+            "valor": "Texto",
+            "descripcion": "Nombre del del GESTORES FARMACEUTICO, OPERADOR LOGÍSTICO,proveedor de Tecnologías en salud o Mayoristas"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_IV:CodDepartamento",
+        "valores": [
+          {
+            "valor": "numero de 2 digitos",
+            "descripcion": null
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_V:Departamento",
+        "valores": [
+          {
+            "valor": "Texto",
+            "descripcion": "Nombre del Departamento"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_VI:CodMunicipio",
+        "valores": [
+          {
+            "valor": "Valor numerico de 5 digitos",
+            "descripcion": "Codigo de Municipio"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_VII:Municipio",
+        "valores": [
+          {
+            "valor": "Texto",
+            "descripcion": "Nombre del Municipio"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_X:NIT",
+        "valores": [
+          {
+            "valor": "Valor numerico de 9 digitos",
+            "descripcion": "NIT de la entidad"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 31,
+    "nombreTabla": "Servicios",
+    "descripcion": "Códigos de servicio",
+    "campos": [
+      {
+        "nombre": "Codigo",
+        "valores": [
+          {
+            "valor": "105",
+            "descripcion": "Internación"
+          },
+          {
+            "valor": "106",
+            "descripcion": "Internación"
+          },
+          {
+            "valor": "107",
+            "descripcion": "Internación"
+          },
+          {
+            "valor": "108",
+            "descripcion": "Internación"
+          },
+          {
+            "valor": "109",
+            "descripcion": "Internación"
+          },
+          {
+            "valor": "110",
+            "descripcion": "Internación"
+          },
+          {
+            "valor": "120",
+            "descripcion": "Internación"
+          },
+          {
+            "valor": "129",
+            "descripcion": "Internación"
+          },
+          {
+            "valor": "130",
+            "descripcion": "Internación"
+          },
+          {
+            "valor": "131",
+            "descripcion": "Internación"
+          },
+          {
+            "valor": "132",
+            "descripcion": "Internación"
+          },
+          {
+            "valor": "133",
+            "descripcion": "Internación"
+          },
+          {
+            "valor": "134",
+            "descripcion": "Internación"
+          },
+          {
+            "valor": "135",
+            "descripcion": "Internación"
+          },
+          {
+            "valor": "138",
+            "descripcion": "Internación"
+          },
+          {
+            "valor": "201",
+            "descripcion": "Quirúrgicos"
+          },
+          {
+            "valor": "202",
+            "descripcion": "Quirúrgicos"
+          },
+          {
+            "valor": "203",
+            "descripcion": "Quirúrgicos"
+          },
+          {
+            "valor": "204",
+            "descripcion": "Quirúrgicos"
+          },
+          {
+            "valor": "205",
+            "descripcion": "Quirúrgicos"
+          },
+          {
+            "valor": "207",
+            "descripcion": "Quirúrgicos"
+          },
+          {
+            "valor": "208",
+            "descripcion": "Quirúrgicos"
+          },
+          {
+            "valor": "209",
+            "descripcion": "Quirúrgicos"
+          },
+          {
+            "valor": "210",
+            "descripcion": "Quirúrgicos"
+          },
+          {
+            "valor": "211",
+            "descripcion": "Quirúrgicos"
+          },
+          {
+            "valor": "212",
+            "descripcion": "Quirúrgicos"
+          },
+          {
+            "valor": "213",
+            "descripcion": "Quirúrgicos"
+          },
+          {
+            "valor": "214",
+            "descripcion": "Quirúrgicos"
+          },
+          {
+            "valor": "215",
+            "descripcion": "Quirúrgicos"
+          },
+          {
+            "valor": "217",
+            "descripcion": "Quirúrgicos"
+          },
+          {
+            "valor": "218",
+            "descripcion": "Quirúrgicos"
+          },
+          {
+            "valor": "227",
+            "descripcion": "Quirúrgicos"
+          },
+          {
+            "valor": "231",
+            "descripcion": "Quirúrgicos"
+          },
+          {
+            "valor": "232",
+            "descripcion": "Quirúrgicos"
+          },
+          {
+            "valor": "233",
+            "descripcion": "Quirúrgicos"
+          },
+          {
+            "valor": "234",
+            "descripcion": "Quirúrgicos"
+          },
+          {
+            "valor": "235",
+            "descripcion": "Quirúrgicos"
+          },
+          {
+            "valor": "237",
+            "descripcion": "Quirúrgicos"
+          },
+          {
+            "valor": "245",
+            "descripcion": "Quirúrgicos"
+          },
+          {
+            "valor": "301",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "302",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "303",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "304",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "306",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "308",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "309",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "310",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "311",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "312",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "313",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "316",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "317",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "318",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "320",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "321",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "323",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "324",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "325",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "326",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "327",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "328",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "329",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "330",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "331",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "332",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "333",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "334",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "335",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "336",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "337",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "338",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "339",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "340",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "342",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "343",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "344",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "345",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "346",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "347",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "348",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "354",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "355",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "356",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "361",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "362",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "363",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "364",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "365",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "366",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "367",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "368",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "369",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "370",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "371",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "372",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "373",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "374",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "375",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "377",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "379",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "383",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "384",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "385",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "386",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "387",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "388",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "390",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "391",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "393",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "395",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "396",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "397",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "406",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "407",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "408",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "409",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "410",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "411",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "412",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "413",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "414",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "415",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "416",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "417",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "418",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "419",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "420",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "421",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "422",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "423",
+            "descripcion": "Consulta Externa"
+          },
+          {
+            "valor": "706",
+            "descripcion": "Apoyo Diagnóstico y Complementación Terapéutica"
+          },
+          {
+            "valor": "709",
+            "descripcion": "Apoyo Diagnóstico y Complementación Terapéutica"
+          },
+          {
+            "valor": "711",
+            "descripcion": "Apoyo Diagnóstico y Complementación Terapéutica"
+          },
+          {
+            "valor": "712",
+            "descripcion": "Apoyo Diagnóstico y Complementación Terapéutica"
+          },
+          {
+            "valor": "714",
+            "descripcion": "Apoyo Diagnóstico y Complementación Terapéutica"
+          },
+          {
+            "valor": "715",
+            "descripcion": "Apoyo Diagnóstico y Complementación Terapéutica"
+          },
+          {
+            "valor": "717",
+            "descripcion": "Apoyo Diagnóstico y Complementación Terapéutica"
+          },
+          {
+            "valor": "728",
+            "descripcion": "Apoyo Diagnóstico y Complementación Terapéutica"
+          },
+          {
+            "valor": "729",
+            "descripcion": "Apoyo Diagnóstico y Complementación Terapéutica"
+          },
+          {
+            "valor": "731",
+            "descripcion": "Apoyo Diagnóstico y Complementación Terapéutica"
+          },
+          {
+            "valor": "733",
+            "descripcion": "Apoyo Diagnóstico y Complementación Terapéutica"
+          },
+          {
+            "valor": "734",
+            "descripcion": "Apoyo Diagnóstico y Complementación Terapéutica"
+          },
+          {
+            "valor": "739",
+            "descripcion": "Apoyo Diagnóstico y Complementación Terapéutica"
+          },
+          {
+            "valor": "740",
+            "descripcion": "Apoyo Diagnóstico y Complementación Terapéutica"
+          },
+          {
+            "valor": "742",
+            "descripcion": "Apoyo Diagnóstico y Complementación Terapéutica"
+          },
+          {
+            "valor": "743",
+            "descripcion": "Apoyo Diagnóstico y Complementación Terapéutica"
+          },
+          {
+            "valor": "744",
+            "descripcion": "Apoyo Diagnóstico y Complementación Terapéutica"
+          },
+          {
+            "valor": "745",
+            "descripcion": "Apoyo Diagnóstico y Complementación Terapéutica"
+          },
+          {
+            "valor": "746",
+            "descripcion": "Apoyo Diagnóstico y Complementación Terapéutica"
+          },
+          {
+            "valor": "747",
+            "descripcion": "Apoyo Diagnóstico y Complementación Terapéutica"
+          },
+          {
+            "valor": "748",
+            "descripcion": "Apoyo Diagnóstico y Complementación Terapéutica"
+          },
+          {
+            "valor": "749",
+            "descripcion": "Apoyo Diagnóstico y Complementación Terapéutica"
+          },
+          {
+            "valor": "1101",
+            "descripcion": "Atención Inmediata"
+          },
+          {
+            "valor": "1102",
+            "descripcion": "Atención Inmediata"
+          },
+          {
+            "valor": "1103",
+            "descripcion": "Atención Inmediata"
+          },
+          {
+            "valor": "1104",
+            "descripcion": "Atención Inmediata"
+          },
+          {
+            "valor": "1105",
+            "descripcion": "Atención Inmediata"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_I",
+        "valores": [
+          {
+            "valor": "S",
+            "descripcion": "SI"
+          },
+          {
+            "valor": "N",
+            "descripcion": "NO"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_II",
+        "valores": [
+          {
+            "valor": "S",
+            "descripcion": "SI"
+          },
+          {
+            "valor": "N",
+            "descripcion": "NO"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_III",
+        "valores": [
+          {
+            "valor": "S",
+            "descripcion": "SI"
+          },
+          {
+            "valor": "N",
+            "descripcion": "NO"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_IV",
+        "valores": [
+          {
+            "valor": "S",
+            "descripcion": "SI"
+          },
+          {
+            "valor": "N",
+            "descripcion": "NO"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_V",
+        "valores": [
+          {
+            "valor": "S",
+            "descripcion": "SI"
+          },
+          {
+            "valor": "N",
+            "descripcion": "NO"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_VI",
+        "valores": [
+          {
+            "valor": "S",
+            "descripcion": "SI"
+          },
+          {
+            "valor": "N",
+            "descripcion": "NO"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_VII",
+        "valores": [
+          {
+            "valor": "S",
+            "descripcion": "SI"
+          },
+          {
+            "valor": "N",
+            "descripcion": "NO"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_VIII",
+        "valores": [
+          {
+            "valor": "S",
+            "descripcion": "SI"
+          },
+          {
+            "valor": "N",
+            "descripcion": "NO"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_IX",
+        "valores": [
+          {
+            "valor": "S",
+            "descripcion": "SI"
+          },
+          {
+            "valor": "N",
+            "descripcion": "NO"
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_X",
+        "valores": [
+          {
+            "valor": "S",
+            "descripcion": "SI"
+          },
+          {
+            "valor": "N",
+            "descripcion": "NO"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 32,
+    "nombreTabla": "UMM",
+    "descripcion": "Unidad de medida",
+    "campos": [
+      {
+        "nombre": "Codigo",
+        "valores": [
+          {
+            "valor": "https://web.sispro.gov.co/WebPublico/Consultas/ConsultarDetalleReferenciaBasica.aspx?Code=UMM",
+            "descripcion": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 33,
+    "nombreTabla": "UPR",
+    "descripcion": "Presntacion de los medicamentos",
+    "campos": [
+      {
+        "nombre": "Codigo",
+        "valores": [
+          {
+            "valor": "1",
+            "descripcion": "AMPOLLA"
+          },
+          {
+            "valor": "10",
+            "descripcion": "ENVASE"
+          },
+          {
+            "valor": "11",
+            "descripcion": "CAJA"
+          },
+          {
+            "valor": "12",
+            "descripcion": "LATA"
+          },
+          {
+            "valor": "13",
+            "descripcion": "FRASCO"
+          },
+          {
+            "valor": "14",
+            "descripcion": "CAPSULA"
+          },
+          {
+            "valor": "15",
+            "descripcion": "CARTON"
+          },
+          {
+            "valor": "16",
+            "descripcion": "CARTUCHO"
+          },
+          {
+            "valor": "17",
+            "descripcion": "ESTUCHE"
+          },
+          {
+            "valor": "18",
+            "descripcion": "PELICULA DE PVC TRANSPARENTE DE COLORES"
+          },
+          {
+            "valor": "19",
+            "descripcion": "UNIDADES CLINICAS"
+          },
+          {
+            "valor": "2",
+            "descripcion": "APLICADOR"
+          },
+          {
+            "valor": "20",
+            "descripcion": "RECUBRIMIENTO"
+          },
+          {
+            "valor": "21",
+            "descripcion": "CONTENEDOR"
+          },
+          {
+            "valor": "22",
+            "descripcion": "RECUENTO"
+          },
+          {
+            "valor": "23",
+            "descripcion": "COPA"
+          },
+          {
+            "valor": "24",
+            "descripcion": "CILINDRO"
+          },
+          {
+            "valor": "25",
+            "descripcion": "VASOS DEWAR"
+          },
+          {
+            "valor": "26",
+            "descripcion": "DIAL PACK"
+          },
+          {
+            "valor": "27",
+            "descripcion": "DISCO"
+          },
+          {
+            "valor": "28",
+            "descripcion": "DOSIS EN ENVASE"
+          },
+          {
+            "valor": "29",
+            "descripcion": "GOTAS"
+          },
+          {
+            "valor": "3",
+            "descripcion": "BOLSA"
+          },
+          {
+            "valor": "30",
+            "descripcion": "TAMBOR - BOMBO"
+          },
+          {
+            "valor": "31",
+            "descripcion": "PELICULA"
+          },
+          {
+            "valor": "32",
+            "descripcion": "GENERADOR"
+          },
+          {
+            "valor": "33",
+            "descripcion": "GLOBULO"
+          },
+          {
+            "valor": "34",
+            "descripcion": "DILUCION HOMEOPATICA"
+          },
+          {
+            "valor": "35",
+            "descripcion": "IMPLANTE"
+          },
+          {
+            "valor": "36",
+            "descripcion": "INHALACION"
+          },
+          {
+            "valor": "37",
+            "descripcion": "INHALADOR"
+          },
+          {
+            "valor": "38",
+            "descripcion": "INHALADOR, RECARGA"
+          },
+          {
+            "valor": "39",
+            "descripcion": "INSERTO"
+          },
+          {
+            "valor": "4",
+            "descripcion": "BARRA"
+          },
+          {
+            "valor": "40",
+            "descripcion": "FRASCO"
+          },
+          {
+            "valor": "41",
+            "descripcion": "JARRA"
+          },
+          {
+            "valor": "42",
+            "descripcion": "UNIDAD INHIBIDORA DE CALICREINA"
+          },
+          {
+            "valor": "43",
+            "descripcion": "KIT"
+          },
+          {
+            "valor": "44",
+            "descripcion": "PASTILLA"
+          },
+          {
+            "valor": "45",
+            "descripcion": "EMBALAJE"
+          },
+          {
+            "valor": "46",
+            "descripcion": "PAQUETE"
+          },
+          {
+            "valor": "47",
+            "descripcion": "BALDE"
+          },
+          {
+            "valor": "48",
+            "descripcion": "PARTES"
+          },
+          {
+            "valor": "49",
+            "descripcion": "PARCHE"
+          },
+          {
+            "valor": "5",
+            "descripcion": "PERLA"
+          },
+          {
+            "valor": "50",
+            "descripcion": "PILDORA (PELLET)"
+          },
+          {
+            "valor": "51",
+            "descripcion": "PIEZA"
+          },
+          {
+            "valor": "53",
+            "descripcion": "UNIDADES DE PRESION"
+          },
+          {
+            "valor": "54",
+            "descripcion": "ANILLO"
+          },
+          {
+            "valor": "55",
+            "descripcion": "SATURADO"
+          },
+          {
+            "valor": "56",
+            "descripcion": "CUCHARA MEDIDORA"
+          },
+          {
+            "valor": "57",
+            "descripcion": "ESPONJA"
+          },
+          {
+            "valor": "58",
+            "descripcion": "ATOMIZADOR (SPRAY)"
+          },
+          {
+            "valor": "59",
+            "descripcion": "CENTIMETRO CUADRADO"
+          },
+          {
+            "valor": "6",
+            "descripcion": "BLISTER"
+          },
+          {
+            "valor": "61",
+            "descripcion": "TIRA"
+          },
+          {
+            "valor": "63",
+            "descripcion": "SUPOSITORIO"
+          },
+          {
+            "valor": "64",
+            "descripcion": "HISOPO"
+          },
+          {
+            "valor": "65",
+            "descripcion": "JERINGA"
+          },
+          {
+            "valor": "66",
+            "descripcion": "TABLETA"
+          },
+          {
+            "valor": "67",
+            "descripcion": "TABMINDER"
+          },
+          {
+            "valor": "68",
+            "descripcion": "TAMPON"
+          },
+          {
+            "valor": "69",
+            "descripcion": "TANQUE"
+          },
+          {
+            "valor": "7",
+            "descripcion": "ENVASE BLISTER"
+          },
+          {
+            "valor": "70",
+            "descripcion": "PRUEBA"
+          },
+          {
+            "valor": "71",
+            "descripcion": "BANDEJA"
+          },
+          {
+            "valor": "72",
+            "descripcion": "TROCHE"
+          },
+          {
+            "valor": "73",
+            "descripcion": "TUBO"
+          },
+          {
+            "valor": "74",
+            "descripcion": "UNIDADES"
+          },
+          {
+            "valor": "75",
+            "descripcion": "VIAL"
+          },
+          {
+            "valor": "76",
+            "descripcion": "OBLEA"
+          },
+          {
+            "valor": "77",
+            "descripcion": "TERMO"
+          },
+          {
+            "valor": "78",
+            "descripcion": "SOBRE"
+          },
+          {
+            "valor": "79",
+            "descripcion": "PLUMA"
+          },
+          {
+            "valor": "8",
+            "descripcion": "BLOQUE"
+          },
+          {
+            "valor": "80",
+            "descripcion": "LITRO"
+          },
+          {
+            "valor": "81",
+            "descripcion": "OVULO"
+          },
+          {
+            "valor": "9",
+            "descripcion": "BOLO"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 34,
+    "nombreTabla": "FFM",
+    "descripcion": null,
+    "campos": [
+      {
+        "nombre": "Codigo",
+        "valores": [
+          {
+            "valor": "C28944",
+            "descripcion": "Emulsión semisólida, generalmente con una proporción de 20% de agua y sustancias volátiles y 50% de hidrocarburos, ceras o polioles como vehículos para el fármaco."
+          },
+          {
+            "valor": "C29167",
+            "descripcion": "Emulsión liquida, mas fluida que la semisólidas, puede encontrarse dentro de su contenido conservantes como agentes antimicrobianos."
+          },
+          {
+            "valor": "C29269",
+            "descripcion": "Forma farmacéutica liquida utilizada para limpieza mediante enjuague, generalmente se utiliza para realizar buches en la boca y posteriormente expectorarlo."
+          },
+          {
+            "valor": "C42887",
+            "descripcion": "Envasados a presión con PA disueltos o dispersos y un propelente que activa un sistema de válvula. Al activar el sistema de válvula, el PA es liberado por una nube de partículas finas o gotitas"
+          },
+          {
+            "valor": "C42902",
+            "descripcion": "Forma de dosificacion solida en la que el farmaco está encerrado dentro de un contenedor soluble duro o blando, el cual se libera en un determinado momento pero no inmediatamente despues de la adminstración."
+          },
+          {
+            "valor": "C42905",
+            "descripcion": "Tableta en la cual el farmaco se libera en un determinado momento pero no inmediatamente despues de la adminstración. Normalmente se formulan con recubrimientos entéricos para proteger los activos acidolábiles del entorno gástrico o para prevenir efectos adversos como la irritación. Se emplean como sinónimos gastroresistentes o entéricas"
+          },
+          {
+            "valor": "C42909",
+            "descripcion": "Gránulos sin cubierta que generalmente contiene bicarbonato de sodio y algún ácido orgánico, en contacto con sistema acuoso liberan dióxido de carbono. Al reconstituirlos generan soluciones."
+          },
+          {
+            "valor": "C42912",
+            "descripcion": "Soluciòn típicamente clara,saborizada, endulzada e hidroalcohólica para uso oral. El término no debe utilizarse para los nuevos medicamentos USP37, pero se encuentra en la práctica de la farmacéutica."
+          },
+          {
+            "valor": "C42914",
+            "descripcion": "Forma farmacéutica estéril liquida de fármacos dispersos o disueltos en un medio de emulsión, son utilizados para la administración parenteral de medicamentos de solubilidad en agua baja."
+          },
+          {
+            "valor": "C42916",
+            "descripcion": "Cápsula dura o blanda que está cubierta de un determinado revestimiento, que libera un fármaco de manera tal que permite al menos una reducción en la frecuencia de dosificación en comparación con el fármaco presentados en una forma de dosificación convencional."
+          },
+          {
+            "valor": "C42927",
+            "descripcion": "\"Tableta que contiene un fármaco que permite al menos una reducción en la frecuencia de dosificación en comparación con el farmaco que se presenta en forma de dosificación convencional . Las expresiones \"\"liberación prolongada, acción repetida\"\" y \"\"liberación sostenida\"\" se usan como sinónimos.\""
+          },
+          {
+            "valor": "C42932",
+            "descripcion": "FF que se administra sobre la piel, se encuentra impregnado en un material sintético tejido o extrudido, durable y flexible, recubierto de agente adhesivo . La cinta no controla la liberación del PA"
+          },
+          {
+            "valor": "C42933",
+            "descripcion": "Uno de los estados de la materia no tiene forma definida o volumen y ocupando todo el recipiente cuando está confinado."
+          },
+          {
+            "valor": "C42938",
+            "descripcion": "Gránulos sin cubierta que se caracterizan porque al reconstituirlo en agua generan suspensiones."
+          },
+          {
+            "valor": "C42941",
+            "descripcion": "Forma farmacéutica flexible elaborada para masticarse tras su administración. Por lo general se libera el fármaco en la saliva."
+          },
+          {
+            "valor": "C42942",
+            "descripcion": "INVASIVO FF de larga acción que libera contínuamente el PA. Administrados por vía parenteral, vía subcutánea, o local colocandola invasivamente en una región del cuerpo."
+          },
+          {
+            "valor": "C42948",
+            "descripcion": "Semisólidos que consisten en suspensiones de partículas inorgánicas pequeñas o de moléculas orgánicas interprenetadas por un líquido."
+          },
+          {
+            "valor": "C42953",
+            "descripcion": "FF consistete en un producto químico puro en su estado líquido. Esta FF no debe aplicarse a las soluciones. Término descriptivo, vertible, ajustado a su contenedor a temperatura ambiente"
+          },
+          {
+            "valor": "C42966",
+            "descripcion": "FF semisólidas destinadas a aplicación externa sobre piel o mucosas, a menudo contiene menos de 20% en agua y sustancias volátiles y más de 50% en hidrocarburos, ceras o polioles."
+          },
+          {
+            "valor": "C42967",
+            "descripcion": "\"Formas farmacéuticas semisólidas consistentes, compuestas entre 20% - 50% de solidos finamente dispersos; se utilizan sobre la piel, cavidad oral o membranas mucosas.\""
+          },
+          {
+            "valor": "C42968",
+            "descripcion": "Diseñados para administrar PA a través de la piel hasta la circulación sistémica. Compuesto por cubierta exterior, reservorio para el PA, adhesivo de contacto y capa protectora"
+          },
+          {
+            "valor": "C42969",
+            "descripcion": "Formas farmacéuticas integradas por partículas solidas pequeñas de forma uniforme, tienen forma por lo general esférica"
+          },
+          {
+            "valor": "C42983",
+            "descripcion": "Los jabones y champús medicados son preparaciones sólidas o líquidas destinadas para aplicación tópica sobre la piel o cuero cabelludo seguida de un enjuague con agua. Los jabones y champús son emulsiones o composiciones tensioactivas que forman facilmente emulsiones o espumas tras la adición de agua y seguida de frotamiento. La incorporación de principios activos en jabones y champús combina las capacidades limpiadoras y desengrasantes del vehículo y facilita la liberación tópica del activo sobre las áreas afectadas."
+          },
+          {
+            "valor": "C42989",
+            "descripcion": "Forma farmacéutica en estado liquido que contiene un fármaco en solución o suspensión diseñada para se administrada en forma de nube de gotas, éstos no se encuentran presurizados."
+          },
+          {
+            "valor": "C42993",
+            "descripcion": "Forma farmacéutica con propiedades de fundición, ablandamiento o disolución a temperatura corporal."
+          },
+          {
+            "valor": "C42994",
+            "descripcion": "FF consistente en partículas sólidas dispersas en fase líquida. Algunas se diseñan formando una matriz polimérica que atrapa el PA liberándolo en días o meses."
+          },
+          {
+            "valor": "C42996",
+            "descripcion": "Solución que contiene altas concentraciones de sacarosa u otros azúcares. Este término se utiliza comúnmente en compuestos farmacéuticos."
+          },
+          {
+            "valor": "C43000",
+            "descripcion": "Solucion alcohólica o hidroalcohólica que se prepara a partir de materiales vegetales o sustancias químicas."
+          },
+          {
+            "valor": "C47913",
+            "descripcion": "Semisólido para aplicación externa, se proporciona en un material de soporte. Aplicados durante periodos prolongados para proveer protección, soporte u oclusión. Consisten en una capa adhesiva que puede contener sustancias activas esparcidas uniformemente sobre un soporte, el cual, por lo general es una base de caucho o resina sintética."
+          },
+          {
+            "valor": "C47914",
+            "descripcion": "FF solido, alargado, estrecho, delgado y absorbente, como el papel filtro. Gnral/ es esteril y puede estar impregnada con un compuesto o estar indicada para mediciones con proposito de diagnosis"
+          },
+          {
+            "valor": "C47915",
+            "descripcion": "Aparato plástico de tamaño pequeño en forma de T, que es colocado al interior de la cavidad uterina, para liberar de manera sostenida un fármaco que usualmente tiene actividad anticonceptiva."
+          },
+          {
+            "valor": "C64898",
+            "descripcion": "Emulsiones contenidos en una fase dispersa de burbujas de gas en una fase contínua donde esta el PA. Envasados en contenedores presurizados o dispositivos dispensadores."
+          },
+          {
+            "valor": "C64904",
+            "descripcion": "Capsula de dos piezas que consiste en un cuerpo y una capa"
+          },
+          {
+            "valor": "C64909",
+            "descripcion": "Capsula de una pieza utilizada para la administración de un fármaco en forma de solución o suspensión."
+          },
+          {
+            "valor": "C69031",
+            "descripcion": "Son matrices poliméricas hidrofílicas, casi siempre bioadhesivas, en las que el PA se encuentra disperso o disuelto que puede aumentar la retención precorneal y por lo tanto la duración de la acción."
+          },
+          {
+            "valor": "C91199",
+            "descripcion": "Son sistemas de liberación flexibles que pueden ser insertados en la vagina. A partir de ellos, se van liberando lentamente hormonas que son absorbidas hasta llegar al torrente sanguíneo."
+          },
+          {
+            "valor": "C91200",
+            "descripcion": "Los sistemas son preparaciones de fármacos en dispositivos transportadores, a menudo contienen un revestimiento adhesivo y se aplican tópicamente o se insertan en cavidades del cuerpo. El fármaco está diseñado para que se libere de forma controlada durante un periodo especificado o se libere en función de su concentración en la formulación. A menos que el etiquetado indique algo diferente, el dispositivo transportador se retira después de usar"
+          },
+          {
+            "valor": "COLFF001",
+            "descripcion": "Tabletas en las que no se ha pretendido modificar intencionalmente la velocidad de liberación del PA. La inclusión o exclusión de un agente de desintegración no se interpreta como una modificación"
+          },
+          {
+            "valor": "COLFF002",
+            "descripcion": "Son aquellos que no requieren disolverse o dispersarse en vehículo alguno. Su administración se hace de manera directa, generalmente sobre la piel. Incluyen los polvos para espolvorear."
+          },
+          {
+            "valor": "COLFF003",
+            "descripcion": "Se diluyen o se dispersan en un vehículo para su administracion. Se incluyen polvos liofilizados o aquellos secados por otro procedimiento diferente a la liofilización. Incluyen polvos efervescentes."
+          },
+          {
+            "valor": "COLFF004",
+            "descripcion": null
+          },
+          {
+            "valor": "COLFF005",
+            "descripcion": null
+          },
+          {
+            "valor": "COLFF006",
+            "descripcion": "Cápsulas en las que no se ha pretendido modificar intencionalmente la velocidad de liberación del PA. La inclusión o exclusión de un agente de desintegración no se interpreta como una modificación."
+          },
+          {
+            "valor": "COLFF007",
+            "descripcion": "Cápsulas con un patrón de liberación de los PA que se han modificado intencionalmente con respecto al observado en la forma farmacéutica de liberación inmediata del mismo principio activo."
+          },
+          {
+            "valor": "COLFF008",
+            "descripcion": "Tabletas con un patrón de liberación de los PA que se han modificado intencionalmente con respecto al observado por la forma farmacéutica de liberación inmediata del mismo principio activo."
+          },
+          {
+            "valor": "COLFF009",
+            "descripcion": "Granulado o microgranulado que poseee una o mas capas finas de recubrimiento, normalmente polimérico, destinado a proteger el ingrediente activo del agua o la humedad, para medicamentos con olor y sabor desagradebles, para mejorar la apariencia de los gránulos o para alguna otra propiedad que no sea la de alterar la velocidad o extensión de liberación del ingrediente activo."
+          },
+          {
+            "valor": "COLFF010",
+            "descripcion": "Preparación sólida que consiste en gránulos que muestran una velocidad y / o el lugar de liberación diferente de la de gránulos de liberación convencional. Esta modificación de liberación se consigue mediante un diseño especial formulación y / o método de fabricación."
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_IV:GrupoNivel3",
+        "valores": [
+          {
+            "valor": "SEMI SOLIDOS",
+            "descripcion": null
+          },
+          {
+            "valor": "LIQUIDOS",
+            "descripcion": null
+          },
+          {
+            "valor": "SOLIDOS Y LIQUIDOS",
+            "descripcion": null
+          },
+          {
+            "valor": "SOLIDOS",
+            "descripcion": null
+          },
+          {
+            "valor": "GASES",
+            "descripcion": null
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_V:DefinicionGrupoNivel3",
+        "valores": [
+          {
+            "valor": "EMULSION",
+            "descripcion": null
+          },
+          {
+            "valor": "SOLUCION",
+            "descripcion": null
+          },
+          {
+            "valor": "AEROSOL",
+            "descripcion": null
+          },
+          {
+            "valor": "CAPSULA",
+            "descripcion": null
+          },
+          {
+            "valor": "TABLETA",
+            "descripcion": null
+          },
+          {
+            "valor": "GRANULOS y PELLETS",
+            "descripcion": null
+          },
+          {
+            "valor": "CINTA ADHESIVA / PELICULA",
+            "descripcion": null
+          },
+          {
+            "valor": "GAS",
+            "descripcion": null
+          },
+          {
+            "valor": "GOMA",
+            "descripcion": null
+          },
+          {
+            "valor": "IMPLANTES, INSERTOS y SISTEMAS",
+            "descripcion": null
+          },
+          {
+            "valor": "GELES y JALEAS",
+            "descripcion": null
+          },
+          {
+            "valor": "LIQUIDO (Diferentes a soluciones)",
+            "descripcion": null
+          },
+          {
+            "valor": "UNGÜENTO",
+            "descripcion": null
+          },
+          {
+            "valor": "PASTA",
+            "descripcion": null
+          },
+          {
+            "valor": "JABONES Y CHAMPU",
+            "descripcion": null
+          },
+          {
+            "valor": "ESPRAY",
+            "descripcion": null
+          },
+          {
+            "valor": "SUPOSITORIO / OVULO",
+            "descripcion": null
+          },
+          {
+            "valor": "SUSPENSION",
+            "descripcion": null
+          },
+          {
+            "valor": "EMPLASTO",
+            "descripcion": null
+          },
+          {
+            "valor": "TIRA",
+            "descripcion": null
+          },
+          {
+            "valor": "POLVO",
+            "descripcion": null
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_VI",
+        "valores": [
+          {
+            "valor": "FF en sistema coloidal disperso en dos fases liquidas inmiscibles, uno se dispersa como gotitas (fase interna) dentro del otro liquido (fase externa), estabilizados con agentes emulsionantes.",
+            "descripcion": null
+          },
+          {
+            "valor": "FF liquida que contienen sustancias disueltas en un disolvente con propiedad miscible. Algunas se diseñan formando una matriz polimérica solida que atrapa el fármaco liberándolo durante días o meses.",
+            "descripcion": null
+          },
+          {
+            "valor": "Forma farmacéutica solida donde un receptáculo o cubierta soluble contiene el fármaco y/o los excipientes.",
+            "descripcion": null
+          },
+          {
+            "valor": "Forma farmacéutica sólida elaborada con uno o mas fármacos y excipientes preparada a partir de polvos o gránulos, los cuales se comprimen para entregar la dosis final.",
+            "descripcion": null
+          },
+          {
+            "valor": "Mezcla de sólidos en los cuales se modifica su tamaño de partícula por medio de métodos físicos o químicos. Pueden ser partículas solidas pequeñas de forma uniforme por ejemplo esférica.",
+            "descripcion": null
+          },
+          {
+            "valor": "Formas farmacéuticas que contienen un farmaco que se inserta en el cuerpo, el cual se libera de manera controlada.",
+            "descripcion": null
+          },
+          {
+            "valor": "Formas farmacéuticas integradas por partículas solidas pequeñas de forma uniforme, tienen forma por lo general esférica",
+            "descripcion": null
+          },
+          {
+            "valor": "Forma farmacéutica con propiedades de fundición, ablandamiento o disolución a temperatura corporal.",
+            "descripcion": null
+          },
+          {
+            "valor": "FF consistente en partículas sólidas dispersas en fase líquida. Algunas se diseñan formando una matriz polimérica que atrapa el PA liberándolo en días o meses.",
+            "descripcion": null
+          },
+          {
+            "valor": "Mezcla homogénea de PA divido en partículas finas. Incluye polvos para administrar por medio dispositivos mecánicos que requieren que se ejerza presión manual o inhalación.",
+            "descripcion": null
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_VII",
+        "valores": [
+          {
+            "valor": "CREMA",
+            "descripcion": null
+          },
+          {
+            "valor": "LOCION",
+            "descripcion": null
+          },
+          {
+            "valor": "ENJUAGUE",
+            "descripcion": null
+          },
+          {
+            "valor": "AEROSOL",
+            "descripcion": null
+          },
+          {
+            "valor": "CAPSULAS DE LIBERACION MODIFICADA",
+            "descripcion": null
+          },
+          {
+            "valor": "TABLETAS DE LIBERACION MODIFICADA",
+            "descripcion": null
+          },
+          {
+            "valor": "GRÁNULOS EFERVESCENTES",
+            "descripcion": null
+          },
+          {
+            "valor": "ELIXIR",
+            "descripcion": null
+          },
+          {
+            "valor": "EMULSION INYECTABLE",
+            "descripcion": null
+          },
+          {
+            "valor": "CINTA ADHESIVA / PELICULA",
+            "descripcion": null
+          },
+          {
+            "valor": "GAS",
+            "descripcion": null
+          },
+          {
+            "valor": "GRANULOS CONVENCIONALES",
+            "descripcion": null
+          },
+          {
+            "valor": "GOMA",
+            "descripcion": null
+          },
+          {
+            "valor": "IMPLANTE",
+            "descripcion": null
+          },
+          {
+            "valor": "GELES y JALEAS",
+            "descripcion": null
+          },
+          {
+            "valor": "LIQUIDO (Diferentes a soluciones)",
+            "descripcion": null
+          },
+          {
+            "valor": "UNGÜENTO",
+            "descripcion": null
+          },
+          {
+            "valor": "PASTA",
+            "descripcion": null
+          },
+          {
+            "valor": "INSERTOS y SISTEMAS",
+            "descripcion": null
+          },
+          {
+            "valor": "PELLETS",
+            "descripcion": null
+          },
+          {
+            "valor": "JABONES Y CHAMPU",
+            "descripcion": null
+          },
+          {
+            "valor": "ESPRAY",
+            "descripcion": null
+          },
+          {
+            "valor": "SUPOSITORIO / OVULO",
+            "descripcion": null
+          },
+          {
+            "valor": "SUSPENSION",
+            "descripcion": null
+          },
+          {
+            "valor": "JARABE",
+            "descripcion": null
+          },
+          {
+            "valor": "TINTURA",
+            "descripcion": null
+          },
+          {
+            "valor": "EMPLASTO",
+            "descripcion": null
+          },
+          {
+            "valor": "TIRA",
+            "descripcion": null
+          },
+          {
+            "valor": "ESPUMA",
+            "descripcion": null
+          },
+          {
+            "valor": "TABLETAS DE LIBERACION NO MODIFICADA",
+            "descripcion": null
+          },
+          {
+            "valor": "POLVOS PARA NO RECONSTITUIR",
+            "descripcion": null
+          },
+          {
+            "valor": "POLVOS PARA RECONSTITUIR",
+            "descripcion": null
+          },
+          {
+            "valor": "OTRAS SOLUCIONES",
+            "descripcion": null
+          },
+          {
+            "valor": "OTRAS EMULSIONES",
+            "descripcion": null
+          },
+          {
+            "valor": "CAPSULAS DE LIBERACION NO MODIFICADA",
+            "descripcion": null
+          },
+          {
+            "valor": "GRANULOS DE LIBERACION NO MODIFICADA",
+            "descripcion": null
+          },
+          {
+            "valor": "GRANULOS DE LIBERACION MODIFICADA",
+            "descripcion": null
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_VIII",
+        "valores": [
+          {
+            "valor": "Cápsulas con un patrón de liberación de los PA que se han modificado intencionalmente con respecto al observado en la forma farmacéutica de liberación inmediata del mismo principio activo.",
+            "descripcion": null
+          },
+          {
+            "valor": "Tabletas con un patrón de liberación de los PA que se han modificado intencionalmente con respecto al observado por la forma farmacéutica de liberación inmediata del mismo principio activo.",
+            "descripcion": null
+          },
+          {
+            "valor": "NO INVASIVO. Son FF sólidas que se insertan en una cavidad natural del cuerpo distinta a la boca o el recto. Los insertos liberan el PA para su acción sistémica o local.",
+            "descripcion": null
+          },
+          {
+            "valor": "Se diluyen o se dispersan en un vehículo para su administracion. Se incluyen polvos liofilizados o aquellos secados por otro procedimiento diferente a la liofilización. Incluyen polvos efervescentes.",
+            "descripcion": null
+          },
+          {
+            "valor": "Cápsulas en las que no se ha pretendido modificar intencionalmente la velocidad de liberación del PA. La inclusión o exclusión de un agente de desintegración no se interpreta como una modificación.",
+            "descripcion": null
+          },
+          {
+            "valor": "Cápsulas con un patrón de liberación de los PA que se han modificado intencionalmente con respecto al observado en la FF de liberación inmediata del mismo principio activo.",
+            "descripcion": null
+          },
+          {
+            "valor": "Cápsulas en las que no se ha pretendido modificar intencionalmente la velocidad de liberación del PA. La inclusión o exclusión de un agente de desintegración no se interpreta como una modificación.",
+            "descripcion": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 35,
+    "nombreTabla": "CatalogoCUMs",
+    "descripcion": "Codigos Codigo Unico de Medicamentos INVIMA",
+    "campos": [
+      {
+        "nombre": "Codigo",
+        "valores": [
+          {
+            "valor": "https://web.sispro.gov.co/WebPublico/Consultas/ConsultarDetalleReferenciaBasica.aspx?Code=CatalogoCUMs",
+            "descripcion": null
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_II:Cod_ATC",
+        "valores": []
+      },
+      {
+        "nombre": "Extra_III:ATC",
+        "valores": []
+      },
+      {
+        "nombre": "Extra_IV:RegistroSanitario",
+        "valores": []
+      },
+      {
+        "nombre": "Extra_V:PrincipioActivo",
+        "valores": []
+      },
+      {
+        "nombre": "Extra_VI:CantidadPrincipioActivo",
+        "valores": []
+      },
+      {
+        "nombre": "Extra_VIII:ViaAdministracion",
+        "valores": []
+      },
+      {
+        "nombre": "Extra_IX:CantidadPresentacion",
+        "valores": []
+      }
+    ]
+  },
+  {
+    "id": 36,
+    "nombreTabla": "IUM",
+    "descripcion": "Identificador único de medicamentos",
+    "campos": [
+      {
+        "nombre": "Codigo",
+        "valores": [
+          {
+            "valor": "https://web.sispro.gov.co/WebPublico/Consultas/ConsultarDetalleReferenciaBasica.aspx?Code=IUM",
+            "descripcion": null
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_I:IUMNivel_I",
+        "valores": []
+      },
+      {
+        "nombre": "Extra_II:PrincipioActivo",
+        "valores": []
+      },
+      {
+        "nombre": "Extra_III:CodigoPrincipioActivo",
+        "valores": []
+      },
+      {
+        "nombre": "Extra_IV:FormaFarmaceutica",
+        "valores": []
+      },
+      {
+        "nombre": "Extra_V:CodigoFormaFarmaceutica",
+        "valores": []
+      },
+      {
+        "nombre": "Extra_VI:IUMNivel_II",
+        "valores": [
+          {
+            "valor": "0",
+            "descripcion": null
+          },
+          {
+            "valor": "1000",
+            "descripcion": null
+          },
+          {
+            "valor": "1001",
+            "descripcion": null
+          },
+          {
+            "valor": "1002",
+            "descripcion": null
+          },
+          {
+            "valor": "1003",
+            "descripcion": null
+          },
+          {
+            "valor": "1004",
+            "descripcion": null
+          },
+          {
+            "valor": "1005",
+            "descripcion": null
+          },
+          {
+            "valor": "1006",
+            "descripcion": null
+          },
+          {
+            "valor": "1007",
+            "descripcion": null
+          },
+          {
+            "valor": "1008",
+            "descripcion": null
+          },
+          {
+            "valor": "1009",
+            "descripcion": null
+          },
+          {
+            "valor": "1010",
+            "descripcion": null
+          },
+          {
+            "valor": "1011",
+            "descripcion": null
+          },
+          {
+            "valor": "1012",
+            "descripcion": null
+          },
+          {
+            "valor": "1013",
+            "descripcion": null
+          },
+          {
+            "valor": "1014",
+            "descripcion": null
+          },
+          {
+            "valor": "1015",
+            "descripcion": null
+          },
+          {
+            "valor": "1016",
+            "descripcion": null
+          },
+          {
+            "valor": "1017",
+            "descripcion": null
+          },
+          {
+            "valor": "1018",
+            "descripcion": null
+          },
+          {
+            "valor": "1019",
+            "descripcion": null
+          },
+          {
+            "valor": "1020",
+            "descripcion": null
+          },
+          {
+            "valor": "1021",
+            "descripcion": null
+          },
+          {
+            "valor": "1022",
+            "descripcion": null
+          },
+          {
+            "valor": "1023",
+            "descripcion": null
+          },
+          {
+            "valor": "1024",
+            "descripcion": null
+          },
+          {
+            "valor": "1025",
+            "descripcion": null
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_VII:CodigoFormaComercializacion",
+        "valores": [
+          {
+            "valor": "0",
+            "descripcion": null
+          },
+          {
+            "valor": "1",
+            "descripcion": null
+          },
+          {
+            "valor": "2",
+            "descripcion": null
+          },
+          {
+            "valor": "3",
+            "descripcion": null
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_VIII:IUMNivel_III",
+        "valores": [
+          {
+            "valor": "0",
+            "descripcion": null
+          },
+          {
+            "valor": "100",
+            "descripcion": null
+          },
+          {
+            "valor": "101",
+            "descripcion": null
+          },
+          {
+            "valor": "102",
+            "descripcion": null
+          },
+          {
+            "valor": "103",
+            "descripcion": null
+          },
+          {
+            "valor": "104",
+            "descripcion": null
+          },
+          {
+            "valor": "105",
+            "descripcion": null
+          },
+          {
+            "valor": "106",
+            "descripcion": null
+          },
+          {
+            "valor": "107",
+            "descripcion": null
+          },
+          {
+            "valor": "108",
+            "descripcion": null
+          },
+          {
+            "valor": "109",
+            "descripcion": null
+          },
+          {
+            "valor": "110",
+            "descripcion": null
+          },
+          {
+            "valor": "111",
+            "descripcion": null
+          },
+          {
+            "valor": "112",
+            "descripcion": null
+          },
+          {
+            "valor": "113",
+            "descripcion": null
+          },
+          {
+            "valor": "114",
+            "descripcion": null
+          },
+          {
+            "valor": "115",
+            "descripcion": null
+          },
+          {
+            "valor": "116",
+            "descripcion": null
+          },
+          {
+            "valor": "117",
+            "descripcion": null
+          },
+          {
+            "valor": "118",
+            "descripcion": null
+          },
+          {
+            "valor": "119",
+            "descripcion": null
+          },
+          {
+            "valor": "120",
+            "descripcion": null
+          },
+          {
+            "valor": "121",
+            "descripcion": null
+          },
+          {
+            "valor": "122",
+            "descripcion": null
+          },
+          {
+            "valor": "123",
+            "descripcion": null
+          },
+          {
+            "valor": "124",
+            "descripcion": null
+          },
+          {
+            "valor": "125",
+            "descripcion": null
+          },
+          {
+            "valor": "126",
+            "descripcion": null
+          },
+          {
+            "valor": "127",
+            "descripcion": null
+          },
+          {
+            "valor": "128",
+            "descripcion": null
+          },
+          {
+            "valor": "129",
+            "descripcion": null
+          },
+          {
+            "valor": "130",
+            "descripcion": null
+          },
+          {
+            "valor": "131",
+            "descripcion": null
+          },
+          {
+            "valor": "132",
+            "descripcion": null
+          },
+          {
+            "valor": "133",
+            "descripcion": null
+          },
+          {
+            "valor": "134",
+            "descripcion": null
+          },
+          {
+            "valor": "135",
+            "descripcion": null
+          },
+          {
+            "valor": "136",
+            "descripcion": null
+          },
+          {
+            "valor": "137",
+            "descripcion": null
+          },
+          {
+            "valor": "138",
+            "descripcion": null
+          },
+          {
+            "valor": "139",
+            "descripcion": null
+          },
+          {
+            "valor": "140",
+            "descripcion": null
+          },
+          {
+            "valor": "141",
+            "descripcion": null
+          },
+          {
+            "valor": "142",
+            "descripcion": null
+          },
+          {
+            "valor": "143",
+            "descripcion": null
+          },
+          {
+            "valor": "144",
+            "descripcion": null
+          },
+          {
+            "valor": "145",
+            "descripcion": null
+          },
+          {
+            "valor": "146",
+            "descripcion": null
+          },
+          {
+            "valor": "147",
+            "descripcion": null
+          },
+          {
+            "valor": "148",
+            "descripcion": null
+          },
+          {
+            "valor": "149",
+            "descripcion": null
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_IX:CondicionRegistroMuestraMedica",
+        "valores": [
+          {
+            "valor": "GENERICO QUE NO ES MUESTRA MEDICA",
+            "descripcion": null
+          },
+          {
+            "valor": "GENERICO QUE SI ES MUESTRA MEDICA Y NO SE COMERCIALIZA",
+            "descripcion": null
+          },
+          {
+            "valor": "GENERICO QUE NO ES MUESTRA MEDICA",
+            "descripcion": null
+          },
+          {
+            "valor": "MARCA QUE SI ES MUESTRA MEDICA Y NO SE COMERCIALIZA",
+            "descripcion": null
+          },
+          {
+            "valor": "GENERICO QUE SI ES MUESTRA MEDICA Y SE COMERCIALIZA",
+            "descripcion": null
+          },
+          {
+            "valor": "MARCA QUE SI ES MUESTRA MEDICA Y SE COMERCIALIZA",
+            "descripcion": null
+          },
+          {
+            "valor": "GENERICO Y MARCA QUE NO ES MUESTRA MEDICA",
+            "descripcion": null
+          },
+          {
+            "valor": "GENERICO Y MARCA QUE SI ES MUESTRA MEDICA Y SE COMERCIALIZA",
+            "descripcion": null
+          }
+        ]
+      },
+      {
+        "nombre": "Extra_X:UnidadEmpaque",
+        "valores": [
+          {
+            "valor": "IMPLANTE",
+            "descripcion": null
+          },
+          {
+            "valor": "TABLETA",
+            "descripcion": null
+          },
+          {
+            "valor": "CAJA",
+            "descripcion": null
+          },
+          {
+            "valor": "FRASCO",
+            "descripcion": null
+          },
+          {
+            "valor": "CAPSULA",
+            "descripcion": null
+          },
+          {
+            "valor": "ESTUCHE",
+            "descripcion": null
+          },
+          {
+            "valor": "AMPOLLA",
+            "descripcion": null
+          },
+          {
+            "valor": "VIAL",
+            "descripcion": null
+          },
+          {
+            "valor": "JERINGA",
+            "descripcion": null
+          },
+          {
+            "valor": "SOBRE",
+            "descripcion": null
+          },
+          {
+            "valor": "TUBO",
+            "descripcion": null
+          },
+          {
+            "valor": "UNIDADES",
+            "descripcion": null
+          },
+          {
+            "valor": "OVULO",
+            "descripcion": null
+          },
+          {
+            "valor": "ENVASE",
+            "descripcion": null
+          },
+          {
+            "valor": "KIT",
+            "descripcion": null
+          },
+          {
+            "valor": "BOLSA",
+            "descripcion": null
+          },
+          {
+            "valor": "CONTENEDOR",
+            "descripcion": null
+          },
+          {
+            "valor": "PLUMA",
+            "descripcion": null
+          },
+          {
+            "valor": "INHALADOR",
+            "descripcion": null
+          },
+          {
+            "valor": "APLICADOR",
+            "descripcion": null
+          },
+          {
+            "valor": "PAQUETE",
+            "descripcion": null
+          },
+          {
+            "valor": "ATOMIZADOR (SPRAY)",
+            "descripcion": null
+          },
+          {
+            "valor": "SUPOSITORIO",
+            "descripcion": null
+          },
+          {
+            "valor": "BANDEJA",
+            "descripcion": null
+          },
+          {
+            "valor": "CARTUCHO",
+            "descripcion": null
+          },
+          {
+            "valor": "PARCHE",
+            "descripcion": null
+          },
+          {
+            "valor": "CILINDRO",
+            "descripcion": null
+          },
+          {
+            "valor": "BLISTER",
+            "descripcion": null
+          },
+          {
+            "valor": "TERMO",
+            "descripcion": null
+          },
+          {
+            "valor": "SATURADO",
+            "descripcion": null
+          },
+          {
+            "valor": "RECUBRIMIENTO",
+            "descripcion": null
+          },
+          {
+            "valor": "JARRA",
+            "descripcion": null
+          },
+          {
+            "valor": "TANQUE",
+            "descripcion": null
+          },
+          {
+            "valor": "LATA",
+            "descripcion": null
+          },
+          {
+            "valor": "VASOSDEWAR",
+            "descripcion": null
+          },
+          {
+            "valor": "ANILLO",
+            "descripcion": null
+          },
+          {
+            "valor": "TIRA",
+            "descripcion": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 37,
+    "nombreTabla": "DCI",
+    "descripcion": "Denominación común internacional",
+    "campos": [
+      {
+        "nombre": "Codigo",
+        "valores": [
+          {
+            "valor": "https://web.sispro.gov.co/WebPublico/Consultas/ConsultarDetalleReferenciaBasica.aspx?Code=DCI",
+            "descripcion": null
+          }
+        ]
+      }
+    ]
+  }
+]

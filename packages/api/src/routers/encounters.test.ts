@@ -28,10 +28,14 @@ interface MockWithCalls {
 const encounterRecord = {
   admissionSource: null,
   careModality: "presential",
+  causeExternalCode: null,
+  condicionDestinoCode: null,
   createdAt: new Date("2026-04-23T00:00:00.000Z"),
   encounterClass: "ambulatory",
   endedAt: null,
+  finalidadConsultaCode: null,
   id: "encounter-id",
+  modalidadAtencionCode: null,
   patientId: "patient-id",
   reasonForVisit: "Consulta de control",
   serviceUnitId: "service-unit-id",
@@ -68,9 +72,14 @@ describe("encountersRouter", () => {
     const returning = mock(async () => [encounterRecord]);
     const values = mock(() => ({ returning }));
     const insert = mock(() => ({ values }));
+    const ripsLimit = mock(async () => [
+      { code: "01", name: "Valid", enabled: true, extraData: null },
+    ]);
+    const ripsWhere = mock(() => ({ limit: ripsLimit }));
+    const ripsFrom = mock(() => ({ where: ripsWhere }));
     const client = createEncountersClient({
       insert,
-      select: mock(),
+      select: mock(() => ({ from: ripsFrom })),
       update: mock(),
     });
 

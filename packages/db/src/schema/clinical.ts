@@ -225,6 +225,9 @@ export const patient = sqliteTable(
     birthDate: integer("birth_date", { mode: "timestamp_ms" }).notNull(),
     sexAtBirth: text("sex_at_birth").notNull(),
     genderIdentity: text("gender_identity"),
+    countryCode: text("country_code"),
+    municipalityCode: text("municipality_code"),
+    zoneCode: text("zone_code"),
     deceasedAt: timestamp("deceased_at"),
     createdAt: createdAt(),
     updatedAt: updatedAt(),
@@ -235,6 +238,7 @@ export const patient = sqliteTable(
       table.primaryDocumentNumber
     ),
     index("patient_birth_date_idx").on(table.birthDate),
+    index("patient_municipality_idx").on(table.municipalityCode),
   ]
 );
 
@@ -308,12 +312,14 @@ export const coverage = sqliteTable(
       .notNull()
       .references(() => payer.id),
     affiliateType: text("affiliate_type").notNull(),
+    coveragePlanCode: text("coverage_plan_code"),
     policyNumber: text("policy_number"),
     effectiveFrom: requiredTimestamp("effective_from"),
     effectiveTo: timestamp("effective_to"),
   },
   (table) => [
     index("coverage_patient_active_idx").on(table.patientId, table.effectiveTo),
+    index("coverage_plan_code_idx").on(table.coveragePlanCode),
   ]
 );
 
@@ -333,6 +339,10 @@ export const encounter = sqliteTable(
     encounterClass: text("encounter_class").notNull(),
     careModality: text("care_modality").notNull(),
     admissionSource: text("admission_source"),
+    causeExternalCode: text("cause_external_code"),
+    finalidadConsultaCode: text("finalidad_consulta_code"),
+    condicionDestinoCode: text("condicion_destino_code"),
+    modalidadAtencionCode: text("modalidad_atencion_code"),
     reasonForVisit: text("reason_for_visit").notNull(),
     startedAt: requiredTimestamp("started_at"),
     endedAt: timestamp("ended_at"),
@@ -344,6 +354,8 @@ export const encounter = sqliteTable(
   (table) => [
     index("encounter_patient_started_idx").on(table.patientId, table.startedAt),
     index("encounter_site_started_idx").on(table.siteId, table.startedAt),
+    index("encounter_cause_external_idx").on(table.causeExternalCode),
+    index("encounter_finalidad_idx").on(table.finalidadConsultaCode),
   ]
 );
 
@@ -468,6 +480,7 @@ export const diagnosis = sqliteTable(
     code: text("code").notNull(),
     description: text("description").notNull(),
     diagnosisType: text("diagnosis_type").notNull(),
+    ripsReferenceName: text("rips_reference_name"),
     rank: integer("rank"),
     onsetAt: timestamp("onset_at"),
     certainty: text("certainty"),
@@ -544,6 +557,7 @@ export const procedureRecord = sqliteTable(
       .references(() => encounter.id),
     cupsCode: text("cups_code").notNull(),
     description: text("description").notNull(),
+    ripsReferenceName: text("rips_reference_name"),
     performedAt: timestamp("performed_at"),
     performerId: text("performer_id").references(() => practitioner.id),
     status: text("status").notNull(),

@@ -35,6 +35,7 @@ const session = {
 
 const patientRecord = {
   birthDate: new Date("1990-01-01T00:00:00.000Z"),
+  countryCode: null,
   createdAt: new Date("2026-04-23T00:00:00.000Z"),
   deceasedAt: null,
   firstName: "Ada",
@@ -43,10 +44,12 @@ const patientRecord = {
   lastName1: "Lovelace",
   lastName2: null,
   middleName: null,
+  municipalityCode: null,
   primaryDocumentNumber: "123456789",
   primaryDocumentType: "CC",
   sexAtBirth: "F",
   updatedAt: new Date("2026-04-23T00:00:00.000Z"),
+  zoneCode: null,
 };
 
 function createMockContext(db: MockDb): Context {
@@ -71,9 +74,14 @@ describe("patientsRouter", () => {
     const returning = mock(async () => [patientRecord]);
     const values = mock(() => ({ returning }));
     const insert = mock(() => ({ values }));
+    const ripsLimit = mock(async () => [
+      { code: "CC", name: "Cedula", enabled: true, extraData: null },
+    ]);
+    const ripsWhere = mock(() => ({ limit: ripsLimit }));
+    const ripsFrom = mock(() => ({ where: ripsWhere }));
     const db = {
       insert,
-      select: mock(),
+      select: mock(() => ({ from: ripsFrom })),
       update: mock(),
     };
     const client = createPatientsClient(db);

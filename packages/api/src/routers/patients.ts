@@ -5,12 +5,17 @@ import { asc, count, desc, eq, like, or } from "drizzle-orm";
 import { z } from "zod";
 
 import { protectedProcedure } from "../index";
+import {
+  RIPS_TABLE_NAMES,
+  validateRipsCode,
+} from "../services/rips-validation";
 
 const nonEmptyStringSchema = z.string().min(1);
 const optionalNullableStringSchema = z.string().min(1).nullable().optional();
 
 const patientSchema = z.object({
   birthDate: z.date(),
+  countryCode: z.string().nullable(),
   createdAt: z.date(),
   deceasedAt: z.date().nullable(),
   firstName: z.string(),
@@ -19,23 +24,28 @@ const patientSchema = z.object({
   lastName1: z.string(),
   lastName2: z.string().nullable(),
   middleName: z.string().nullable(),
+  municipalityCode: z.string().nullable(),
   primaryDocumentNumber: z.string(),
   primaryDocumentType: z.string(),
   sexAtBirth: z.string(),
   updatedAt: z.date(),
+  zoneCode: z.string().nullable(),
 });
 
 const createPatientSchema = z.object({
   birthDate: z.coerce.date(),
+  countryCode: optionalNullableStringSchema,
   deceasedAt: z.coerce.date().nullable().optional(),
   firstName: nonEmptyStringSchema,
   genderIdentity: optionalNullableStringSchema,
   lastName1: nonEmptyStringSchema,
   lastName2: optionalNullableStringSchema,
   middleName: optionalNullableStringSchema,
+  municipalityCode: optionalNullableStringSchema,
   primaryDocumentNumber: nonEmptyStringSchema,
   primaryDocumentType: nonEmptyStringSchema,
   sexAtBirth: nonEmptyStringSchema,
+  zoneCode: optionalNullableStringSchema,
 });
 
 const updatePatientSchema = createPatientSchema.partial().extend({
@@ -67,6 +77,48 @@ const createPatientProcedure = protectedProcedure
   .input(createPatientSchema)
   .output(patientSchema)
   .handler(async ({ context, input }) => {
+    await validateRipsCode(
+      context.db,
+      RIPS_TABLE_NAMES.tipoIdPisis,
+      input.primaryDocumentType,
+      { requireEnabled: true }
+    );
+    await validateRipsCode(
+      context.db,
+      RIPS_TABLE_NAMES.sexo,
+      input.sexAtBirth,
+      {
+        requireEnabled: true,
+      }
+    );
+
+    if (input.countryCode) {
+      await validateRipsCode(
+        context.db,
+        RIPS_TABLE_NAMES.pais,
+        input.countryCode,
+        { requireEnabled: true }
+      );
+    }
+    if (input.municipalityCode) {
+      await validateRipsCode(
+        context.db,
+        RIPS_TABLE_NAMES.municipio,
+        input.municipalityCode,
+        { requireEnabled: true }
+      );
+    }
+    if (input.zoneCode) {
+      await validateRipsCode(
+        context.db,
+        RIPS_TABLE_NAMES.zona,
+        input.zoneCode,
+        {
+          requireEnabled: true,
+        }
+      );
+    }
+
     const [createdPatient] = await context.db
       .insert(patient)
       .values({
@@ -148,6 +200,44 @@ const updatePatientProcedure = protectedProcedure
     if (!hasUpdates) {
       throw new ORPCError("BAD_REQUEST", {
         message: "No patient fields were provided to update.",
+      });
+    }
+
+    if (data.primaryDocumentType) {
+      await validateRipsCode(
+        context.db,
+        RIPS_TABLE_NAMES.tipoIdPisis,
+        data.primaryDocumentType,
+        { requireEnabled: true }
+      );
+    }
+    if (data.sexAtBirth) {
+      await validateRipsCode(
+        context.db,
+        RIPS_TABLE_NAMES.sexo,
+        data.sexAtBirth,
+        { requireEnabled: true }
+      );
+    }
+    if (data.countryCode) {
+      await validateRipsCode(
+        context.db,
+        RIPS_TABLE_NAMES.pais,
+        data.countryCode,
+        { requireEnabled: true }
+      );
+    }
+    if (data.municipalityCode) {
+      await validateRipsCode(
+        context.db,
+        RIPS_TABLE_NAMES.municipio,
+        data.municipalityCode,
+        { requireEnabled: true }
+      );
+    }
+    if (data.zoneCode) {
+      await validateRipsCode(context.db, RIPS_TABLE_NAMES.zona, data.zoneCode, {
+        requireEnabled: true,
       });
     }
 
