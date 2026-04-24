@@ -5,14 +5,12 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import {
   createRootRouteWithContext,
   HeadContent,
-  Outlet,
 } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import type { AppRouterClient } from "@wellfit-emr/api/routers/index";
 import { Toaster } from "@wellfit-emr/ui/components/sonner";
 import { useState } from "react";
-
-import Header from "@/components/header";
+import { AppShell } from "@/components/layout/app-shell";
 import { ThemeProvider } from "@/components/theme-provider";
 import { link, type orpc } from "@/utils/orpc";
 
@@ -28,11 +26,11 @@ export const Route = createRootRouteWithContext<RouterAppContext>()({
   head: () => ({
     meta: [
       {
-        title: "wellfit-emr",
+        title: "WellFit EMR",
       },
       {
         name: "description",
-        content: "wellfit-emr is a web application",
+        content: "Historia Clínica Electrónica conforme normativa colombiana",
       },
     ],
     links: [
@@ -53,14 +51,11 @@ function RootComponent() {
       <HeadContent />
       <ThemeProvider
         attribute="class"
-        defaultTheme="dark"
+        defaultTheme="light"
         disableTransitionOnChange
         storageKey="vite-ui-theme"
       >
-        <div className="grid h-svh grid-rows-[auto_1fr]">
-          <Header />
-          <Outlet />
-        </div>
+        <AppShell />
         <Toaster richColors />
       </ThemeProvider>
       <TanStackRouterDevtools position="bottom-left" />
