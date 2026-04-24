@@ -2,7 +2,11 @@ import { createORPCClient } from "@orpc/client";
 import { createTanstackQueryUtils } from "@orpc/tanstack-query";
 import type { QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { HeadContent, Outlet, createRootRouteWithContext } from "@tanstack/react-router";
+import {
+  createRootRouteWithContext,
+  HeadContent,
+  Outlet,
+} from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import type { AppRouterClient } from "@wellfit-emr/api/routers/index";
 import { Toaster } from "@wellfit-emr/ui/components/sonner";
@@ -10,7 +14,7 @@ import { useState } from "react";
 
 import Header from "@/components/header";
 import { ThemeProvider } from "@/components/theme-provider";
-import { link, orpc } from "@/utils/orpc";
+import { link, type orpc } from "@/utils/orpc";
 
 import "../index.css";
 
@@ -42,7 +46,7 @@ export const Route = createRootRouteWithContext<RouterAppContext>()({
 
 function RootComponent() {
   const [client] = useState<AppRouterClient>(() => createORPCClient(link));
-  const [orpcUtils] = useState(() => createTanstackQueryUtils(client));
+  const [_orpcUtils] = useState(() => createTanstackQueryUtils(client));
 
   return (
     <>
@@ -53,14 +57,14 @@ function RootComponent() {
         disableTransitionOnChange
         storageKey="vite-ui-theme"
       >
-        <div className="grid grid-rows-[auto_1fr] h-svh">
+        <div className="grid h-svh grid-rows-[auto_1fr]">
           <Header />
           <Outlet />
         </div>
         <Toaster richColors />
       </ThemeProvider>
       <TanStackRouterDevtools position="bottom-left" />
-      <ReactQueryDevtools position="bottom" buttonPosition="bottom-right" />
+      <ReactQueryDevtools buttonPosition="bottom-right" position="bottom" />
     </>
   );
 }

@@ -27,5 +27,5 @@
   "dbSetup": "none",
   "api": "orpc",
   "webDeploy": "none",
-  "serverDeploy": "none",
+  "serverDeploy": "none"
 }

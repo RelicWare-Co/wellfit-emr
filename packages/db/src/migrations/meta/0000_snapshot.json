@@ -103,9 +103,7 @@
       "indexes": {
         "account_userId_idx": {
           "name": "account_userId_idx",
-          "columns": [
-            "user_id"
-          ],
+          "columns": ["user_id"],
           "isUnique": false
         }
       },
@@ -114,12 +112,8 @@
           "name": "account_user_id_user_id_fk",
           "tableFrom": "account",
           "tableTo": "user",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -199,16 +193,12 @@
       "indexes": {
         "session_token_unique": {
           "name": "session_token_unique",
-          "columns": [
-            "token"
-          ],
+          "columns": ["token"],
           "isUnique": true
         },
         "session_userId_idx": {
           "name": "session_userId_idx",
-          "columns": [
-            "user_id"
-          ],
+          "columns": ["user_id"],
           "isUnique": false
         }
       },
@@ -217,12 +207,8 @@
           "name": "session_impersonated_by_user_id_fk",
           "tableFrom": "session",
           "tableTo": "user",
-          "columnsFrom": [
-            "impersonated_by"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["impersonated_by"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         },
@@ -230,12 +216,8 @@
           "name": "session_user_id_user_id_fk",
           "tableFrom": "session",
           "tableTo": "user",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -333,9 +315,7 @@
       "indexes": {
         "user_email_unique": {
           "name": "user_email_unique",
-          "columns": [
-            "email"
-          ],
+          "columns": ["email"],
           "isUnique": true
         }
       },
@@ -395,9 +375,7 @@
       "indexes": {
         "verification_identifier_idx": {
           "name": "verification_identifier_idx",
-          "columns": [
-            "identifier"
-          ],
+          "columns": ["identifier"],
           "isUnique": false
         }
       },
@@ -476,10 +454,7 @@
       "indexes": {
         "allergy_patient_status_idx": {
           "name": "allergy_patient_status_idx",
-          "columns": [
-            "patient_id",
-            "status"
-          ],
+          "columns": ["patient_id", "status"],
           "isUnique": false
         }
       },
@@ -488,12 +463,8 @@
           "name": "allergy_intolerance_patient_id_patient_id_fk",
           "tableFrom": "allergy_intolerance",
           "tableTo": "patient",
-          "columnsFrom": [
-            "patient_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["patient_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -558,10 +529,7 @@
       "indexes": {
         "attachment_link_entity_idx": {
           "name": "attachment_link_entity_idx",
-          "columns": [
-            "linked_entity_type",
-            "linked_entity_id"
-          ],
+          "columns": ["linked_entity_type", "linked_entity_id"],
           "isUnique": false
         }
       },
@@ -570,12 +538,8 @@
           "name": "attachment_link_binary_id_binary_object_id_fk",
           "tableFrom": "attachment_link",
           "tableTo": "binary_object",
-          "columnsFrom": [
-            "binary_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["binary_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -675,26 +639,17 @@
       "indexes": {
         "audit_event_patient_time_idx": {
           "name": "audit_event_patient_time_idx",
-          "columns": [
-            "patient_id",
-            "occurred_at"
-          ],
+          "columns": ["patient_id", "occurred_at"],
           "isUnique": false
         },
         "audit_event_user_time_idx": {
           "name": "audit_event_user_time_idx",
-          "columns": [
-            "user_id",
-            "occurred_at"
-          ],
+          "columns": ["user_id", "occurred_at"],
           "isUnique": false
         },
         "audit_event_action_time_idx": {
           "name": "audit_event_action_time_idx",
-          "columns": [
-            "action_code",
-            "occurred_at"
-          ],
+          "columns": ["action_code", "occurred_at"],
           "isUnique": false
         }
       },
@@ -703,12 +658,8 @@
           "name": "audit_event_patient_id_patient_id_fk",
           "tableFrom": "audit_event",
           "tableTo": "patient",
-          "columnsFrom": [
-            "patient_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["patient_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         },
@@ -716,12 +667,8 @@
           "name": "audit_event_encounter_id_encounter_id_fk",
           "tableFrom": "audit_event",
           "tableTo": "encounter",
-          "columnsFrom": [
-            "encounter_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["encounter_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         },
@@ -729,12 +676,8 @@
           "name": "audit_event_user_id_user_id_fk",
           "tableFrom": "audit_event",
           "tableTo": "user",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -807,16 +750,12 @@
       "indexes": {
         "binary_object_hash_sha256_unique": {
           "name": "binary_object_hash_sha256_unique",
-          "columns": [
-            "hash_sha256"
-          ],
+          "columns": ["hash_sha256"],
           "isUnique": true
         },
         "binary_object_retention_class_idx": {
           "name": "binary_object_retention_class_idx",
-          "columns": [
-            "retention_class"
-          ],
+          "columns": ["retention_class"],
           "isUnique": false
         }
       },
@@ -889,11 +828,7 @@
       "indexes": {
         "clinical_document_patient_type_created_idx": {
           "name": "clinical_document_patient_type_created_idx",
-          "columns": [
-            "patient_id",
-            "document_type",
-            "created_at"
-          ],
+          "columns": ["patient_id", "document_type", "created_at"],
           "isUnique": false
         }
       },
@@ -902,12 +837,8 @@
           "name": "clinical_document_patient_id_patient_id_fk",
           "tableFrom": "clinical_document",
           "tableTo": "patient",
-          "columnsFrom": [
-            "patient_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["patient_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         },
@@ -915,12 +846,8 @@
           "name": "clinical_document_encounter_id_encounter_id_fk",
           "tableFrom": "clinical_document",
           "tableTo": "encounter",
-          "columnsFrom": [
-            "encounter_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["encounter_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         },
@@ -928,12 +855,8 @@
           "name": "clinical_document_created_by_user_id_fk",
           "tableFrom": "clinical_document",
           "tableTo": "user",
-          "columnsFrom": [
-            "created_by"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["created_by"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -1049,25 +972,17 @@
       "indexes": {
         "clinical_document_version_unique_idx": {
           "name": "clinical_document_version_unique_idx",
-          "columns": [
-            "document_id",
-            "version_no"
-          ],
+          "columns": ["document_id", "version_no"],
           "isUnique": true
         },
         "clinical_document_version_current_idx": {
           "name": "clinical_document_version_current_idx",
-          "columns": [
-            "document_id",
-            "is_current"
-          ],
+          "columns": ["document_id", "is_current"],
           "isUnique": false
         },
         "clinical_document_version_hash_idx": {
           "name": "clinical_document_version_hash_idx",
-          "columns": [
-            "hash_sha256"
-          ],
+          "columns": ["hash_sha256"],
           "isUnique": false
         }
       },
@@ -1076,12 +991,8 @@
           "name": "clinical_document_version_document_id_clinical_document_id_fk",
           "tableFrom": "clinical_document_version",
           "tableTo": "clinical_document",
-          "columnsFrom": [
-            "document_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["document_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         },
@@ -1089,12 +1000,8 @@
           "name": "clinical_document_version_author_practitioner_id_practitioner_id_fk",
           "tableFrom": "clinical_document_version",
           "tableTo": "practitioner",
-          "columnsFrom": [
-            "author_practitioner_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["author_practitioner_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         },
@@ -1102,12 +1009,8 @@
           "name": "clinical_document_version_author_user_id_user_id_fk",
           "tableFrom": "clinical_document_version",
           "tableTo": "user",
-          "columnsFrom": [
-            "author_user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["author_user_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         },
@@ -1115,12 +1018,8 @@
           "name": "clinical_document_version_signed_by_user_id_user_id_fk",
           "tableFrom": "clinical_document_version",
           "tableTo": "user",
-          "columnsFrom": [
-            "signed_by_user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["signed_by_user_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -1164,9 +1063,7 @@
       "indexes": {
         "clinical_role_code_unique": {
           "name": "clinical_role_code_unique",
-          "columns": [
-            "code"
-          ],
+          "columns": ["code"],
           "isUnique": true
         }
       },
@@ -1266,11 +1163,7 @@
       "indexes": {
         "consent_patient_type_signed_idx": {
           "name": "consent_patient_type_signed_idx",
-          "columns": [
-            "patient_id",
-            "consent_type",
-            "signed_at"
-          ],
+          "columns": ["patient_id", "consent_type", "signed_at"],
           "isUnique": false
         }
       },
@@ -1279,12 +1172,8 @@
           "name": "consent_record_patient_id_patient_id_fk",
           "tableFrom": "consent_record",
           "tableTo": "patient",
-          "columnsFrom": [
-            "patient_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["patient_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         },
@@ -1292,12 +1181,8 @@
           "name": "consent_record_encounter_id_encounter_id_fk",
           "tableFrom": "consent_record",
           "tableTo": "encounter",
-          "columnsFrom": [
-            "encounter_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["encounter_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         },
@@ -1305,12 +1190,8 @@
           "name": "consent_record_document_version_id_clinical_document_version_id_fk",
           "tableFrom": "consent_record",
           "tableTo": "clinical_document_version",
-          "columnsFrom": [
-            "document_version_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["document_version_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -1375,10 +1256,7 @@
       "indexes": {
         "coverage_patient_active_idx": {
           "name": "coverage_patient_active_idx",
-          "columns": [
-            "patient_id",
-            "effective_to"
-          ],
+          "columns": ["patient_id", "effective_to"],
           "isUnique": false
         }
       },
@@ -1387,12 +1265,8 @@
           "name": "coverage_patient_id_patient_id_fk",
           "tableFrom": "coverage",
           "tableTo": "patient",
-          "columnsFrom": [
-            "patient_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["patient_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         },
@@ -1400,12 +1274,8 @@
           "name": "coverage_payer_id_payer_id_fk",
           "tableFrom": "coverage",
           "tableTo": "payer",
-          "columnsFrom": [
-            "payer_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["payer_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -1484,10 +1354,7 @@
       "indexes": {
         "data_disclosure_patient_expiry_idx": {
           "name": "data_disclosure_patient_expiry_idx",
-          "columns": [
-            "patient_id",
-            "expires_at"
-          ],
+          "columns": ["patient_id", "expires_at"],
           "isUnique": false
         }
       },
@@ -1496,12 +1363,8 @@
           "name": "data_disclosure_authorization_patient_id_patient_id_fk",
           "tableFrom": "data_disclosure_authorization",
           "tableTo": "patient",
-          "columnsFrom": [
-            "patient_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["patient_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -1587,11 +1450,7 @@
       "indexes": {
         "diagnosis_encounter_code_idx": {
           "name": "diagnosis_encounter_code_idx",
-          "columns": [
-            "encounter_id",
-            "code_system",
-            "code"
-          ],
+          "columns": ["encounter_id", "code_system", "code"],
           "isUnique": false
         }
       },
@@ -1600,12 +1459,8 @@
           "name": "diagnosis_encounter_id_encounter_id_fk",
           "tableFrom": "diagnosis",
           "tableTo": "encounter",
-          "columnsFrom": [
-            "encounter_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["encounter_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         },
@@ -1613,12 +1468,8 @@
           "name": "diagnosis_document_version_id_clinical_document_version_id_fk",
           "tableFrom": "diagnosis",
           "tableTo": "clinical_document_version",
-          "columnsFrom": [
-            "document_version_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["document_version_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -1690,10 +1541,7 @@
       "indexes": {
         "diagnostic_report_request_issued_idx": {
           "name": "diagnostic_report_request_issued_idx",
-          "columns": [
-            "request_id",
-            "issued_at"
-          ],
+          "columns": ["request_id", "issued_at"],
           "isUnique": false
         }
       },
@@ -1702,12 +1550,8 @@
           "name": "diagnostic_report_request_id_service_request_id_fk",
           "tableFrom": "diagnostic_report",
           "tableTo": "service_request",
-          "columnsFrom": [
-            "request_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["request_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         },
@@ -1715,12 +1559,8 @@
           "name": "diagnostic_report_encounter_id_encounter_id_fk",
           "tableFrom": "diagnostic_report",
           "tableTo": "encounter",
-          "columnsFrom": [
-            "encounter_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["encounter_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         },
@@ -1728,12 +1568,8 @@
           "name": "diagnostic_report_performer_org_id_organization_id_fk",
           "tableFrom": "diagnostic_report",
           "tableTo": "organization",
-          "columnsFrom": [
-            "performer_org_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["performer_org_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -1784,10 +1620,7 @@
       "indexes": {
         "document_section_version_code_idx": {
           "name": "document_section_version_code_idx",
-          "columns": [
-            "document_version_id",
-            "section_code"
-          ],
+          "columns": ["document_version_id", "section_code"],
           "isUnique": true
         }
       },
@@ -1796,12 +1629,8 @@
           "name": "document_section_document_version_id_clinical_document_version_id_fk",
           "tableFrom": "document_section",
           "tableTo": "clinical_document_version",
-          "columnsFrom": [
-            "document_version_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["document_version_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -1917,18 +1746,12 @@
       "indexes": {
         "encounter_patient_started_idx": {
           "name": "encounter_patient_started_idx",
-          "columns": [
-            "patient_id",
-            "started_at"
-          ],
+          "columns": ["patient_id", "started_at"],
           "isUnique": false
         },
         "encounter_site_started_idx": {
           "name": "encounter_site_started_idx",
-          "columns": [
-            "site_id",
-            "started_at"
-          ],
+          "columns": ["site_id", "started_at"],
           "isUnique": false
         }
       },
@@ -1937,12 +1760,8 @@
           "name": "encounter_patient_id_patient_id_fk",
           "tableFrom": "encounter",
           "tableTo": "patient",
-          "columnsFrom": [
-            "patient_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["patient_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         },
@@ -1950,12 +1769,8 @@
           "name": "encounter_site_id_site_id_fk",
           "tableFrom": "encounter",
           "tableTo": "site",
-          "columnsFrom": [
-            "site_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["site_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         },
@@ -1963,12 +1778,8 @@
           "name": "encounter_service_unit_id_service_unit_id_fk",
           "tableFrom": "encounter",
           "tableTo": "service_unit",
-          "columnsFrom": [
-            "service_unit_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["service_unit_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -2026,10 +1837,7 @@
       "indexes": {
         "encounter_participant_role_idx": {
           "name": "encounter_participant_role_idx",
-          "columns": [
-            "encounter_id",
-            "participant_role"
-          ],
+          "columns": ["encounter_id", "participant_role"],
           "isUnique": false
         }
       },
@@ -2038,12 +1846,8 @@
           "name": "encounter_participant_encounter_id_encounter_id_fk",
           "tableFrom": "encounter_participant",
           "tableTo": "encounter",
-          "columnsFrom": [
-            "encounter_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["encounter_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         },
@@ -2051,12 +1855,8 @@
           "name": "encounter_participant_practitioner_id_practitioner_id_fk",
           "tableFrom": "encounter_participant",
           "tableTo": "practitioner",
-          "columnsFrom": [
-            "practitioner_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["practitioner_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -2135,10 +1935,7 @@
       "indexes": {
         "ihce_bundle_encounter_status_idx": {
           "name": "ihce_bundle_encounter_status_idx",
-          "columns": [
-            "encounter_id",
-            "status"
-          ],
+          "columns": ["encounter_id", "status"],
           "isUnique": false
         }
       },
@@ -2147,12 +1944,8 @@
           "name": "ihce_bundle_encounter_id_encounter_id_fk",
           "tableFrom": "ihce_bundle",
           "tableTo": "encounter",
-          "columnsFrom": [
-            "encounter_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["encounter_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -2238,10 +2031,7 @@
       "indexes": {
         "incapacity_patient_issued_idx": {
           "name": "incapacity_patient_issued_idx",
-          "columns": [
-            "patient_id",
-            "issued_at"
-          ],
+          "columns": ["patient_id", "issued_at"],
           "isUnique": false
         }
       },
@@ -2250,12 +2040,8 @@
           "name": "incapacity_certificate_patient_id_patient_id_fk",
           "tableFrom": "incapacity_certificate",
           "tableTo": "patient",
-          "columnsFrom": [
-            "patient_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["patient_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         },
@@ -2263,12 +2049,8 @@
           "name": "incapacity_certificate_encounter_id_encounter_id_fk",
           "tableFrom": "incapacity_certificate",
           "tableTo": "encounter",
-          "columnsFrom": [
-            "encounter_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["encounter_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         },
@@ -2276,12 +2058,8 @@
           "name": "incapacity_certificate_issued_by_practitioner_id_fk",
           "tableFrom": "incapacity_certificate",
           "tableTo": "practitioner",
-          "columnsFrom": [
-            "issued_by"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["issued_by"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -2353,10 +2131,7 @@
       "indexes": {
         "interconsultation_encounter_status_idx": {
           "name": "interconsultation_encounter_status_idx",
-          "columns": [
-            "encounter_id",
-            "status"
-          ],
+          "columns": ["encounter_id", "status"],
           "isUnique": false
         }
       },
@@ -2365,12 +2140,8 @@
           "name": "interconsultation_encounter_id_encounter_id_fk",
           "tableFrom": "interconsultation",
           "tableTo": "encounter",
-          "columnsFrom": [
-            "encounter_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["encounter_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         },
@@ -2378,12 +2149,8 @@
           "name": "interconsultation_requested_by_practitioner_id_fk",
           "tableFrom": "interconsultation",
           "tableTo": "practitioner",
-          "columnsFrom": [
-            "requested_by"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["requested_by"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         },
@@ -2391,12 +2158,8 @@
           "name": "interconsultation_response_document_id_clinical_document_id_fk",
           "tableFrom": "interconsultation",
           "tableTo": "clinical_document",
-          "columnsFrom": [
-            "response_document_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["response_document_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -2461,10 +2224,7 @@
       "indexes": {
         "med_admin_order_time_idx": {
           "name": "med_admin_order_time_idx",
-          "columns": [
-            "medication_order_id",
-            "administered_at"
-          ],
+          "columns": ["medication_order_id", "administered_at"],
           "isUnique": false
         }
       },
@@ -2473,12 +2233,8 @@
           "name": "medication_administration_medication_order_id_medication_order_id_fk",
           "tableFrom": "medication_administration",
           "tableTo": "medication_order",
-          "columnsFrom": [
-            "medication_order_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["medication_order_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         },
@@ -2486,12 +2242,8 @@
           "name": "medication_administration_administered_by_practitioner_id_fk",
           "tableFrom": "medication_administration",
           "tableTo": "practitioner",
-          "columnsFrom": [
-            "administered_by"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["administered_by"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -2640,11 +2392,7 @@
       "indexes": {
         "medication_order_encounter_prescriber_idx": {
           "name": "medication_order_encounter_prescriber_idx",
-          "columns": [
-            "encounter_id",
-            "prescriber_id",
-            "signed_at"
-          ],
+          "columns": ["encounter_id", "prescriber_id", "signed_at"],
           "isUnique": false
         }
       },
@@ -2653,12 +2401,8 @@
           "name": "medication_order_patient_id_patient_id_fk",
           "tableFrom": "medication_order",
           "tableTo": "patient",
-          "columnsFrom": [
-            "patient_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["patient_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         },
@@ -2666,12 +2410,8 @@
           "name": "medication_order_encounter_id_encounter_id_fk",
           "tableFrom": "medication_order",
           "tableTo": "encounter",
-          "columnsFrom": [
-            "encounter_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["encounter_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         },
@@ -2679,12 +2419,8 @@
           "name": "medication_order_diagnosis_id_diagnosis_id_fk",
           "tableFrom": "medication_order",
           "tableTo": "diagnosis",
-          "columnsFrom": [
-            "diagnosis_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["diagnosis_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         },
@@ -2692,12 +2428,8 @@
           "name": "medication_order_prescriber_id_practitioner_id_fk",
           "tableFrom": "medication_order",
           "tableTo": "practitioner",
-          "columnsFrom": [
-            "prescriber_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["prescriber_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -2797,11 +2529,7 @@
       "indexes": {
         "observation_encounter_type_time_idx": {
           "name": "observation_encounter_type_time_idx",
-          "columns": [
-            "encounter_id",
-            "observation_type",
-            "observed_at"
-          ],
+          "columns": ["encounter_id", "observation_type", "observed_at"],
           "isUnique": false
         }
       },
@@ -2810,12 +2538,8 @@
           "name": "observation_patient_id_patient_id_fk",
           "tableFrom": "observation",
           "tableTo": "patient",
-          "columnsFrom": [
-            "patient_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["patient_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         },
@@ -2823,12 +2547,8 @@
           "name": "observation_encounter_id_encounter_id_fk",
           "tableFrom": "observation",
           "tableTo": "encounter",
-          "columnsFrom": [
-            "encounter_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["encounter_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         },
@@ -2836,12 +2556,8 @@
           "name": "observation_document_version_id_clinical_document_version_id_fk",
           "tableFrom": "observation",
           "tableTo": "clinical_document_version",
-          "columnsFrom": [
-            "document_version_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["document_version_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -2909,16 +2625,12 @@
       "indexes": {
         "organization_reps_code_idx": {
           "name": "organization_reps_code_idx",
-          "columns": [
-            "reps_code"
-          ],
+          "columns": ["reps_code"],
           "isUnique": true
         },
         "organization_tax_id_idx": {
           "name": "organization_tax_id_idx",
-          "columns": [
-            "tax_id"
-          ],
+          "columns": ["tax_id"],
           "isUnique": false
         }
       },
@@ -3027,17 +2739,12 @@
       "indexes": {
         "patient_primary_document_idx": {
           "name": "patient_primary_document_idx",
-          "columns": [
-            "primary_document_type",
-            "primary_document_number"
-          ],
+          "columns": ["primary_document_type", "primary_document_number"],
           "isUnique": true
         },
         "patient_birth_date_idx": {
           "name": "patient_birth_date_idx",
-          "columns": [
-            "birth_date"
-          ],
+          "columns": ["birth_date"],
           "isUnique": false
         }
       },
@@ -3117,10 +2824,7 @@
       "indexes": {
         "patient_contact_primary_idx": {
           "name": "patient_contact_primary_idx",
-          "columns": [
-            "patient_id",
-            "is_primary"
-          ],
+          "columns": ["patient_id", "is_primary"],
           "isUnique": false
         }
       },
@@ -3129,12 +2833,8 @@
           "name": "patient_contact_patient_id_patient_id_fk",
           "tableFrom": "patient_contact",
           "tableTo": "patient",
-          "columnsFrom": [
-            "patient_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["patient_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -3201,10 +2901,7 @@
       "indexes": {
         "patient_identifier_system_value_idx": {
           "name": "patient_identifier_system_value_idx",
-          "columns": [
-            "identifier_system",
-            "identifier_value"
-          ],
+          "columns": ["identifier_system", "identifier_value"],
           "isUnique": true
         }
       },
@@ -3213,12 +2910,8 @@
           "name": "patient_identifier_patient_id_patient_id_fk",
           "tableFrom": "patient_identifier",
           "tableTo": "patient",
-          "columnsFrom": [
-            "patient_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["patient_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -3270,10 +2963,7 @@
       "indexes": {
         "payer_type_code_idx": {
           "name": "payer_type_code_idx",
-          "columns": [
-            "payer_type",
-            "code"
-          ],
+          "columns": ["payer_type", "code"],
           "isUnique": true
         }
       },
@@ -3310,9 +3000,7 @@
       "indexes": {
         "permission_code_unique": {
           "name": "permission_code_unique",
-          "columns": [
-            "code"
-          ],
+          "columns": ["code"],
           "isUnique": true
         }
       },
@@ -3387,17 +3075,12 @@
       "indexes": {
         "practitioner_document_idx": {
           "name": "practitioner_document_idx",
-          "columns": [
-            "document_type",
-            "document_number"
-          ],
+          "columns": ["document_type", "document_number"],
           "isUnique": true
         },
         "practitioner_rethus_number_idx": {
           "name": "practitioner_rethus_number_idx",
-          "columns": [
-            "rethus_number"
-          ],
+          "columns": ["rethus_number"],
           "isUnique": false
         }
       },
@@ -3462,11 +3145,7 @@
       "indexes": {
         "practitioner_role_lookup_idx": {
           "name": "practitioner_role_lookup_idx",
-          "columns": [
-            "practitioner_id",
-            "role_code",
-            "end_at"
-          ],
+          "columns": ["practitioner_id", "role_code", "end_at"],
           "isUnique": false
         }
       },
@@ -3475,12 +3154,8 @@
           "name": "practitioner_role_practitioner_id_practitioner_id_fk",
           "tableFrom": "practitioner_role",
           "tableTo": "practitioner",
-          "columnsFrom": [
-            "practitioner_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["practitioner_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         },
@@ -3488,12 +3163,8 @@
           "name": "practitioner_role_organization_id_organization_id_fk",
           "tableFrom": "practitioner_role",
           "tableTo": "organization",
-          "columnsFrom": [
-            "organization_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["organization_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         },
@@ -3501,12 +3172,8 @@
           "name": "practitioner_role_site_id_site_id_fk",
           "tableFrom": "practitioner_role",
           "tableTo": "site",
-          "columnsFrom": [
-            "site_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["site_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -3578,10 +3245,7 @@
       "indexes": {
         "procedure_encounter_cups_idx": {
           "name": "procedure_encounter_cups_idx",
-          "columns": [
-            "encounter_id",
-            "cups_code"
-          ],
+          "columns": ["encounter_id", "cups_code"],
           "isUnique": false
         }
       },
@@ -3590,12 +3254,8 @@
           "name": "procedure_record_patient_id_patient_id_fk",
           "tableFrom": "procedure_record",
           "tableTo": "patient",
-          "columnsFrom": [
-            "patient_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["patient_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         },
@@ -3603,12 +3263,8 @@
           "name": "procedure_record_encounter_id_encounter_id_fk",
           "tableFrom": "procedure_record",
           "tableTo": "encounter",
-          "columnsFrom": [
-            "encounter_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["encounter_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         },
@@ -3616,12 +3272,8 @@
           "name": "procedure_record_performer_id_practitioner_id_fk",
           "tableFrom": "procedure_record",
           "tableTo": "practitioner",
-          "columnsFrom": [
-            "performer_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["performer_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -3687,10 +3339,7 @@
       "indexes": {
         "retention_disposal_hold_idx": {
           "name": "retention_disposal_hold_idx",
-          "columns": [
-            "disposal_eligibility_date",
-            "legal_hold_flag"
-          ],
+          "columns": ["disposal_eligibility_date", "legal_hold_flag"],
           "isUnique": false
         }
       },
@@ -3762,10 +3411,7 @@
       "indexes": {
         "rips_export_generated_status_idx": {
           "name": "rips_export_generated_status_idx",
-          "columns": [
-            "generated_at",
-            "status"
-          ],
+          "columns": ["generated_at", "status"],
           "isUnique": false
         }
       },
@@ -3774,12 +3420,8 @@
           "name": "rips_export_payer_id_payer_id_fk",
           "tableFrom": "rips_export",
           "tableTo": "payer",
-          "columnsFrom": [
-            "payer_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["payer_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -3816,10 +3458,7 @@
       "indexes": {
         "role_permission_unique_idx": {
           "name": "role_permission_unique_idx",
-          "columns": [
-            "role_id",
-            "permission_id"
-          ],
+          "columns": ["role_id", "permission_id"],
           "isUnique": true
         }
       },
@@ -3828,12 +3467,8 @@
           "name": "role_permission_role_id_clinical_role_id_fk",
           "tableFrom": "role_permission",
           "tableTo": "clinical_role",
-          "columnsFrom": [
-            "role_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["role_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         },
@@ -3841,12 +3476,8 @@
           "name": "role_permission_permission_id_permission_id_fk",
           "tableFrom": "role_permission",
           "tableTo": "permission",
-          "columnsFrom": [
-            "permission_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["permission_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -3925,11 +3556,7 @@
       "indexes": {
         "service_request_encounter_type_status_idx": {
           "name": "service_request_encounter_type_status_idx",
-          "columns": [
-            "encounter_id",
-            "request_type",
-            "status"
-          ],
+          "columns": ["encounter_id", "request_type", "status"],
           "isUnique": false
         }
       },
@@ -3938,12 +3565,8 @@
           "name": "service_request_patient_id_patient_id_fk",
           "tableFrom": "service_request",
           "tableTo": "patient",
-          "columnsFrom": [
-            "patient_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["patient_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         },
@@ -3951,12 +3574,8 @@
           "name": "service_request_encounter_id_encounter_id_fk",
           "tableFrom": "service_request",
           "tableTo": "encounter",
-          "columnsFrom": [
-            "encounter_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["encounter_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         },
@@ -3964,12 +3583,8 @@
           "name": "service_request_requested_by_practitioner_id_fk",
           "tableFrom": "service_request",
           "tableTo": "practitioner",
-          "columnsFrom": [
-            "requested_by"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["requested_by"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -4036,10 +3651,7 @@
       "indexes": {
         "service_unit_site_code_idx": {
           "name": "service_unit_site_code_idx",
-          "columns": [
-            "site_id",
-            "service_code"
-          ],
+          "columns": ["site_id", "service_code"],
           "isUnique": false
         }
       },
@@ -4048,12 +3660,8 @@
           "name": "service_unit_site_id_site_id_fk",
           "tableFrom": "service_unit",
           "tableTo": "site",
-          "columnsFrom": [
-            "site_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["site_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -4127,10 +3735,7 @@
       "indexes": {
         "site_organization_code_idx": {
           "name": "site_organization_code_idx",
-          "columns": [
-            "organization_id",
-            "site_code"
-          ],
+          "columns": ["organization_id", "site_code"],
           "isUnique": true
         }
       },
@@ -4139,12 +3744,8 @@
           "name": "site_organization_id_organization_id_fk",
           "tableFrom": "site",
           "tableTo": "organization",
-          "columnsFrom": [
-            "organization_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["organization_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -4202,10 +3803,7 @@
       "indexes": {
         "user_clinical_role_active_idx": {
           "name": "user_clinical_role_active_idx",
-          "columns": [
-            "user_id",
-            "effective_to"
-          ],
+          "columns": ["user_id", "effective_to"],
           "isUnique": false
         }
       },
@@ -4214,12 +3812,8 @@
           "name": "user_clinical_role_user_id_user_id_fk",
           "tableFrom": "user_clinical_role",
           "tableTo": "user",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         },
@@ -4227,12 +3821,8 @@
           "name": "user_clinical_role_role_id_clinical_role_id_fk",
           "tableFrom": "user_clinical_role",
           "tableTo": "clinical_role",
-          "columnsFrom": [
-            "role_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["role_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         },
@@ -4240,12 +3830,8 @@
           "name": "user_clinical_role_site_id_site_id_fk",
           "tableFrom": "user_clinical_role",
           "tableTo": "site",
-          "columnsFrom": [
-            "site_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["site_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -4312,27 +3898,17 @@
       "indexes": {
         "user_practitioner_link_user_practitioner_idx": {
           "name": "user_practitioner_link_user_practitioner_idx",
-          "columns": [
-            "user_id",
-            "practitioner_id",
-            "link_type"
-          ],
+          "columns": ["user_id", "practitioner_id", "link_type"],
           "isUnique": true
         },
         "user_practitioner_link_user_active_idx": {
           "name": "user_practitioner_link_user_active_idx",
-          "columns": [
-            "user_id",
-            "effective_to"
-          ],
+          "columns": ["user_id", "effective_to"],
           "isUnique": false
         },
         "user_practitioner_link_practitioner_active_idx": {
           "name": "user_practitioner_link_practitioner_active_idx",
-          "columns": [
-            "practitioner_id",
-            "effective_to"
-          ],
+          "columns": ["practitioner_id", "effective_to"],
           "isUnique": false
         }
       },
@@ -4341,12 +3917,8 @@
           "name": "user_practitioner_link_user_id_user_id_fk",
           "tableFrom": "user_practitioner_link",
           "tableTo": "user",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         },
@@ -4354,12 +3926,8 @@
           "name": "user_practitioner_link_practitioner_id_practitioner_id_fk",
           "tableFrom": "user_practitioner_link",
           "tableTo": "practitioner",
-          "columnsFrom": [
-            "practitioner_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["practitioner_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }

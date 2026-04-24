@@ -23,6 +23,19 @@ const TITLE_TEXT = `
     ╚═╝       ╚══════╝   ╚═╝   ╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝
  `;
 
+function getConnectionStatus(healthCheck: {
+  isLoading: boolean;
+  data: unknown;
+}) {
+  if (healthCheck.isLoading) {
+    return "Checking...";
+  }
+  if (healthCheck.data) {
+    return "Connected";
+  }
+  return "Disconnected";
+}
+
 function HomeComponent() {
   const healthCheck = useQuery(orpc.healthCheck.queryOptions());
 
@@ -36,12 +49,8 @@ function HomeComponent() {
             <div
               className={`h-2 w-2 rounded-full ${healthCheck.data ? "bg-green-500" : "bg-red-500"}`}
             />
-            <span className="text-sm text-muted-foreground">
-              {healthCheck.isLoading
-                ? "Checking..."
-                : healthCheck.data
-                  ? "Connected"
-                  : "Disconnected"}
+            <span className="text-muted-foreground text-sm">
+              {getConnectionStatus(healthCheck)}
             </span>
           </div>
         </section>
