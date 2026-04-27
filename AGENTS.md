@@ -80,6 +80,44 @@ _Ninguno. Todos los routers planificados están implementados._
 - Portal del paciente (solicitudes de copia)
 - Firmas pendientes / panel de tareas regulatorias
 
+## Seed y Test Infrastructure
+
+### Archivos
+- `packages/api/src/seed.ts` — Script de seed completo que usa los routers oRPC reales (no inserts directos a DB). Sirve dual propósito: poblar datos realistas y actuar como suite de integración.
+- `packages/api/src/test-utils.ts` — Utilidades compartidas para tests: `ensureSeedUserExists`, `createSeedContext`, `createTestContext`.
+
+### Características del seed
+- **Sincronización RIPS obligatoria**: Antes de crear cualquier dato, ejecuta `ripsReference.syncAll()` para poblar catálogos SISPRO desde la API del estado. **Ningún código RIPS está hardcodeado**; todos se resuelven dinámicamente contra la base de datos post-sync.
+- **Narrativas coherentes**: 10 pacientes con historias médicas realistas y evolutivas (diabetes, asma, prenatal, EPOC, pediatría, ortopedia, salud mental, cardiología, dermatología, gastroenterología).
+- **Datos completos por paciente**: múltiples appointments, encounters, diagnósticos CIE10, observaciones (signos vitales), procedimientos CUPS, y prescripciones médicas.
+- **Infraestructura base**: crea organización, sede, unidad de servicio y 8 profesionales de salud.
+- **Uso de RPC real**: todas las operaciones pasan por `createRouterClient(appRouter, { context })` con un contexto que incluye DB real y una sesión de seed user.
+
+### Comandos
+```bash
+# Ejecutar seed (primera vez o con DB limpia)
+bun run seed
+
+# Sobrescribir datos existentes del seed
+bun run seed -- --clean
+
+# Verificar tipos del seed
+bun x tsc --noEmit -p packages/api/tsconfig.json
+```
+
+> **Nota:** El script `seed` carga automáticamente las variables de entorno desde `apps/server/.env` mediante `--env-file`. Asegúrate de que ese archivo exista y contenga `DATABASE_URL`, `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL` y `CORS_ORIGIN`.
+
+> **Importante:** El seed debe ejecutarse desde el directorio `packages/api` para que el `DATABASE_URL` relativo (`file:../../local.db`) se resuelva correctamente. El comando en `package.json` ya maneja esto con `cd packages/api`.
+
+> **Base de datos:** Asegúrate de que el servidor no esté usando exclusivamente la base de datos SQLite cuando ejecutes el seed, ya que puede causar conflictos de escritura. Si el seed falla con "Failed query", detén el servidor (`Ctrl+C` en la terminal de `dev:server`) y vuelve a ejecutar.
+
+> **Idempotencia:** El seed detecta automáticamente si ya existe datos de un seed anterior (por `reps_code` de la organización). Si detecta datos existentes, muestra un error amigable y sugiere usar `--clean`. El flag `--clean` elimina todos los datos previos del seed antes de poblar la base de datos nuevamente.
+
+### Test patterns establecidos
+- **Unit tests** (existentes): usan `createRouterClient` con DB mocked (sin DB real).
+- **Integration/seed tests** (nuevo): usan `createRouterClient` con DB real y `createSeedContext`.
+- El seed user se crea/verifica en la tabla `user` de Better Auth para satisfacer FKs y el middleware de autenticación.
+
 ---
 
 # Ultracite Code Standards

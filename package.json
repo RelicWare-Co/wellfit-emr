@@ -35,6 +35,7 @@
     "db:generate": "turbo -F @wellfit-emr/db db:generate",
     "db:migrate": "turbo -F @wellfit-emr/db db:migrate",
     "db:local": "turbo -F @wellfit-emr/db db:local",
+    "seed": "cd packages/api && bun --env-file=../../apps/server/.env src/seed.ts",
     "check": "ultracite check",
     "fix": "ultracite fix"
   },
