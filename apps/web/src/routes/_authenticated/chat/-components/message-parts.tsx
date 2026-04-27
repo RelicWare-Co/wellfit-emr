@@ -75,10 +75,23 @@ function ToolPart({
   part,
   toolName,
 }: {
-  part: { state: string; output?: unknown };
+  part: { state: string; output?: unknown; errorText?: string };
   toolName: string;
 }) {
   const output = part.state === "output-available" ? part.output : undefined;
+  const errorText = part.state === "output-error" ? part.errorText : undefined;
+
+  if (errorText) {
+    return (
+      <ToolCallCard
+        icon={<FileText size={14} />}
+        state={part.state}
+        title={toolName.replace(/_/g, " ")}
+      >
+        <ToolError errorText={errorText} />
+      </ToolCallCard>
+    );
+  }
 
   switch (toolName) {
     case "search_patients":
@@ -129,6 +142,10 @@ function ToolPart({
         </ToolCallCard>
       );
   }
+}
+
+function ToolError({ errorText }: { errorText: string }) {
+  return <p className="text-destructive text-xs">{errorText}</p>;
 }
 
 function SearchPatientsOutput({ data }: { data: unknown }) {
@@ -292,20 +309,29 @@ function ToolCallCard({
   children?: React.ReactNode;
 }) {
   const isRunning = state === "input-streaming" || state === "input-available";
+  const hasError = state === "output-error" || state === "output-denied";
 
   let stateLabel: string;
   if (isRunning) {
     stateLabel = "Ejecutando...";
   } else if (state === "output-available") {
     stateLabel = "Completado";
+  } else if (state === "output-error") {
+    stateLabel = "Error";
+  } else if (state === "output-denied") {
+    stateLabel = "Denegado";
   } else {
     stateLabel = state;
   }
 
-  const containerClass =
-    variant === "success"
-      ? "border-emerald-300 bg-emerald-50 dark:border-emerald-800 dark:bg-emerald-950"
-      : "border-border bg-background";
+  let containerClass = "border-border bg-background";
+  if (variant === "success") {
+    containerClass =
+      "border-emerald-300 bg-emerald-50 dark:border-emerald-800 dark:bg-emerald-950";
+  }
+  if (hasError) {
+    containerClass = "border-destructive/40 bg-destructive/5";
+  }
 
   return (
     <div className={`my-2 rounded-none border ${containerClass}`}>

@@ -2,6 +2,7 @@ import type { AnyRouter, RouterClient } from "@orpc/server";
 
 import { protectedProcedure, publicProcedure } from "../index";
 import { adminRouter } from "./admin";
+import { appointmentsRouter } from "./appointments";
 import { attachmentsRouter } from "./attachments";
 import { auditEventsRouter } from "./audit-events";
 import { clinicalDocumentsRouter } from "./clinical-documents";
@@ -13,7 +14,6 @@ import { ihceBundlesRouter } from "./ihce-bundles";
 import { incapacityCertificatesRouter } from "./incapacity-certificates";
 import { interconsultationsRouter } from "./interconsultations";
 import { medicationOrdersRouter } from "./medication-orders";
-import { appointmentsRouter } from "./appointments";
 import { patientsRouter } from "./patients";
 import { ripsExportsRouter } from "./rips-exports";
 import { ripsReferenceRouter } from "./rips-reference";

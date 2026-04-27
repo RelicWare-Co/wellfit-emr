@@ -173,9 +173,10 @@ function CreateConsentForm({ onCancel }: { onCancel: () => void }) {
           <div className="space-y-1">
             <Label>Código CUPS (opcional)</Label>
             <SearchSelect
-              value={form.procedureCode}
+              clearable
+              emptyMessage="Escribe para buscar en CUPS"
+              loading={cupsLoading}
               onChange={(v) => setForm((f) => ({ ...f, procedureCode: v }))}
-              search={cupsSearch}
               onSearchChange={setCupsSearch}
               options={
                 cupsData?.entries.map((e) => ({
@@ -184,10 +185,9 @@ function CreateConsentForm({ onCancel }: { onCancel: () => void }) {
                   description: e.code,
                 })) ?? []
               }
-              loading={cupsLoading}
               placeholder="Buscar CUPS..."
-              emptyMessage="Escribe para buscar en CUPS"
-              clearable
+              search={cupsSearch}
+              value={form.procedureCode}
             />
           </div>
           <div className="space-y-1">

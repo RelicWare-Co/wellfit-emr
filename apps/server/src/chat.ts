@@ -1,5 +1,4 @@
-import { google } from "@ai-sdk/google";
-import { createMedicalTools, SYSTEM_PROMPT } from "@wellfit-emr/api/ai/agent";
+import { createMedicalAgent, SYSTEM_PROMPT } from "@wellfit-emr/api/ai/agent";
 import { auth } from "@wellfit-emr/auth";
 import { db } from "@wellfit-emr/db";
 import {
@@ -8,12 +7,7 @@ import {
   medicationOrder,
   patient,
 } from "@wellfit-emr/db/schema/clinical";
-import {
-  convertToModelMessages,
-  stepCountIs,
-  streamText,
-  type UIMessage,
-} from "ai";
+import { createAgentUIStreamResponse, type UIMessage } from "ai";
 import { and, desc, eq } from "drizzle-orm";
 import { z } from "zod";
 
@@ -32,34 +26,60 @@ export async function chatHandler(request: Request): Promise<Response> {
     return new Response("Unauthorized", { status: 401 });
   }
 
-  const parsedBody = chatRequestSchema.safeParse(await request.json());
+  const requestBody = await request.json().catch((error) => {
+    console.error("[ai-chat] invalid request json", error);
+    return null;
+  });
+  const parsedBody = chatRequestSchema.safeParse(requestBody);
   if (!parsedBody.success) {
+    console.error("[ai-chat] invalid chat request", parsedBody.error);
     return new Response("Invalid chat request", { status: 400 });
   }
 
   const { messages, selectedPatientId } = parsedBody.data;
 
+  console.info("[ai-chat] request received", {
+    messageCount: messages.length,
+    selectedPatientId,
+    userId: session.user.id,
+  });
+
   const patientContext = selectedPatientId
     ? await buildPatientContext(selectedPatientId)
     : null;
-  const tools = createMedicalTools(db, {
+  const systemMessage = patientContext
+    ? `${SYSTEM_PROMPT}\n\nCONTEXTO DEL PACIENTE SELECCIONADO:\n${patientContext}`
+    : SYSTEM_PROMPT;
+  const { agent } = createMedicalAgent(db, {
+    instructions: systemMessage,
     selectedPatientId: selectedPatientId ?? null,
     userId: session.user.id,
   });
 
-  const systemMessage = patientContext
-    ? `${SYSTEM_PROMPT}\n\nCONTEXTO DEL PACIENTE SELECCIONADO:\n${patientContext}`
-    : SYSTEM_PROMPT;
-
-  const result = streamText({
-    model: google("gemini-3-flash-preview"),
-    system: systemMessage,
-    messages: await convertToModelMessages(messages),
-    tools,
-    stopWhen: stepCountIs(10),
+  return createAgentUIStreamResponse({
+    agent,
+    uiMessages: messages,
+    onError: (error) => {
+      console.error("[ai-chat] stream error", error);
+      return formatStreamError(error);
+    },
+    onFinish: ({ isAborted }) => {
+      console.info("[ai-chat] ui stream finished", { isAborted });
+    },
+    headers: {
+      "Cache-Control": "no-cache",
+      "Content-Encoding": "none",
+      "X-Accel-Buffering": "no",
+    },
   });
+}
 
-  return result.toUIMessageStreamResponse({ originalMessages: messages });
+function formatStreamError(error: unknown) {
+  if (error instanceof Error) {
+    return error.message;
+  }
+
+  return "Error generando la respuesta del asistente.";
 }
 
 async function buildPatientContext(patientId: string) {

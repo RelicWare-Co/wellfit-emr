@@ -19,5 +19,9 @@ const requireAuth = o.middleware(({ context, next }) => {
 
 export const protectedProcedure = publicProcedure.use(requireAuth);
 
-export { createMedicalAgent, createMedicalTools, SYSTEM_PROMPT } from "./ai/agent";
-export type { MedicalTools, MedicalAgentConfig } from "./ai/agent";
+export type { MedicalAgentConfig, MedicalTools } from "./ai/agent";
+export {
+  createMedicalAgent,
+  createMedicalTools,
+  SYSTEM_PROMPT,
+} from "./ai/agent";

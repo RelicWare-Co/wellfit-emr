@@ -552,7 +552,6 @@ function AppointmentsPage() {
               ? Array.from({ length: 35 }).map((_, i) => (
                   <div
                     className="min-h-28 border-r border-b p-1.5 last:border-r-0"
-                    // biome-ignore lint/suspicious/noArrayIndexKey: static skeleton placeholders
                     key={`sk-${i}`}
                   >
                     <div className="mb-2 h-4 w-6 bg-muted" />

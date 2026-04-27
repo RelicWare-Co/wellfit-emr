@@ -14,6 +14,7 @@ interface Column<T> {
   accessor: (row: T) => React.ReactNode;
   className?: string;
   header: string;
+  id?: string;
 }
 
 interface DataTableProps<T> {
@@ -52,6 +53,14 @@ export function DataTable<T>({
   const totalPages = pagination
     ? Math.ceil(pagination.total / pagination.limit)
     : 1;
+  const columnKeys = columns.map((col) => col.id ?? col.header);
+  const skeletonRows = [
+    "skeleton-1",
+    "skeleton-2",
+    "skeleton-3",
+    "skeleton-4",
+    "skeleton-5",
+  ];
 
   return (
     <div className="flex flex-col gap-3">
@@ -59,13 +68,13 @@ export function DataTable<T>({
         <table className="w-full text-xs">
           <thead className="bg-muted">
             <tr>
-              {columns.map((col, i) => (
+              {columns.map((col, columnIndex) => (
                 <th
                   className={cn(
                     "px-3 py-2 text-left font-medium text-muted-foreground",
                     col.className
                   )}
-                  key={i}
+                  key={columnKeys[columnIndex]}
                 >
                   {col.header}
                 </th>
@@ -74,10 +83,13 @@ export function DataTable<T>({
           </thead>
           <tbody>
             {isLoading
-              ? Array.from({ length: 5 }).map((_, i) => (
-                  <tr key={`sk-${i}`}>
-                    {columns.map((_, j) => (
-                      <td className="px-3 py-2" key={j}>
+              ? skeletonRows.map((rowKey) => (
+                  <tr key={rowKey}>
+                    {columns.map((_, columnIndex) => (
+                      <td
+                        className="px-3 py-2"
+                        key={`${rowKey}-${columnKeys[columnIndex]}`}
+                      >
                         <Skeleton className="h-4 w-24" />
                       </td>
                     ))}
@@ -92,8 +104,11 @@ export function DataTable<T>({
                     key={keyExtractor(row)}
                     onClick={onRowClick ? () => onRowClick(row) : undefined}
                   >
-                    {columns.map((col, i) => (
-                      <td className={cn("px-3 py-2", col.className)} key={i}>
+                    {columns.map((col, columnIndex) => (
+                      <td
+                        className={cn("px-3 py-2", col.className)}
+                        key={`${keyExtractor(row)}-${columnKeys[columnIndex]}`}
+                      >
                         {col.accessor(row)}
                       </td>
                     ))}

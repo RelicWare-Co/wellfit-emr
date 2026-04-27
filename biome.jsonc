@@ -1,4 +1,45 @@
 {
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
-  "extends": ["ultracite/biome/core", "ultracite/biome/react"]
+  "extends": ["ultracite/biome/core", "ultracite/biome/react"],
+  "files": {
+    "includes": ["!!.agents", "!!apps/web/src/routeTree.gen.ts"]
+  },
+  "overrides": [
+    {
+      "includes": ["apps/web/src/routes/**/$*.tsx"],
+      "linter": {
+        "rules": {
+          "style": {
+            "useFilenamingConvention": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["apps/web/src/routes/**/*.tsx"],
+      "linter": {
+        "rules": {
+          "complexity": {
+            "noExcessiveCognitiveComplexity": "off"
+          },
+          "style": {
+            "noNestedTernary": "off"
+          },
+          "suspicious": {
+            "noArrayIndexKey": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["packages/api/src/index.ts"],
+      "linter": {
+        "rules": {
+          "performance": {
+            "noBarrelFile": "off"
+          }
+        }
+      }
+    }
+  ]
 }

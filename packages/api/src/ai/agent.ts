@@ -1,4 +1,4 @@
-import { gateway } from "@ai-sdk/gateway";
+import { google } from "@ai-sdk/google";
 import {
   allergyIntolerance,
   auditEvent,
@@ -10,7 +10,7 @@ import {
   practitioner,
   procedureRecord,
 } from "@wellfit-emr/db/schema/clinical";
-import { tool } from "ai";
+import { stepCountIs, ToolLoopAgent, type ToolSet, tool } from "ai";
 import { and, desc, eq, like, or } from "drizzle-orm";
 import { z } from "zod";
 import type { Db } from "../context";
@@ -38,6 +38,62 @@ REGLAS IMPORTANTES:
 interface MedicalToolOptions {
   selectedPatientId?: string | null;
   userId?: string | null;
+}
+
+interface MedicalAgentOptions extends MedicalToolOptions {
+  instructions?: string;
+}
+
+function formatToolError(error: unknown) {
+  if (error instanceof Error) {
+    return error.message;
+  }
+
+  return "Error inesperado al ejecutar la herramienta.";
+}
+
+function logToolFailure(toolName: string, error: unknown) {
+  console.error(`[ai-chat] tool ${toolName} failed`, error);
+}
+
+function withToolObservability<TTools extends ToolSet>(tools: TTools): TTools {
+  const instrumented = {} as TTools;
+
+  for (const [toolName, toolDefinition] of Object.entries(tools) as [
+    keyof TTools & string,
+    TTools[keyof TTools & string],
+  ][]) {
+    const execute = toolDefinition.execute;
+
+    if (!execute) {
+      instrumented[toolName] = toolDefinition;
+      continue;
+    }
+
+    instrumented[toolName] = {
+      ...toolDefinition,
+      execute: async (input, options) => {
+        const startedAt = performance.now();
+        console.info(`[ai-chat] tool ${toolName} started`);
+
+        try {
+          const output = await execute(input, options);
+          console.info(`[ai-chat] tool ${toolName} completed`, {
+            durationMs: Math.round(performance.now() - startedAt),
+          });
+          return output;
+        } catch (error) {
+          logToolFailure(toolName, error);
+          return {
+            error: formatToolError(error),
+            success: false,
+          };
+        }
+      },
+    };
+  }
+
+  return instrumented;
 }
 
 export function createMedicalTools(db: Db, options: MedicalToolOptions = {}) {
@@ -100,10 +156,12 @@ export function createMedicalTools(db: Db, options: MedicalToolOptions = {}) {
         channel: "ai-chat",
         resultCode: input.resultCode,
       })
-      .catch(() => undefined);
+      .catch((error) => {
+        console.error("[ai-chat] failed to record audit event", error);
+      });
   };
 
-  return {
+  const tools = {
     search_patients: tool({
       description:
         "Buscar pacientes por nombre o número de documento. Retorna una lista de pacientes que coincidan con el criterio de búsqueda.",
@@ -587,19 +645,46 @@ export function createMedicalTools(db: Db, options: MedicalToolOptions = {}) {
       },
     }),
   };
+
+  return withToolObservability(tools);
 }
 
 export type MedicalTools = ReturnType<typeof createMedicalTools>;
 
 export interface MedicalAgentConfig {
-  model: ReturnType<typeof gateway>;
+  agent: ToolLoopAgent<never, MedicalTools>;
   systemPrompt: string;
   tools: MedicalTools;
 }
 
-export function createMedicalAgent(db: Db): MedicalAgentConfig {
-  const tools = createMedicalTools(db);
-  const model = gateway("anthropic/claude-sonnet-4");
+export function createMedicalAgent(
+  db: Db,
+  options: MedicalAgentOptions = {}
+): MedicalAgentConfig {
+  const tools = createMedicalTools(db, options);
+  const systemPrompt = options.instructions ?? SYSTEM_PROMPT;
+  const agent = new ToolLoopAgent({
+    id: "wellfit-medical-agent",
+    instructions: systemPrompt,
+    model: google("gemini-3-flash"),
+    stopWhen: stepCountIs(10),
+    tools,
+    onFinish: ({ finishReason, steps, totalUsage }) => {
+      console.info("[ai-chat] agent finished", {
+        finishReason,
+        steps: steps.length,
+        totalUsage,
+      });
+    },
+    onStepFinish: ({ finishReason, stepNumber, toolCalls, toolResults }) => {
+      console.info("[ai-chat] agent step finished", {
+        finishReason,
+        stepNumber,
+        toolCalls: toolCalls.map((call) => call.toolName),
+        toolResults: toolResults.length,
+      });
+    },
+  });
 
-  return { model, tools, systemPrompt: SYSTEM_PROMPT };
+  return { agent, tools, systemPrompt };
 }

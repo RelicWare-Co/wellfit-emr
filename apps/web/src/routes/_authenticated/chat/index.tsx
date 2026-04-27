@@ -10,6 +10,7 @@ import {
   Bot,
   FileText,
   Loader2,
+  MessageSquarePlus,
   Pill,
   Send,
   Stethoscope,
@@ -82,10 +83,22 @@ function ChatPage() {
     [selectedPatientId]
   );
 
-  const { messages, sendMessage, status, error, stop } = useChat({
+  const {
+    messages,
+    sendMessage,
+    setMessages,
+    status,
+    error,
+    stop,
+    clearError,
+  } = useChat({
     transport,
+    onError: (chatError) => {
+      console.error("[ai-chat] client stream error", chatError);
+    },
   });
   const isLoading = status === "submitted" || status === "streaming";
+  const showLoadingIndicator = shouldShowLoadingIndicator(messages, status);
 
   const [input, setInput] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -121,6 +134,16 @@ function ChatPage() {
     setInput("");
   };
 
+  const handleNewChat = () => {
+    if (isLoading) {
+      stop();
+    }
+
+    clearError();
+    setMessages([]);
+    setInput("");
+  };
+
   return (
     <div className="flex h-[calc(100vh-4rem)] overflow-hidden">
       {sidebarOpen && (
@@ -140,6 +163,9 @@ function ChatPage() {
 
       <div className="flex min-w-0 flex-1 flex-col">
         <ChatHeader
+          hasMessages={messages.length > 0}
+          isLoading={isLoading}
+          onNewChat={handleNewChat}
           onToggleSidebar={() => setSidebarOpen(!sidebarOpen)}
           patientName={
             selectedPatient ? formatPatientName(selectedPatient) : null
@@ -185,7 +211,7 @@ function ChatPage() {
               </div>
             ))}
 
-            {isLoading && <LoadingIndicator />}
+            {showLoadingIndicator && <LoadingIndicator />}
 
             <div ref={messagesEndRef} />
           </div>
@@ -232,6 +258,27 @@ function ChatPage() {
   );
 }
 
+function shouldShowLoadingIndicator(
+  messages: Array<{ role: string; parts?: Array<{ type: string }> }>,
+  status: string
+) {
+  if (status === "submitted") {
+    return true;
+  }
+
+  if (status !== "streaming") {
+    return false;
+  }
+
+  const lastMessage = messages.at(-1);
+  return (
+    lastMessage?.role === "assistant" &&
+    !lastMessage.parts?.some(
+      (part) => part.type === "text" || part.type.startsWith("tool-")
+    )
+  );
+}
+
 function formatPatientName(p: {
   firstName: string;
   middleName: string | null;
@@ -244,10 +291,16 @@ function formatPatientName(p: {
 function ChatHeader({
   patientName,
   sidebarOpen,
+  hasMessages,
+  isLoading,
+  onNewChat,
   onToggleSidebar,
 }: {
   patientName: string | null;
   sidebarOpen: boolean;
+  hasMessages: boolean;
+  isLoading: boolean;
+  onNewChat: () => void;
   onToggleSidebar: () => void;
 }) {
   return (
@@ -269,6 +322,18 @@ function ChatHeader({
           {patientName}
         </span>
       )}
+      <Button
+        aria-label="Nuevo chat"
+        className="ml-auto"
+        disabled={!(hasMessages || isLoading)}
+        onClick={onNewChat}
+        size="icon-xs"
+        title="Nuevo chat"
+        type="button"
+        variant="ghost"
+      >
+        <MessageSquarePlus size={14} />
+      </Button>
     </div>
   );
 }

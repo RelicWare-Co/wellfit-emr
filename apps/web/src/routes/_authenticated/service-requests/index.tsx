@@ -188,9 +188,9 @@ function CreateServiceRequestForm({ onCancel }: { onCancel: () => void }) {
           <div className="space-y-1">
             <Label>Código CUPS</Label>
             <SearchSelect
-              value={form.requestCode}
+              emptyMessage="Escribe para buscar en CUPS"
+              loading={cupsLoading}
               onChange={(v) => setForm((f) => ({ ...f, requestCode: v }))}
-              search={cupsSearch}
               onSearchChange={setCupsSearch}
               options={
                 cupsData?.entries.map((e) => ({
@@ -199,10 +199,10 @@ function CreateServiceRequestForm({ onCancel }: { onCancel: () => void }) {
                   description: e.code,
                 })) ?? []
               }
-              loading={cupsLoading}
               placeholder="Buscar CUPS..."
-              emptyMessage="Escribe para buscar en CUPS"
               required
+              search={cupsSearch}
+              value={form.requestCode}
             />
           </div>
           <div className="space-y-1">

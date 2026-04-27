@@ -53,24 +53,24 @@ const updatePatientSchema = z.object({
   zoneCode: z.string(),
 });
 
-type Patient = {
-  id: string;
-  primaryDocumentType: string;
-  primaryDocumentNumber: string;
+interface Patient {
+  birthDate: Date;
+  countryCode: string | null;
+  createdAt: Date;
+  deceasedAt: Date | null;
   firstName: string;
-  middleName: string | null;
+  genderIdentity: string | null;
+  id: string;
   lastName1: string;
   lastName2: string | null;
-  birthDate: Date;
-  sexAtBirth: string;
-  genderIdentity: string | null;
-  countryCode: string | null;
+  middleName: string | null;
   municipalityCode: string | null;
-  zoneCode: string | null;
-  deceasedAt: Date | null;
-  createdAt: Date;
+  primaryDocumentNumber: string;
+  primaryDocumentType: string;
+  sexAtBirth: string;
   updatedAt: Date;
-};
+  zoneCode: string | null;
+}
 
 function EditPatientForm({
   patient,

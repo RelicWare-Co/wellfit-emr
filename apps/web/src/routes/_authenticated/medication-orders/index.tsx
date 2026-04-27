@@ -19,6 +19,8 @@ import { PageHeader } from "@/components/page-header";
 import { authClient } from "@/lib/auth-client";
 import { orpc, queryClient } from "@/utils/orpc";
 
+const TRAILING_ZERO_DECIMALS_REGEX = /\.?0+$/;
+
 export const Route = createFileRoute("/_authenticated/medication-orders/")({
   component: MedicationOrdersListPage,
   beforeLoad: async () => {
@@ -132,7 +134,9 @@ function CreateMedicationOrderForm({ onCancel }: { onCancel: () => void }) {
   useEffect(() => {
     if (selectedCumData?.extraData) {
       const extra = selectedCumData.extraData;
-      const concentrationRaw = extra.Extra_VI ? String(extra.Extra_VI).replace(/\.?0+$/, "") : "";
+      const concentrationRaw = extra.Extra_VI
+        ? String(extra.Extra_VI).replace(TRAILING_ZERO_DECIMALS_REGEX, "")
+        : "";
       setForm((f) => ({
         ...f,
         genericName: extra.Extra_III || selectedCumData.name,
@@ -256,11 +260,12 @@ function CreateMedicationOrderForm({ onCancel }: { onCancel: () => void }) {
           <div className="space-y-1 md:col-span-3">
             <Label>Medicamento (CUM)</Label>
             <SearchSelect
-              value={selectedCumCode}
+              clearable
+              emptyMessage="Escribe para buscar en catálogo CUMs"
+              loading={cumLoading}
               onChange={(v) => {
                 setSelectedCumCode(v);
               }}
-              search={cumSearch}
               onSearchChange={setCumSearch}
               options={
                 cumData?.entries.map((e) => ({
@@ -269,10 +274,9 @@ function CreateMedicationOrderForm({ onCancel }: { onCancel: () => void }) {
                   description: e.code,
                 })) ?? []
               }
-              loading={cumLoading}
               placeholder="Buscar medicamento por nombre o CUM..."
-              emptyMessage="Escribe para buscar en catálogo CUMs"
-              clearable
+              search={cumSearch}
+              value={selectedCumCode}
             />
           </div>
           <div className="space-y-1 md:col-span-2">
@@ -299,9 +303,9 @@ function CreateMedicationOrderForm({ onCancel }: { onCancel: () => void }) {
           <div className="space-y-1">
             <Label>Forma farmacéutica</Label>
             <SearchSelect
-              value={form.dosageForm}
+              emptyMessage="Escribe para buscar en FFM"
+              loading={ffmLoading}
               onChange={(v) => setForm((f) => ({ ...f, dosageForm: v }))}
-              search={ffmSearch}
               onSearchChange={setFfmSearch}
               options={
                 ffmData?.entries.map((e) => ({
@@ -310,10 +314,10 @@ function CreateMedicationOrderForm({ onCancel }: { onCancel: () => void }) {
                   description: e.code,
                 })) ?? []
               }
-              loading={ffmLoading}
               placeholder="Buscar forma farmacéutica..."
-              emptyMessage="Escribe para buscar en FFM"
               required
+              search={ffmSearch}
+              value={form.dosageForm}
             />
           </div>
           <div className="space-y-1">
@@ -327,9 +331,9 @@ function CreateMedicationOrderForm({ onCancel }: { onCancel: () => void }) {
           <div className="space-y-1">
             <Label>Unidad dosis</Label>
             <SearchSelect
-              value={form.doseUnit}
+              emptyMessage="Escribe para buscar en UMM"
+              loading={ummLoading}
               onChange={(v) => setForm((f) => ({ ...f, doseUnit: v }))}
-              search={ummSearch}
               onSearchChange={setUmmSearch}
               options={
                 ummData?.entries.map((e) => ({
@@ -338,9 +342,9 @@ function CreateMedicationOrderForm({ onCancel }: { onCancel: () => void }) {
                   description: e.code,
                 })) ?? []
               }
-              loading={ummLoading}
               placeholder="Buscar unidad..."
-              emptyMessage="Escribe para buscar en UMM"
+              search={ummSearch}
+              value={form.doseUnit}
             />
           </div>
           <div className="space-y-1">
