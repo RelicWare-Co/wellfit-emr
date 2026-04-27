@@ -22,6 +22,7 @@ import { Route as AuthenticatedIhceBundlesIndexRouteImport } from './routes/_aut
 import { Route as AuthenticatedEncountersIndexRouteImport } from './routes/_authenticated/encounters/index'
 import { Route as AuthenticatedConsentsIndexRouteImport } from './routes/_authenticated/consents/index'
 import { Route as AuthenticatedClinicalDocumentsIndexRouteImport } from './routes/_authenticated/clinical-documents/index'
+import { Route as AuthenticatedChatIndexRouteImport } from './routes/_authenticated/chat/index'
 import { Route as AuthenticatedCatalogsIndexRouteImport } from './routes/_authenticated/catalogs/index'
 import { Route as AuthenticatedAuditEventsIndexRouteImport } from './routes/_authenticated/audit-events/index'
 import { Route as AuthenticatedAttachmentsIndexRouteImport } from './routes/_authenticated/attachments/index'
@@ -110,6 +111,11 @@ const AuthenticatedClinicalDocumentsIndexRoute =
     path: '/clinical-documents/',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
+const AuthenticatedChatIndexRoute = AuthenticatedChatIndexRouteImport.update({
+  id: '/chat/',
+  path: '/chat/',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
 const AuthenticatedCatalogsIndexRoute =
   AuthenticatedCatalogsIndexRouteImport.update({
     id: '/catalogs/',
@@ -204,6 +210,7 @@ export interface FileRoutesByFullPath {
   '/attachments/': typeof AuthenticatedAttachmentsIndexRoute
   '/audit-events/': typeof AuthenticatedAuditEventsIndexRoute
   '/catalogs/': typeof AuthenticatedCatalogsIndexRoute
+  '/chat/': typeof AuthenticatedChatIndexRoute
   '/clinical-documents/': typeof AuthenticatedClinicalDocumentsIndexRoute
   '/consents/': typeof AuthenticatedConsentsIndexRoute
   '/encounters/': typeof AuthenticatedEncountersIndexRoute
@@ -231,6 +238,7 @@ export interface FileRoutesByTo {
   '/attachments': typeof AuthenticatedAttachmentsIndexRoute
   '/audit-events': typeof AuthenticatedAuditEventsIndexRoute
   '/catalogs': typeof AuthenticatedCatalogsIndexRoute
+  '/chat': typeof AuthenticatedChatIndexRoute
   '/clinical-documents': typeof AuthenticatedClinicalDocumentsIndexRoute
   '/consents': typeof AuthenticatedConsentsIndexRoute
   '/encounters': typeof AuthenticatedEncountersIndexRoute
@@ -260,6 +268,7 @@ export interface FileRoutesById {
   '/_authenticated/attachments/': typeof AuthenticatedAttachmentsIndexRoute
   '/_authenticated/audit-events/': typeof AuthenticatedAuditEventsIndexRoute
   '/_authenticated/catalogs/': typeof AuthenticatedCatalogsIndexRoute
+  '/_authenticated/chat/': typeof AuthenticatedChatIndexRoute
   '/_authenticated/clinical-documents/': typeof AuthenticatedClinicalDocumentsIndexRoute
   '/_authenticated/consents/': typeof AuthenticatedConsentsIndexRoute
   '/_authenticated/encounters/': typeof AuthenticatedEncountersIndexRoute
@@ -289,6 +298,7 @@ export interface FileRouteTypes {
     | '/attachments/'
     | '/audit-events/'
     | '/catalogs/'
+    | '/chat/'
     | '/clinical-documents/'
     | '/consents/'
     | '/encounters/'
@@ -316,6 +326,7 @@ export interface FileRouteTypes {
     | '/attachments'
     | '/audit-events'
     | '/catalogs'
+    | '/chat'
     | '/clinical-documents'
     | '/consents'
     | '/encounters'
@@ -344,6 +355,7 @@ export interface FileRouteTypes {
     | '/_authenticated/attachments/'
     | '/_authenticated/audit-events/'
     | '/_authenticated/catalogs/'
+    | '/_authenticated/chat/'
     | '/_authenticated/clinical-documents/'
     | '/_authenticated/consents/'
     | '/_authenticated/encounters/'
@@ -452,6 +464,13 @@ declare module '@tanstack/react-router' {
       path: '/clinical-documents'
       fullPath: '/clinical-documents/'
       preLoaderRoute: typeof AuthenticatedClinicalDocumentsIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/chat/': {
+      id: '/_authenticated/chat/'
+      path: '/chat'
+      fullPath: '/chat/'
+      preLoaderRoute: typeof AuthenticatedChatIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/catalogs/': {
@@ -563,6 +582,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedAttachmentsIndexRoute: typeof AuthenticatedAttachmentsIndexRoute
   AuthenticatedAuditEventsIndexRoute: typeof AuthenticatedAuditEventsIndexRoute
   AuthenticatedCatalogsIndexRoute: typeof AuthenticatedCatalogsIndexRoute
+  AuthenticatedChatIndexRoute: typeof AuthenticatedChatIndexRoute
   AuthenticatedClinicalDocumentsIndexRoute: typeof AuthenticatedClinicalDocumentsIndexRoute
   AuthenticatedConsentsIndexRoute: typeof AuthenticatedConsentsIndexRoute
   AuthenticatedEncountersIndexRoute: typeof AuthenticatedEncountersIndexRoute
@@ -595,6 +615,7 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedAttachmentsIndexRoute: AuthenticatedAttachmentsIndexRoute,
   AuthenticatedAuditEventsIndexRoute: AuthenticatedAuditEventsIndexRoute,
   AuthenticatedCatalogsIndexRoute: AuthenticatedCatalogsIndexRoute,
+  AuthenticatedChatIndexRoute: AuthenticatedChatIndexRoute,
   AuthenticatedClinicalDocumentsIndexRoute:
     AuthenticatedClinicalDocumentsIndexRoute,
   AuthenticatedConsentsIndexRoute: AuthenticatedConsentsIndexRoute,

@@ -18,7 +18,7 @@ Before installing AI Elements, make sure your environment meets the following re
 - [Node.js](https://nodejs.org/en/download/), version 18 or later
 - A [Next.js](https://nextjs.org/) project with the [AI SDK](https://ai-sdk.dev/) installed.
 - [shadcn/ui](https://ui.shadcn.com/) installed in your project. If you don't have it installed, running any install command will automatically install it for you.
-- We also highly recommend using the [AI Gateway](https://vercel.com/docs/ai-gateway) and adding `AI_GATEWAY_API_KEY` to your `env.local` so you don't have to use an API key from every provider. AI Gateway also gives $5 in usage per month so you can experiment with models. You can obtain an API key [here](https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%2Fapi-keys&title=Get%20your%20AI%20Gateway%20key).
+- We also highly recommend using the [AI Gateway](https://vercel.com/docs/ai-gateway) and adding `GOOGLE_GENERATIVE_AI_API_KEY` to your `env.local` so you don't have to use an API key from every provider. AI Gateway also gives $5 in usage per month so you can experiment with models. You can obtain an API key [here](https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%2Fapi-keys&title=Get%20your%20AI%20Gateway%20key).
 
 ## Installing Components
 

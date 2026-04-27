@@ -10,6 +10,8 @@
     "start": "bun run dist/index.mjs"
   },
   "dependencies": {
+    "@ai-sdk/gateway": "^3.0.104",
+    "@ai-sdk/google": "^3.0.64",
     "@orpc/openapi": "catalog:",
     "@orpc/server": "catalog:",
     "@orpc/zod": "catalog:",
@@ -17,8 +19,10 @@
     "@wellfit-emr/auth": "workspace:*",
     "@wellfit-emr/db": "workspace:*",
     "@wellfit-emr/env": "workspace:*",
+    "ai": "^6.0.168",
     "better-auth": "catalog:",
     "dotenv": "catalog:",
+    "drizzle-orm": "^0.45.1",
     "hono": "catalog:",
     "zod": "catalog:"
   },

@@ -14,6 +14,8 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
+    "@ai-sdk/gateway": "^3.0.104",
+    "@ai-sdk/google": "^3.0.64",
     "@orpc/client": "catalog:",
     "@orpc/openapi": "catalog:",
     "@orpc/server": "catalog:",
@@ -21,8 +23,9 @@
     "@wellfit-emr/auth": "workspace:*",
     "@wellfit-emr/db": "workspace:*",
     "@wellfit-emr/env": "workspace:*",
-    "drizzle-orm": "^0.45.1",
+    "ai": "^6.0.168",
     "dotenv": "catalog:",
+    "drizzle-orm": "^0.45.1",
     "zod": "catalog:"
   },
   "devDependencies": {

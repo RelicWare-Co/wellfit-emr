@@ -12,6 +12,7 @@ import {
   FlaskConical,
   Home,
   Mail,
+  MessageSquare,
   Paperclip,
   Pill,
   ScrollText,
@@ -32,7 +33,10 @@ interface NavItem {
 const navGroups: { label: string; items: NavItem[] }[] = [
   {
     label: "Principal",
-    items: [{ icon: Home, label: "Dashboard", to: "/" }],
+    items: [
+      { icon: Home, label: "Dashboard", to: "/" },
+      { icon: MessageSquare, label: "Asistente IA", to: "/chat" },
+    ],
   },
   {
     label: "Clínico",
