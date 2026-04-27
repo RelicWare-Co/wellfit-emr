@@ -11,7 +11,7 @@ Historia Clínica Electrónica conforme con la normativa colombiana. Diseñada p
 - **API**: oRPC (similar a tRPC) + Hono + Zod
 - **DB**: SQLite (libsql) + Drizzle ORM
 - **Auth**: Better Auth (email/password, admin plugin)
-- **IA médica**: AI SDK v6 + Google Gemini (`gemini-3-flash`) + Streamdown para chat clínico con streaming, herramientas server-side y contexto de paciente construido desde la DB.
+- **IA médica**: AI SDK v6 + ToolLoopAgent + proveedor server-side configurado en `packages/api/src/ai/agent.ts` + Streamdown para chat clínico con streaming, herramientas server-side y contexto de paciente construido desde la DB.
 - **UI**: Componentes custom basados en `@base-ui/react` (shadcn-like), estilo cuadrado/angular (`rounded-none`). Incluye `SearchSelect` (búsqueda con dropdown) para reemplazar inputs de ID crudos y seleccionar entidades de catálogos RIPS. Los formularios de pacientes, prescripciones, atenciones y otros usan catálogos SISPRO en vivo. La revisión transversal de formularios cubre edición de pacientes, creación de atenciones, detalle de atenciones (diagnósticos CIE10/tipo diagnóstico, procedimientos CUPS/profesionales), sedes/unidades de servicio y anexos para evitar IDs/códigos manuales cuando existe fuente consultable.
 
 ## Arquitectura de rutas (frontend)
@@ -54,10 +54,10 @@ const mutation = useMutation({ ...orpc.patients.create.mutationOptions(), onSucc
 - `ripsReference` — catálogos SISPRO (list tables/entries, sync). `listEntries` filtra por tabla y agrupa correctamente la búsqueda por código/nombre para no mezclar resultados de otras tablas. La sincronización RIPS usa condiciones Drizzle estructuradas para búsquedas por tabla/código y conteos.
 
 ### Endpoint IA / Chat médico
-- `apps/server/src/chat.ts` expone `POST /api/chat` con autenticación Better Auth, valida mensajes `UIMessage`, usa `createAgentUIStreamResponse` con `ToolLoopAgent`, y ejecuta Google Gemini `gemini-3-flash`. El endpoint mantiene el protocolo de AI SDK UI para `DefaultChatTransport` y añade headers anti-buffering (`Content-Encoding: none`, `X-Accel-Buffering: no`) para preservar streaming.
+- `apps/server/src/chat.ts` expone `POST /api/chat` con autenticación Better Auth, valida mensajes `UIMessage`, usa `createAgentUIStreamResponse` con `ToolLoopAgent`, y ejecuta el modelo server-side definido en `packages/api/src/ai/agent.ts`. El endpoint mantiene el protocolo de AI SDK UI para `DefaultChatTransport` y añade headers anti-buffering (`Content-Encoding: none`, `X-Accel-Buffering: no`) para preservar streaming. `apps/server/src/index.ts` exporta la configuración de Bun con `idleTimeout: 120` para que las respuestas largas del agente no sean cortadas por el timeout idle por defecto de 10 segundos.
 - El cliente solo envía `selectedPatientId`; el servidor construye el contexto clínico desde la base de datos (datos demográficos, alergias activas, medicamentos y atenciones recientes). No se confía en contexto clínico textual enviado por el navegador.
-- Las herramientas del agente viven en `packages/api/src/ai/agent.ts`: búsqueda/consulta de pacientes, atenciones, diagnósticos, alergias, observaciones, medicamentos, procedimientos, atención activa, profesionales y creación de prescripciones.
-- Las herramientas quedan limitadas al paciente seleccionado cuando existe `selectedPatientId`; las consultas por `encounterId` verifican pertenencia al paciente. La creación de prescripciones valida paciente, atención y prescriptor activo, y registra eventos de auditoría en canal `ai-chat`. Todas las herramientas están envueltas con observabilidad server-side (`started`, `completed`, `failed`) para evitar fallas silenciosas, y los errores de stream/tool se exponen al cliente mediante los estados de AI SDK UI.
+- Las herramientas del agente viven en `packages/api/src/ai/agent.ts`: búsqueda/consulta de pacientes, atenciones, diagnósticos, alergias, observaciones, medicamentos, procedimientos, atención activa, profesionales, catálogos RIPS/SISPRO, timeline clínico, revisión de seguridad clínica, documentos clínicos, órdenes de servicio/resultados, interconsultas, incapacidades, consentimientos y anexos.
+- Las herramientas quedan limitadas al paciente seleccionado cuando existe `selectedPatientId`; las consultas por `encounterId` verifican pertenencia al paciente. Las escrituras clínicas disponibles desde el chat incluyen creación de prescripciones, diagnósticos, observaciones/signos vitales, procedimientos CUPS, órdenes de servicio, interconsultas, incapacidades y borradores de documentos clínicos. Estas herramientas validan paciente/atención/profesional cuando aplica y registran eventos de auditoría en canal `ai-chat`; los documentos creados por IA quedan como borradores y no se firman automáticamente. Todas las herramientas están envueltas con observabilidad server-side (`started`, `completed`, `failed`) para evitar fallas silenciosas, y los errores de stream/tool se exponen al cliente mediante los estados de AI SDK UI.
 
 ### Backend routers PENDIENTES
 _Ninguno. Todos los routers planificados están implementados._
@@ -83,7 +83,7 @@ _Ninguno. Todos los routers planificados están implementados._
 - `/admin/users` — Gestión de usuarios (maneja error 403/500 sin permisos)
 - `/catalogs`, `/catalogs/$tableName` — Catálogos RIPS
 - `/chat` — Asistente médico con streaming, selección/búsqueda de paciente, panel de contexto clínico, acciones rápidas, render Markdown con Streamdown, visualización de tool calls y creación de prescripciones mediante herramientas server-side.
-- La pantalla `/chat` incluye acción de nuevo chat en el encabezado para detener cualquier stream activo y limpiar el historial local sin cambiar el paciente seleccionado.
+- La pantalla `/chat` incluye acción de nuevo chat en el encabezado para detener cualquier stream activo y limpiar el historial local sin cambiar el paciente seleccionado. El transporte de AI SDK se mantiene estable y usa `prepareSendMessagesRequest` con un `ref` del paciente seleccionado para enviar siempre el `selectedPatientId` vigente, evitando que el chat conserve el valor inicial `null`.
 
 ### Vistas frontend PENDIENTES
 - Portal del paciente (solicitudes de copia)

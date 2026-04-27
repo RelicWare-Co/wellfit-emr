@@ -32,6 +32,8 @@ function ChatPage() {
   );
   const [patientSearch, setPatientSearch] = useState("");
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const selectedPatientIdRef = useRef<string | null>(selectedPatientId);
+  selectedPatientIdRef.current = selectedPatientId;
 
   const { data: patientsData, isLoading: patientsLoading } = useQuery(
     orpc.patients.list.queryOptions({
@@ -78,9 +80,30 @@ function ChatPage() {
       new DefaultChatTransport({
         api: `${env.VITE_SERVER_URL}/api/chat`,
         credentials: "include",
-        body: { selectedPatientId },
+        prepareSendMessagesRequest: ({
+          api,
+          body,
+          credentials,
+          headers,
+          id,
+          messageId,
+          messages: requestMessages,
+          trigger,
+        }) => ({
+          api,
+          credentials,
+          headers,
+          body: {
+            ...body,
+            id,
+            messageId,
+            messages: requestMessages,
+            selectedPatientId: selectedPatientIdRef.current,
+            trigger,
+          },
+        }),
       }),
-    [selectedPatientId]
+    []
   );
 
   const {

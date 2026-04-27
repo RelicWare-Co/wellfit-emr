@@ -83,4 +83,7 @@ app.use("/*", async (c, next) => {
 
 app.get("/", (c) => c.text("OK"));
 
-export default app;
+export default {
+  fetch: app.fetch,
+  idleTimeout: 120,
+};
